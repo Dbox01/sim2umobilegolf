@@ -1,0 +1,7 @@
+{
+  "name": "Sim2U - Mobile Golf Simulator Western Cape",
+  "description": "Premium mobile golf simulator experience in the Western Cape. Professional tracking, immersive virtual courses, and flexible event hire packages.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
