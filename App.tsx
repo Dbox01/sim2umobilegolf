@@ -339,12 +339,13 @@ const Hero: React.FC = () => (
         <span className="text-sm font-black uppercase tracking-[0.4em] text-gold">Early Bird: 50% OFF Limited Time</span>
       </div>
       
-      <h1 className="hero-text text-6xl md:text-9xl font-black mb-8 tracking-tighter leading-[0.85] animate-fadeInUp delay-100 drop-shadow-[0_15px_20px_rgba(0,0,0,0.6)]">
-        Golf <br />
-        <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold via-white to-gold animate-shimmer bg-[length:200%_auto] font-black italic drop-shadow-[0_4px_4px_rgba(0,0,0,0.2)]">
-          Delivered.
-        </span>
-      </h1>
+      <h1 className="hero-text text-4xl md:text-7xl font-black mb-8 tracking-tighter leading-tight animate-fadeInUp delay-100 drop-shadow-[0_15px_20px_rgba(0,0,0,0.6)]">
+  Mobile Golf <br />
+  Simulator Hire <br />
+  <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold via-white to-gold animate-shimmer bg-[length:200%_auto] font-black italic drop-shadow-[0_4px_4px_rgba(0,0,0,0.2)]">
+    Delivered.
+  </span>
+</h1>
       
       <p className="text-xl md:text-3xl mb-12 font-medium tracking-wide text-white/95 max-w-2xl animate-fadeInUp delay-200 leading-snug drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]">
         Experience professional-grade golf simulation anywhere in the Western Cape. We bring the range, the course, and the fun to you.
