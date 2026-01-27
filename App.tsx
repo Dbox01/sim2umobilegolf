@@ -888,25 +888,25 @@ const App: React.FC = () => {
             </div>
             
             <div className="lg:col-span-3">
-              <form className="bg-white p-12 md:p-16 rounded-[60px] space-y-6 shadow-2xl relative overflow-hidden group">
+              <form action="https://formspree.io/f/mwvoapnp" method="POST" className="bg-white p-12 md:p-16 rounded-[60px] space-y-6 shadow-2xl relative overflow-hidden group">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-mountainGreen/5 rounded-full -mr-16 -mt-16 blur-3xl transition-all duration-500 group-hover:bg-gold/10"></div>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-4">Full Name</label>
-                    <input type="text" placeholder="John Player" className="w-full bg-cream border-2 border-transparent focus:border-gold/30 p-5 rounded-2xl focus:ring-0 outline-none transition-all placeholder:text-gray-300" />
+                   <input type="text" name="name" placeholder="John Player" className="w-full bg-cream border-2 border-transparent focus:border-gold/30 p-5 rounded-2xl focus:ring-0 outline-none transition-all placeholder:text-gray-300" />
                   </div>
                   <div className="space-y-2">
                     <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-4">Email</label>
-                    <input type="email" placeholder="john@events.co.za" className="w-full bg-cream border-2 border-transparent focus:border-gold/30 p-5 rounded-2xl focus:ring-0 outline-none transition-all placeholder:text-gray-300" />
+                    <input type="email" name="email" placeholder="john@events.co.za" className="w-full bg-cream border-2 border-transparent focus:border-gold/30 p-5 rounded-2xl focus:ring-0 outline-none transition-all placeholder:text-gray-300" />
                   </div>
                 </div>
                 <div className="space-y-2">
                   <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-4">Event Date & Location</label>
-                  <input type="text" placeholder="Stellenbosch - Nov 20th" className="w-full bg-cream border-2 border-transparent focus:border-gold/30 p-5 rounded-2xl focus:ring-0 outline-none transition-all placeholder:text-gray-300" />
+                  <input type="text" name="event_details" placeholder="Stellenbosch - Nov 20th" className="w-full bg-cream border-2 border-transparent focus:border-gold/30 p-5 rounded-2xl focus:ring-0 outline-none transition-all placeholder:text-gray-300" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-4">Desired Package</label>
-                  <select className="w-full bg-cream border-2 border-transparent focus:border-gold/30 p-5 rounded-2xl focus:ring-0 outline-none transition-all text-gray-500">
+                  <select name="package" className="w-full bg-cream border-2 border-transparent focus:border-gold/30 p-5 rounded-2xl focus:ring-0 outline-none transition-all text-gray-500">
                     <option>Birdie Package (4hr)</option>
                     <option>Eagle Package (6hr)</option>
                     <option>Full Day Package (8hr)</option>
