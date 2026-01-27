@@ -878,7 +878,9 @@ const App: React.FC = () => {
                   </div>
                   <div>
                     <h4 className="text-white font-bold text-lg mb-1">Email Support</h4>
-                    <a href={`mailto:${CONTACT_EMAIL}`} className="text-xl text-white/60 hover:text-white transition-colors">{CONTACT_EMAIL}</a>
+                        <a href="mailto:info@sim2umobilegolf.co.za" className="text-xl text-white/60 hover:text-white transition-colors">
+                        info@sim2umobilegolf.co.za
+                    </a>
                   </div>
                 </div>
               </div>
