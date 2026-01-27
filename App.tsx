@@ -478,37 +478,37 @@ const OccasionsSection: React.FC = () => {
   const occasions: Occasion[] = [
     {
       title: "Wedding Weekend",
-      description: "The perfect way to entertain your guests, stress free, for an unforgettable weekend.",
+      description: "Unique wedding entertainment for your cocktail hour or reception. The perfect guest activity for an unforgettable weekend.",
       image: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=800",
       icon: <Heart size={20} />
     },
     {
       title: "Corporate Events",
-      description: "The standout activity that turns meetings and mixers into new experiences.",
+      description: "The standout entertainment for your next corporate function, year-end party, or team building.",
       image: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&q=80&w=800",
       icon: <Briefcase size={20} />
     },
     {
       title: "Practice Session",
-      description: "Practice with purpose — visual feedback, real metrics, swing and impact recordings.",
+      description: "Rent a professional launch monitor for a private range session. Get visual feedback, real metrics, and swing recordings.",
       image: "https://images.unsplash.com/photo-1593111774240-d529f12cf4bb?auto=format&fit=crop&q=80&w=800",
       icon: <Target size={20} />
     },
     {
       title: "Birthday Parties",
-      description: "Bring everyone together with game modes designed for all ages and skill levels — no golf experience required.",
+      description: "The ultimate party entertainment. Bring everyone together with game modes designed for all ages — no golf experience required.",
       image: "https://images.unsplash.com/photo-1530103043960-ef38714abb15?auto=format&fit=crop&q=80&w=800",
       icon: <Cake size={20} />
     },
     {
       title: "Braai & Relax",
-      description: "Fire up the braai, relax with friends, and enjoy an at home round of golf.",
+      description: "Upgrade your social gathering. Fire up the braai while we deliver a full private golf simulator experience to your home.",
       image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&q=80&w=800",
       icon: <Flame size={20} />
     },
     {
       title: "School Events",
-      description: "A safe, interactive activity that encourages movement, teamwork, and confidence — no golf experience required.",
+      description: "A safe, interactive attraction for school fundraisers and sports days. Encourages movement and teamwork with no experience required.",
       image: "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80&w=800",
       icon: <GraduationCap size={20} />
     }
