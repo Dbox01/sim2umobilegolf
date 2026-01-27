@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://Oben81.github.io/sim2umobilegolf/sitemap.xml
