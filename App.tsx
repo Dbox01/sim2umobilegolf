@@ -348,8 +348,8 @@ const Hero: React.FC = () => (
 </h1>
       
       <p className="text-xl md:text-3xl mb-12 font-medium tracking-wide text-white/95 max-w-2xl animate-fadeInUp delay-200 leading-snug drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]">
-        Experience professional-grade golf simulation anywhere in the Western Cape. We bring the range, the course, and the fun to you.
-      </p>
+  Looking for <strong>golf for hire</strong> in the Western Cape? We bring the range, the course, and the fun to your next <strong>event</strong> or <strong>party</strong>.
+</p>
       
       <div className="flex flex-col md:flex-row items-center gap-6 animate-fadeInUp delay-300 w-full md:w-auto">
         <a href="#pricing" className="group w-full md:w-auto bg-gold text-mountainGreen px-14 py-6 rounded-2xl text-lg font-black hover:bg-white transition-all shadow-2xl hover:shadow-gold/60 flex items-center justify-center gap-4 tracking-[0.1em] overflow-hidden relative">
