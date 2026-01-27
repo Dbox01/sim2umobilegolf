@@ -703,9 +703,12 @@ const PackageCard: React.FC<{ pkg: Package }> = ({ pkg }) => (
       {pkg.details && <p className="text-[10px] opacity-60 uppercase font-bold tracking-widest leading-relaxed mb-6 italic">{pkg.details}</p>}
     </div>
 
-    <button className={`w-full py-6 rounded-2xl font-black text-sm uppercase tracking-[0.2em] transition-all duration-300 ${pkg.popular ? 'bg-gold text-mountainGreen hover:bg-white hover:scale-105 shadow-xl shadow-gold/20' : 'bg-mountainGreen text-white hover:bg-maroon hover:scale-105 shadow-xl shadow-mountainGreen/20'}`}>
-      Check Availability
-    </button>
+    <a 
+  href="#contact" 
+  className={`w-full block text-center py-6 rounded-2xl font-black text-sm uppercase tracking-[0.2em] transition-all duration-300 ${pkg.popular ? 'bg-gold text-mountainGreen hover:bg-white hover:scale-105 shadow-xl shadow-gold/20' : 'bg-mountainGreen text-white hover:bg-maroon hover:scale-105 shadow-xl shadow-mountainGreen/20'}`}
+>
+  Check Availability
+</a>
   </div>
 );
 
