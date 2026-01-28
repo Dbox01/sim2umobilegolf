@@ -950,10 +950,10 @@ const App: React.FC = () => {
             <p className="text-white/30 text-xs font-bold uppercase tracking-[0.2em]">
               © 2024 Sim2U Mobile Golf. Operating across the Western Cape, South Africa.
             </p>
-            <div className="flex gap-8 text-[10px] font-black uppercase tracking-widest text-white/30">
-              <a href="/privacy.html" className="hover:text-gold transition-colors">Privacy Policy</a>
-              <a href="/terms.html" className="hover:text-gold transition-colors">Booking Terms</a>
-            </div>
+            <div className="flex gap-4">
+  <a href="/privacy.html" className="text-gray-400 hover:text-gold text-sm transition-colors">Privacy Policy</a>
+  <a href="/terms.html" className="text-gray-400 hover:text-gold text-sm transition-colors">Booking Terms</a>
+</div>
           </div>
         </div>
         <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-gold/5 rounded-full blur-3xl"></div>
