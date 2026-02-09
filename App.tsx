@@ -796,7 +796,7 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* Pricing Section */}
+ {/* Pricing Section */}
       <section id="pricing" className="py-32 px-6 bg-cream/50">
         <div className="container mx-auto max-w-7xl">
           <SectionHeading 
@@ -815,10 +815,9 @@ const App: React.FC = () => {
               <div className="absolute top-0 right-0 w-64 h-64 bg-gold/10 rounded-full -mr-32 -mt-32 blur-3xl"></div>
               <div className="flex flex-col md:flex-row items-center gap-12 relative z-10">
                 <div className="bg-gold p-6 rounded-3xl text-mountainGreen shadow-xl">
-                  
                   <Truck size={48} />
                 </div>
-                <div>
+                <div className="flex-1">
                   <h3 className="text-3xl font-serif text-white mb-4">Travel & Logistics</h3>
                   <p className="text-white/80 text-lg leading-relaxed mb-6 font-light">
                     We deliver across the Western Cape. Our pricing is simple and transparent so you can plan your event without surprises.
@@ -833,48 +832,58 @@ const App: React.FC = () => {
                       <p className="text-white font-bold text-xl">R 9 / km</p>
                       <p className="text-white/40 text-[10px] mt-1 font-bold italic uppercase">Round Trip Applied</p>
                     </div>
-                    
-           {/* Weather & Safety Block */}
-<div className="mt-20 max-w-4xl mx-auto">
-  <div className="bg-mountainGreen rounded-[40px] p-10 md:p-16 shadow-2xl relative overflow-hidden group">
-    {/* Background Decorative Blur */}
-    <div className="absolute top-0 right-0 w-64 h-64 bg-gold/10 rounded-full -mr-32 -mt-32 blur-3xl"></div>
-    
-    <div className="flex flex-col md:flex-row items-center gap-12 relative z-10">
-      {/* Icon Box - Matching Travel Section */}
-      <div className="bg-gold p-6 rounded-3xl text-mountainGreen shadow-xl">
-        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M17.5 19x0a3.5 3.5 0 0 1-5 0h-4a3.5 3.5 0 0 1-5 0M12 10V3m0 0l-3 3m3-3l3 3"/>
-        </svg>
-      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-      <div className="flex-1">
-        <h3 className="text-3xl font-serif text-white mb-4">Weather & Safety</h3>
-        <p className="text-white/80 text-lg leading-relaxed mb-6 font-light">
-          Our simulators use high-end electronics. To ensure safety and equipment integrity in the Western Cape, we monitor conditions closely.
-        </p>
-        
-        <div className="grid sm:grid-cols-2 gap-6">
-          {/* Wind Limit Card */}
-          <div className="bg-white/10 p-6 rounded-2xl border border-white/10">
-            <p className="text-gold font-black uppercase tracking-widest text-[10px] mb-2">Max Wind</p>
-            <p className="text-white font-bold text-xl uppercase italic">30 KM / H</p>
-            <p className="text-white/40 text-[10px] mt-1 font-bold italic uppercase">Sustained or Gusts</p>
-          </div>
-          
-          {/* Rain Policy Card */}
-          <div className="bg-white/10 p-6 rounded-2xl border border-white/10">
-            <p className="text-gold font-black uppercase tracking-widest text-[10px] mb-2">Rain Policy</p>
-            <p className="text-white font-bold text-xl uppercase italic">No-Go</p>
-            <p className="text-white/40 text-[10px] mt-1 font-bold italic uppercase">Reschedule Available</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-                    
+          {/* Weather & Safety Block */}
+          <div className="mt-20 max-w-4xl mx-auto">
+            <div className="bg-mountainGreen rounded-[40px] p-10 md:p-16 shadow-2xl relative overflow-hidden group">
+              {/* Background Decorative Blur */}
+              <div className="absolute top-0 right-0 w-64 h-64 bg-gold/10 rounded-full -mr-32 -mt-32 blur-3xl"></div>
               
+              <div className="flex flex-col md:flex-row items-center gap-12 relative z-10">
+                {/* Icon Box */}
+                <div className="bg-gold p-6 rounded-3xl text-mountainGreen shadow-xl">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 2v2" />
+                    <path d="m4.93 4.93 1.41 1.41" />
+                    <path d="M20 12h2" />
+                    <path d="m19.07 4.93-1.41 1.41" />
+                    <path d="M15.947 12.65a4 4 0 0 0-5.925-4.128" />
+                    <path d="M13 22H7a5 5 0 1 1 4.9-6H13a3 3 0 0 1 0 6Z" />
+                  </svg>
+                </div>
+
+                <div className="flex-1">
+                  <h3 className="text-3xl font-serif text-white mb-4">Weather & Safety</h3>
+                  <p className="text-white/80 text-lg leading-relaxed mb-6 font-light">
+                    Our simulators use high-end electronics. To ensure safety and equipment integrity in the Western Cape, we monitor conditions closely.
+                  </p>
+                  
+                  <div className="grid sm:grid-cols-2 gap-6">
+                    {/* Wind Limit Card */}
+                    <div className="bg-white/10 p-6 rounded-2xl border border-white/10">
+                      <p className="text-gold font-black uppercase tracking-widest text-[10px] mb-2">Max Wind</p>
+                      <p className="text-white font-bold text-xl uppercase italic">30 KM / H</p>
+                      <p className="text-white/40 text-[10px] mt-1 font-bold italic uppercase">Sustained or Gusts</p>
+                    </div>
+                    
+                    {/* Rain Policy Card */}
+                    <div className="bg-white/10 p-6 rounded-2xl border border-white/10">
+                      <p className="text-gold font-black uppercase tracking-widest text-[10px] mb-2">Rain Policy</p>
+                      <p className="text-white font-bold text-xl uppercase italic">No-Go</p>
+                      <p className="text-white/40 text-[10px] mt-1 font-bold italic uppercase">Reschedule Available</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </section>
 
       {/* Contact Section */}
