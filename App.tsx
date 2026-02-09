@@ -815,6 +815,7 @@ const App: React.FC = () => {
               <div className="absolute top-0 right-0 w-64 h-64 bg-gold/10 rounded-full -mr-32 -mt-32 blur-3xl"></div>
               <div className="flex flex-col md:flex-row items-center gap-12 relative z-10">
                 <div className="bg-gold p-6 rounded-3xl text-mountainGreen shadow-xl">
+                  
                   <Truck size={48} />
                 </div>
                 <div>
@@ -833,40 +834,45 @@ const App: React.FC = () => {
                       <p className="text-white/40 text-[10px] mt-1 font-bold italic uppercase">Round Trip Applied</p>
                     </div>
                     
-            {/* Weather */}
-            <div class="mt-10 lg:mt-20">
-              <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="bg-[#1a2e26] rounded-[40px] p-8 md:p-12 overflow-hidden relative group">
-                  <div class="flex flex-col md:flex-row items-center gap-12 relative z-10">
-                    <div class="w-full md:w-1/2">
-                      <div class="inline-flex items-center gap-3 mb-6">
-                        <div class="p-3 bg-[#d4a373] rounded-2xl">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#1a2e26]"><path d="M17.5 19x0a3.5 3.5 0 0 1-5 0h-4a3.5 3.5 0 0 1-5 0M12 10V3m0 0l-3 3m3-3l3 3"/></svg>
-                        </div>
-                      </div>
-                      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Weather & Safety</h2>
-                      <p class="text-gray-300 text-lg leading-relaxed mb-8">
-                        Our simulators use high-end electronics. To ensure safety and equipment integrity in the Western Cape, we monitor conditions closely.
-                      </p>
-                      
-                      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div class="bg-[#243c33] p-6 rounded-3xl border border-white/5">
-                          <div class="text-[#d4a373] font-medium uppercase tracking-wider text-sm mb-1">Max Wind</div>
-                          <div class="text-white text-2xl font-bold italic">30 KM / H</div>
-                          <div class="text-gray-400 text-xs mt-1">SUSTAINED OR GUSTS</div>
-                        </div>
-                        
-                        <div class="bg-[#243c33] p-6 rounded-3xl border border-white/5">
-                          <div class="text-[#d4a373] font-medium uppercase tracking-wider text-sm mb-1">Rain Policy</div>
-                          <div class="text-white text-2xl font-bold italic">NO-GO</div>
-                          <div class="text-gray-400 text-xs mt-1">RESCHEDULE AVAILABLE</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+           {/* Weather & Safety Block */}
+<div className="mt-20 max-w-4xl mx-auto">
+  <div className="bg-mountainGreen rounded-[40px] p-10 md:p-16 shadow-2xl relative overflow-hidden group">
+    {/* Background Decorative Blur */}
+    <div className="absolute top-0 right-0 w-64 h-64 bg-gold/10 rounded-full -mr-32 -mt-32 blur-3xl"></div>
+    
+    <div className="flex flex-col md:flex-row items-center gap-12 relative z-10">
+      {/* Icon Box - Matching Travel Section */}
+      <div className="bg-gold p-6 rounded-3xl text-mountainGreen shadow-xl">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M17.5 19x0a3.5 3.5 0 0 1-5 0h-4a3.5 3.5 0 0 1-5 0M12 10V3m0 0l-3 3m3-3l3 3"/>
+        </svg>
+      </div>
+
+      <div className="flex-1">
+        <h3 className="text-3xl font-serif text-white mb-4">Weather & Safety</h3>
+        <p className="text-white/80 text-lg leading-relaxed mb-6 font-light">
+          Our simulators use high-end electronics. To ensure safety and equipment integrity in the Western Cape, we monitor conditions closely.
+        </p>
+        
+        <div className="grid sm:grid-cols-2 gap-6">
+          {/* Wind Limit Card */}
+          <div className="bg-white/10 p-6 rounded-2xl border border-white/10">
+            <p className="text-gold font-black uppercase tracking-widest text-[10px] mb-2">Max Wind</p>
+            <p className="text-white font-bold text-xl uppercase italic">30 KM / H</p>
+            <p className="text-white/40 text-[10px] mt-1 font-bold italic uppercase">Sustained or Gusts</p>
+          </div>
+          
+          {/* Rain Policy Card */}
+          <div className="bg-white/10 p-6 rounded-2xl border border-white/10">
+            <p className="text-gold font-black uppercase tracking-widest text-[10px] mb-2">Rain Policy</p>
+            <p className="text-white font-bold text-xl uppercase italic">No-Go</p>
+            <p className="text-white/40 text-[10px] mt-1 font-bold italic uppercase">Reschedule Available</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
                     
               
       </section>
