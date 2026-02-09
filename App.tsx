@@ -838,7 +838,7 @@ const App: React.FC = () => {
             </div>
           </div>
 
-          {/* Weather & Safety Block */}
+ {/* Weather & Safety Block */}
           <div className="mt-20 max-w-4xl mx-auto">
             <div className="bg-mountainGreen rounded-[40px] p-10 md:p-16 shadow-2xl relative overflow-hidden group">
               {/* Background Decorative Blur */}
@@ -861,6 +861,12 @@ const App: React.FC = () => {
                   <h3 className="text-3xl font-serif text-white mb-4">Weather & Safety</h3>
                   <p className="text-white/80 text-lg leading-relaxed mb-6 font-light">
                     Our simulators use high-end electronics. To ensure safety and equipment integrity in the Western Cape, we monitor conditions closely.
+                    {/* LINK ADDED HERE */}
+                    <br />
+                    <a href="/terms.html" className="text-gold font-medium hover:text-white transition-colors inline-flex items-center gap-2 mt-2">
+                      View full weather policy 
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                    </a>
                   </p>
                   
                   <div className="grid sm:grid-cols-2 gap-6">
