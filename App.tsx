@@ -832,12 +832,43 @@ const App: React.FC = () => {
                       <p className="text-white font-bold text-xl">R 9 / km</p>
                       <p className="text-white/40 text-[10px] mt-1 font-bold italic uppercase">Round Trip Applied</p>
                     </div>
+                    
+            {/* Weather */}
+            <div class="mt-10 lg:mt-20">
+              <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-[#1a2e26] rounded-[40px] p-8 md:p-12 overflow-hidden relative group">
+                  <div class="flex flex-col md:flex-row items-center gap-12 relative z-10">
+                    <div class="w-full md:w-1/2">
+                      <div class="inline-flex items-center gap-3 mb-6">
+                        <div class="p-3 bg-[#d4a373] rounded-2xl">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#1a2e26]"><path d="M17.5 19x0a3.5 3.5 0 0 1-5 0h-4a3.5 3.5 0 0 1-5 0M12 10V3m0 0l-3 3m3-3l3 3"/></svg>
+                        </div>
+                      </div>
+                      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Weather & Safety</h2>
+                      <p class="text-gray-300 text-lg leading-relaxed mb-8">
+                        Our simulators use high-end electronics. To ensure safety and equipment integrity in the Western Cape, we monitor conditions closely.
+                      </p>
+                      
+                      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-[#243c33] p-6 rounded-3xl border border-white/5">
+                          <div class="text-[#d4a373] font-medium uppercase tracking-wider text-sm mb-1">Max Wind</div>
+                          <div class="text-white text-2xl font-bold italic">30 KM / H</div>
+                          <div class="text-gray-400 text-xs mt-1">SUSTAINED OR GUSTS</div>
+                        </div>
+                        
+                        <div class="bg-[#243c33] p-6 rounded-3xl border border-white/5">
+                          <div class="text-[#d4a373] font-medium uppercase tracking-wider text-sm mb-1">Rain Policy</div>
+                          <div class="text-white text-2xl font-bold italic">NO-GO</div>
+                          <div class="text-gray-400 text-xs mt-1">RESCHEDULE AVAILABLE</div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+                    
+              
       </section>
 
       {/* Contact Section */}
