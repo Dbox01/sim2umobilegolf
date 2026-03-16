@@ -820,7 +820,7 @@ const App: React.FC = () => {
                 <div className="flex-1">
                   <h3 className="text-3xl font-serif text-white mb-4">Travel & Logistics</h3>
                   <p className="text-white/80 text-lg leading-relaxed mb-6 font-light">
-                    We deliver across the Western Cape. Our pricing is simple and transparent so you can plan your event without surprises.
+                    We deliver across the Western Cape. Our pricing is simple and transparent so you can plan your event without surprises. Travel fees: distance from Somerset West Country Club.
                   </p>
                   <div className="grid sm:grid-cols-2 gap-6">
                     <div className="bg-white/10 p-6 rounded-2xl border border-white/10">
