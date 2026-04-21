@@ -958,6 +958,12 @@ const App: React.FC = () => {
                     <input type="email" name="email" placeholder="john@events.co.za" className="w-full bg-cream border-2 border-transparent focus:border-gold/30 p-5 rounded-2xl focus:ring-0 outline-none transition-all placeholder:text-gray-300" />
                   </div>
                 </div>
+
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-4">Phone Number</label>
+                  <input type="tel" name="phone" placeholder="082 123 4567" className="w-full bg-cream border-2 border-transparent focus:border-gold/30 p-5 rounded-2xl focus:ring-0 outline-none transition-all placeholder:text-gray-300" />
+                </div>
+                
                 <div className="space-y-2">
                   <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-4">Event Date & Location</label>
                   <input type="text" name="event_details" placeholder="Stellenbosch - Nov 20th" className="w-full bg-cream border-2 border-transparent focus:border-gold/30 p-5 rounded-2xl focus:ring-0 outline-none transition-all placeholder:text-gray-300" />
