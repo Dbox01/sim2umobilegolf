@@ -112,7 +112,7 @@ const AiConcierge: React.FC = () => {
           - Contact Phone: ${CONTACT_PHONE}
           - Contact Email: ${CONTACT_EMAIL}
           - WhatsApp: Available at the same number.
-          - PROMO: We are running an Early Bird Special! 50% OFF all packages while we test the setup.
+          - PROMO: We are running a Winter Special! 50% OFF all packages.
           - Packages & Pricing (After 50% Discount):
             * Birdie Package (4 Hours): Now R3,150 (Was R6,300)
             * Eagle Package (6 Hours): Now R4,500 (Was R9,000)
@@ -830,7 +830,7 @@ const App: React.FC = () => {
                     </div>
                     <div className="bg-white/10 p-6 rounded-2xl border border-white/10">
                       <p className="text-gold font-black uppercase tracking-widest text-[10px] mb-2">Additional Distance</p>
-                      <p className="text-white font-bold text-xl">R 9 / km</p>
+                      <p className="text-white font-bold text-xl">R 5 / km</p>
                       <p className="text-white/40 text-[10px] mt-1 font-bold italic uppercase">Round Trip Applied</p>
                     </div>
                   </div>
