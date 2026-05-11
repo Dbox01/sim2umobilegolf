@@ -800,8 +800,8 @@ const App: React.FC = () => {
       <section id="pricing" className="py-32 px-6 bg-cream/50">
         <div className="container mx-auto max-w-7xl">
           <SectionHeading 
-            title="Early Bird Pricing" 
-            subtitle="Take advantage of our 50% discount while we test the setup. Professional mobile golf at an unbeatable rate." 
+            title="Winter Pricing" 
+            subtitle="Take advantage of our 50% discount. Professional mobile golf at an unbeatable rate." 
           />
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {packages.map((pkg, idx) => (
