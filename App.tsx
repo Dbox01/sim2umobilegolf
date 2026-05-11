@@ -117,13 +117,13 @@ const AiConcierge: React.FC = () => {
             * Birdie Package (4 Hours): Now R3,150 (Was R6,300)
             * Eagle Package (6 Hours): Now R4,500 (Was R9,000)
             * Full Day Package (8 Hours): Now R6,000 (Was R12,000)
-          - Travel Policy: First 20km from base is FREE. Thereafter, R9 per km (round trip).
+          - Travel Policy: First 20km from base is FREE. Thereafter, R5 per km (round trip).
           - Setup: We use a professional Sim2U branded inflatable booth that works beautifully outdoors at wine estates and luxury venues.
           - What's Included: Full setup (Rapsodo MLM2PRO + Awesome Golf), driving range, games, course play, shot tracking, setup/pack-down.
           - Requirements: We need access to a standard power outlet. We provide a 30m extension lead. 
           - Space Req: 3.3m height, 4.6m width, 5.25m length.
           
-          Respond professionally and charm the customer. Mention the 50% Early Bird special enthusiastically. Be specific about the ZAR pricing and the 20km travel rule. If they want to book, suggest they can call or WhatsApp us at ${CONTACT_PHONE}. User: ${userMessage}` }] }
+          Respond professionally and charm the customer. Mention the 50% Winter special enthusiastically. Be specific about the ZAR pricing and the 20km travel rule. If they want to book, suggest they can call or WhatsApp us at ${CONTACT_PHONE}. User: ${userMessage}` }] }
         ],
         config: {
           temperature: 0.7,
@@ -249,7 +249,7 @@ const Nav: React.FC = () => {
     <>
       <div className="bg-maroon text-gold text-center py-2 px-4 text-[10px] font-black uppercase tracking-[0.3em] fixed w-full z-[60] top-0 flex items-center justify-center gap-3">
         <Tag size={12} className="animate-pulse" />
-        Early Bird Special: 50% OFF All Packages while we test the setup!
+        Winter Special: 50% OFF All Packages!
       </div>
       <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? 'bg-mountainGreen/95 backdrop-blur-md py-3 shadow-2xl' : 'bg-transparent py-8 mt-6'}`}>
         <div className="container mx-auto px-6 md:px-12 flex justify-between items-center">
