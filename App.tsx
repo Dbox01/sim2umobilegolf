@@ -336,7 +336,7 @@ const Hero: React.FC = () => (
     <div className="container mx-auto px-6 relative z-20 text-center md:text-left text-white max-w-7xl flex flex-col items-center md:items-start">
       <div className="mb-6 inline-flex items-center gap-3 bg-mountainGreen/90 backdrop-blur-xl px-8 py-3 rounded-full border border-gold/40 animate-fadeInUp shadow-[0_0_25px_rgba(197,160,89,0.4)]">
         <Tag size={18} className="text-gold" />
-        <span className="text-sm font-black uppercase tracking-[0.4em] text-gold">Early Bird: 50% OFF Limited Time</span>
+        <span className="text-sm font-black uppercase tracking-[0.4em] text-gold">Winter Special: 50% OFF Limited Time</span>
       </div>
       
       <h1 className="hero-text text-4xl md:text-7xl font-black mb-8 tracking-tighter leading-tight animate-fadeInUp delay-100 drop-shadow-[0_15px_20px_rgba(0,0,0,0.6)]">
