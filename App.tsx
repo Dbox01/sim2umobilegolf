@@ -413,20 +413,20 @@ const ExperienceSection: React.FC = () => {
   // --- Testimonials Data ---
   const testimonials = [
     {
-      quote: "Sim2U was the absolute highlight of our wedding cocktail hour! Guests who had never touched a golf club were lining up to play. Clean, professional, and incredibly fun setup.",
-      author: "Sarah M.",
-      role: "Bride",
-      location: "Stellenbosch"
-    },
-    {
-      quote: "We hired the simulator for our annual corporate team building. The team-based game modes kept everyone engaged and competitive. The team arrived early, handled everything, and made it effortless for us.",
-      author: "David K.",
-      role: "Event Organizer",
+      quote: "What an amazing team! I can definitely vouch for them - if you want to add a truely fun adventure at your event, @Sim2U is the answer! @Medipost Pharmacy will secure your services again⛳️",
+      author: "Rentia M.",
+      role: "Medipost",
       location: "Cape Town"
     },
     {
-      quote: "Absolute game-changer for my 40th braai. Having a full-sized golf course running in the garden while we relaxed was unbelievable. The shot tracking on the MLM2PRO is incredibly accurate.",
-      author: "Jacques d.P.",
+      quote: "Fabulous team ensuring our event ran seamlessly and smoothly! Definite recommendation!!",
+      author: "Donovan M.",
+      role: "Marketing Analyst",
+      location: "Cape Town"
+    },
+    {
+      quote: "Amazing experience, well prepared and ensured everyone had lots of fun!",
+      author: "Carle le R.",
       role: "Private Host",
       location: "Somerset West"
     }
