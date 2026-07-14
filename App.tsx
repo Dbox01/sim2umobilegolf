@@ -1,3 +1,11 @@
+import { 
+  // ... other imports
+  ChevronRight,
+  ChevronLeft, // <-- Add this here!
+  Menu,
+  X,
+  // ... rest of your imports
+} from 'lucide-react';
 import React, { useState, useEffect, useRef } from 'react';
 import { 
   Phone, 
@@ -74,6 +82,11 @@ const CONTACT_EMAIL = "info@sim2umobilegolf.co.za";
 const WHATSAPP_URL = "https://wa.me/27833182565";
 const LOGO_URL = "https://lh3.googleusercontent.com/d/1eXL8Q1M62yc2ztffpDIsa0hvm1_cONml";
 const PRODUCT_IMAGE_URL = "https://lh3.googleusercontent.com/d/1mHvfuuuVpt7biH8nTiQ0DbMMjvoAjz3W";
+
+// ⛳️ DEFINE YOUR CAROUSEL IMAGES HERE:
+const EXPERIENCE_IMAGES = [
+  "/social-preview.png"
+];
 
 // --- AI Concierge Component ---
 
@@ -373,107 +386,186 @@ const Hero: React.FC = () => (
   </header>
 );
 
-const ExperienceSection: React.FC = () => (
-  <section id="experience" className="py-24 lg:py-48 bg-cream relative overflow-hidden">
-    {/* Subtle Premium Background Texture */}
-    <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
-      <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(#213631_1px,transparent_1px)] [background-size:40px_40px]"></div>
-    </div>
+const ExperienceSection: React.FC = () => {
+  const [currentIdx, setCurrentIdx] = useState(0);
 
-    <div className="container mx-auto px-6 max-w-7xl relative z-10">
-      {/* Premium Header Layout */}
-      <div className="flex flex-col lg:flex-row gap-20 lg:gap-24 items-start lg:items-center mb-24">
-        
-        {/* Left Column: Narrative Copy */}
-        <div className="lg:w-[42%] space-y-8 order-2 lg:order-1">
-          <div className="space-y-4">
-            <div className="flex items-center gap-4">
-              <div className="h-[1px] w-12 bg-gold/50"></div>
-              <span className="text-gold font-black uppercase tracking-[0.6em] text-[11px]">THE EXPERIENCE</span>
-            </div>
-            <h2 className="text-5xl md:text-6xl font-serif text-mountainGreen leading-[1.1] tracking-tighter">
-              The fairway, <br/>
-              <span className="text-gold italic font-light">on your doorstep.</span>
-            </h2>
-            <p className="text-mountainGreen font-bold text-lg md:text-xl leading-snug tracking-tight max-w-md">
-              Experience elite-level virtual fairways delivered directly to your venue, winery, or private event across the Western Cape.
-            </p>
-          </div>
+  // Next slide helper
+  const nextSlide = () => {
+    setCurrentIdx((prev) => (prev + 1) % EXPERIENCE_IMAGES.length);
+  };
+
+  // Previous slide helper
+  const prevSlide = () => {
+    setCurrentIdx((prev) => (prev - 1 + EXPERIENCE_IMAGES.length) % EXPERIENCE_IMAGES.length);
+  };
+
+  // --- Auto-Play Timer Logic ---
+  useEffect(() => {
+    const timer = setInterval(() => {
+      nextSlide();
+    }, 5000); // 5000ms = 5 seconds
+
+    // Clear the interval when the component unmounts 
+    // OR when currentIdx changes (manual clicks reset the timer)
+    return () => clearInterval(timer);
+  }, [currentIdx]);
+
+  // --- Testimonials Data ---
+  const testimonials = [
+    {
+      quote: "Sim2U was the absolute highlight of our wedding cocktail hour! Guests who had never touched a golf club were lining up to play. Clean, professional, and incredibly fun setup.",
+      author: "Sarah M.",
+      role: "Bride",
+      location: "Stellenbosch"
+    },
+    {
+      quote: "We hired the simulator for our annual corporate team building. The team-based game modes kept everyone engaged and competitive. The team arrived early, handled everything, and made it effortless for us.",
+      author: "David K.",
+      role: "Event Organizer",
+      location: "Cape Town"
+    },
+    {
+      quote: "Absolute game-changer for my 40th braai. Having a full-sized golf course running in the garden while we relaxed was unbelievable. The shot tracking on the MLM2PRO is incredibly accurate.",
+      author: "Jacques d.P.",
+      role: "Private Host",
+      location: "Somerset West"
+    }
+  ];
+
+  return (
+    <section id="experience" className="py-24 lg:py-48 bg-cream relative overflow-hidden">
+      {/* Subtle Premium Background Texture */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
+        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(#213631_1px,transparent_1px)] [background-size:40px_40px]"></div>
+      </div>
+
+      <div className="container mx-auto px-6 max-w-7xl relative z-10">
+        {/* Premium Header Layout */}
+        <div className="flex flex-col lg:flex-row gap-20 lg:gap-24 items-start lg:items-center mb-24">
           
-          <div className="relative">
-            <div className="absolute -left-6 top-0 bottom-0 w-1 bg-gold/20 rounded-full"></div>
-            <p className="text-mountainGreen/80 text-lg md:text-xl leading-relaxed font-medium pl-4">
-              Step inside a private inflatable golf bay and play full courses, skill challenges, and longest-drive battles with real ball feedback. Powered by the Rapsodo MLM2PRO and Awesome Golf, every shot feels smooth, accurate, and fun — whether you’re a low handicapper or picking up a club for the first time. We arrive, set up fast, run the experience, and keep your guests rotating through effortlessly.
-            </p>
-          </div>
-        </div>
-
-        {/* Right Column: Larger Framed Image Showcase */}
-        <div className="lg:w-[58%] relative order-1 lg:order-2">
-          <div className="relative z-10 group">
-            <div className="relative rounded-[50px] overflow-hidden border-[1px] border-mountainGreen/5 p-4 bg-white shadow-[0_50px_100px_-20px_rgba(33,54,49,0.15)] transition-all duration-700 group-hover:shadow-[0_60px_120px_-20px_rgba(33,54,49,0.25)]">
-              <div className="rounded-[40px] overflow-hidden aspect-video lg:aspect-[4/3]">
-                <img 
-                  src={PRODUCT_IMAGE_URL} 
-                  alt="Sim2U Pro Mobile Golf Simulator Setup" 
-                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-                />
+          {/* Left Column: Narrative Copy */}
+          <div className="lg:w-[42%] space-y-8 order-2 lg:order-1">
+            <div className="space-y-4">
+              <div className="flex items-center gap-4">
+                <div className="h-[1px] w-12 bg-gold/50"></div>
+                <span className="text-gold font-black uppercase tracking-[0.6em] text-[11px]">THE EXPERIENCE</span>
               </div>
+              <h2 className="text-5xl md:text-6xl font-serif text-mountainGreen leading-[1.1] tracking-tighter">
+                The fairway, <br/>
+                <span className="text-gold italic font-light">on your doorstep.</span>
+              </h2>
+              <p className="text-mountainGreen font-bold text-lg md:text-xl leading-snug tracking-tight max-w-md">
+                Experience elite-level virtual fairways delivered directly to your venue, winery, or private event across the Western Cape.
+              </p>
             </div>
             
-            {/* Background Decorative Frame Accent */}
-            <div className="absolute -inset-6 border-[1px] border-gold/20 rounded-[60px] -z-10 group-hover:scale-[1.02] transition-transform duration-700"></div>
-            <div className="absolute -top-12 -left-12 w-64 h-64 bg-gold/5 rounded-full blur-3xl -z-20"></div>
-          </div>
-        </div>
-      </div>
-
-      {/* Feature Benefit Grid */}
-      <div className="grid md:grid-cols-3 gap-8 lg:gap-16 mb-24">
-        {[
-          {
-            tag: "✅ Built for Events",
-            desc: "A clean, premium setup that looks great and keeps guests engaged from the first swing.",
-            icon: <Users className="text-gold" size={28} />
-          },
-          {
-            tag: "✅ Real Shot Tracking",
-            desc: "See distance, ball flight, shot shape, and accuracy instantly with MLM2PRO + Awesome Golf.",
-            icon: <Activity className="text-gold" size={28} />
-          },
-          {
-            tag: "✅ Quick Setup, Big Impact",
-            desc: "We arrive, inflate, calibrate, and get you playing — with a smooth guest flow all night.",
-            icon: <Zap className="text-gold" size={28} />
-          }
-        ].map((item, idx) => (
-          <div key={idx} className="group flex flex-col items-start p-10 bg-white rounded-[40px] border border-mountainGreen/[0.03] shadow-[0_20px_40px_-10px_rgba(33,54,49,0.05)] transition-all duration-500 hover:shadow-[0_40px_80px_-20px_rgba(197,160,89,0.15)] hover:-translate-y-3">
-            <div className="w-14 h-14 bg-cream rounded-xl flex items-center justify-center mb-8 transition-transform group-hover:scale-110 group-hover:rotate-6">
-              {item.icon}
+            <div className="relative">
+              <div className="absolute -left-6 top-0 bottom-0 w-1 bg-gold/20 rounded-full"></div>
+              <p className="text-mountainGreen/80 text-lg md:text-xl leading-relaxed font-medium pl-4">
+                Step inside a private inflatable golf bay and play full courses, skill challenges, and longest-drive battles with real ball feedback. Powered by the Rapsodo MLM2PRO and Awesome Golf, every shot feels smooth, accurate, and fun — whether you’re a low handicapper or picking up a club for the first time. We arrive, set up fast, run the experience, and keep your guests rotating through effortlessly.
+              </p>
             </div>
-            <h4 className="text-2xl font-serif text-mountainGreen mb-4 tracking-tight italic font-bold">
-              {item.tag}
-            </h4>
-            <div className="h-[1px] w-full bg-mountainGreen/[0.05] mb-6"></div>
-            <p className="text-gray-500 text-base leading-relaxed font-medium">
-              {item.desc}
-            </p>
           </div>
-        ))}
+
+          {/* Right Column: Carousel Image Showcase */}
+          <div className="lg:w-[58%] relative order-1 lg:order-2 w-full">
+            <div className="relative z-10 group">
+              <div className="relative rounded-[50px] overflow-hidden border-[1px] border-mountainGreen/5 p-4 bg-white shadow-[0_50px_100px_-20px_rgba(33,54,49,0.15)] transition-all duration-700 group-hover:shadow-[0_60px_120px_-20px_rgba(33,54,49,0.25)]">
+                <div className="rounded-[40px] overflow-hidden aspect-video lg:aspect-[4/3] relative">
+                  
+                  {/* Image Display with smooth transition */}
+                  <img 
+                    src={EXPERIENCE_IMAGES[currentIdx]} 
+                    alt={`Sim2U Setup Gallery ${currentIdx + 1}`} 
+                    className="w-full h-full object-cover transition-all duration-750 ease-in-out"
+                  />
+
+                  {/* Navigation Arrows */}
+                  <button 
+                    onClick={prevSlide}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-mountainGreen p-3 rounded-full shadow-lg transition-all hover:scale-110 z-20"
+                    aria-label="Previous Slide"
+                  >
+                    <ChevronLeft size={22} />
+                  </button>
+
+                  <button 
+                    onClick={nextSlide}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-mountainGreen p-3 rounded-full shadow-lg transition-all hover:scale-110 z-20"
+                    aria-label="Next Slide"
+                  >
+                    <ChevronRight size={22} />
+                  </button>
+
+                  {/* Dot Indicators */}
+                  <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2.5 z-20">
+                    {EXPERIENCE_IMAGES.map((_, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => setCurrentIdx(idx)}
+                        className={`h-2.5 rounded-full transition-all duration-300 ${
+                          idx === currentIdx ? 'bg-gold w-6 shadow-md' : 'bg-white/65 hover:bg-white w-2.5'
+                        }`}
+                        aria-label={`Go to slide ${idx + 1}`}
+                      />
+                    ))}
+                  </div>
+
+                </div>
+              </div>
+              
+              {/* Decorative Frame Accents */}
+              <div className="absolute -inset-6 border-[1px] border-gold/20 rounded-[60px] -z-10 group-hover:scale-[1.02] transition-transform duration-700"></div>
+              <div className="absolute -top-12 -left-12 w-64 h-64 bg-gold/5 rounded-full blur-3xl -z-20"></div>
+            </div>
+          </div>
+
+        </div>
+
+        {/* Testimonials Grid Replacing Feature Blocks */}
+        <div className="grid md:grid-cols-3 gap-8 lg:gap-12 mb-24">
+          {testimonials.map((t, idx) => (
+            <div 
+              key={idx} 
+              className="relative flex flex-col justify-between p-10 bg-white rounded-[32px] border border-mountainGreen/[0.03] shadow-[0_15px_30px_-10px_rgba(33,54,49,0.03)] hover:shadow-[0_30px_60px_-15px_rgba(197,160,89,0.1)] transition-all duration-500 hover:-translate-y-2"
+            >
+              {/* Huge stylized quote mark */}
+              <span className="absolute top-4 left-6 text-8xl font-serif text-gold/15 select-none pointer-events-none">“</span>
+              
+              <div className="relative z-10 space-y-6">
+                {/* 5 Stars */}
+                <div className="flex gap-1">
+                  {[...Array(5)].map((_, i) => (
+                    <span key={i} className="text-gold text-lg">★</span>
+                  ))}
+                </div>
+                
+                <p className="text-gray-600 italic text-base leading-relaxed font-medium">
+                  "{t.quote}"
+                </p>
+              </div>
+
+              {/* Author Details */}
+              <div className="mt-8 pt-6 border-t border-mountainGreen/5 flex flex-col">
+                <span className="text-mountainGreen font-black uppercase tracking-wider text-sm">{t.author}</span>
+                <span className="text-xs text-gray-400 font-semibold">{t.role} — {t.location}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* CTA Button */}
+        <div className="flex justify-center mt-16">
+          <a href="#contact" className="group relative inline-flex items-center justify-center gap-6 bg-mountainGreen text-white px-16 py-7 rounded-[28px] font-black uppercase tracking-[0.25em] text-sm hover:bg-gold hover:text-mountainGreen transition-all shadow-[0_30px_60px_-15px_rgba(33,54,49,0.3)] hover:scale-105 active:scale-95">
+            Get a Quote
+            <ChevronRight size={22} className="group-hover:translate-x-2 transition-transform" />
+          </a>
+        </div>
+
       </div>
-
-      {/* Moved CTA Button to bottom of section - centered and high impact */}
-      <div className="flex justify-center mt-16">
-        <a href="#contact" className="group relative inline-flex items-center justify-center gap-6 bg-mountainGreen text-white px-16 py-7 rounded-[28px] font-black uppercase tracking-[0.25em] text-sm hover:bg-gold hover:text-mountainGreen transition-all shadow-[0_30px_60px_-15px_rgba(33,54,49,0.3)] hover:scale-105 active:scale-95">
-          Get a Quote
-          <ChevronRight size={22} className="group-hover:translate-x-2 transition-transform" />
-        </a>
-      </div>
-
-    </div>
-  </section>
-);
-
+    </section>
+  );
+};
 const OccasionsSection: React.FC = () => {
   const occasions: Occasion[] = [
     {
