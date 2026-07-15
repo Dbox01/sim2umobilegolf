@@ -462,7 +462,7 @@ const ExperienceSection: React.FC = () => {
             <div className="relative">
               <div className="absolute -left-6 top-0 bottom-0 w-1 bg-gold/20 rounded-full"></div>
               <p className="text-mountainGreen/80 text-lg md:text-xl leading-relaxed font-medium pl-4">
-                Step inside a private inflatable golf bay and play full courses, skill challenges, and longest-drive battles with real ball feedback. Powered by the Rapsodo MLM2PRO and Awesome Golf, every shot feels smooth, accurate, and fun — whether you’re a low handicapper or picking up a club for the first time. We arrive, set up fast, run the experience, and keep your guests rotating through effortlessly.
+                Hire one of our private golf bays and play full courses, skill challenges, and longest-drive battles with real ball feedback. Powered by the Rapsodo MLM2PRO and Awesome Golf, every shot feels smooth, accurate, and fun — whether you’re a low handicapper or picking up a club for the first time. We arrive, set up fast, run the experience, and keep your guests rotating through effortlessly.
               </p>
             </div>
           </div>
