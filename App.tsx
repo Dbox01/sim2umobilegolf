@@ -718,15 +718,15 @@ const ProcessSection: React.FC = () => (
                     </p>
                     <div className="grid grid-cols-3 gap-4">
                       <div className="text-center p-3 bg-white/10 rounded-xl">
-                        <p className="text-gold font-bold text-xs">x</p>
+                        <p className="text-gold font-bold text-xs">Xm</p>
                         <p className="text-[8px] text-white/40 uppercase font-black">Height</p>
                       </div>
                       <div className="text-center p-3 bg-white/10 rounded-xl">
-                        <p className="text-gold font-bold text-xs">x</p>
+                        <p className="text-gold font-bold text-xs">Xm</p>
                         <p className="text-[8px] text-white/40 uppercase font-black">Width</p>
                       </div>
                       <div className="text-center p-3 bg-white/10 rounded-xl">
-                        <p className="text-gold font-bold text-xs">x</p>
+                        <p className="text-gold font-bold text-xs">Xm</p>
                         <p className="text-[8px] text-white/40 uppercase font-black">Depth</p>
                       </div>
                     </div>
