@@ -671,13 +671,13 @@ const ProcessSection: React.FC = () => (
               { 
                 step: "02", 
                 title: "We Deliver & Setup", 
-                desc: "Our professional 'caddies' arrive at your venue to deploy the full simulator suite in under an hour.",
+                desc: "Our professional 'caddies' arrive at your venue to deploy the full simulator suite.",
                 icon: <Truck size={24} />
               },
               { 
                 step: "03", 
                 title: "You Play", 
-                desc: "Tee off on global courses or challenge friends to mini-games while we manage the tech in the background.",
+                desc: "Worried about running the event? No need! We run, entertain and manage the entire event for you.",
                 icon: <PlayCircle size={24} />
               }
             ].map((item, idx) => (
@@ -714,19 +714,19 @@ const ProcessSection: React.FC = () => (
                   <div className="flex-1">
                     <h5 className="text-white font-bold text-lg mb-2">Space Needed</h5>
                     <p className="text-white/70 text-sm leading-relaxed mb-4">
-                      We require a flat, stable surface with the following minimum clearances:
+                      We offer 3 different enclosure sizes, please refer to the package section for further information:
                     </p>
                     <div className="grid grid-cols-3 gap-4">
                       <div className="text-center p-3 bg-white/10 rounded-xl">
-                        <p className="text-gold font-bold text-xs">3.3m</p>
+                        <p className="text-gold font-bold text-xs">x</p>
                         <p className="text-[8px] text-white/40 uppercase font-black">Height</p>
                       </div>
                       <div className="text-center p-3 bg-white/10 rounded-xl">
-                        <p className="text-gold font-bold text-xs">4.6m</p>
+                        <p className="text-gold font-bold text-xs">x</p>
                         <p className="text-[8px] text-white/40 uppercase font-black">Width</p>
                       </div>
                       <div className="text-center p-3 bg-white/10 rounded-xl">
-                        <p className="text-gold font-bold text-xs">5.25m</p>
+                        <p className="text-gold font-bold text-xs">x</p>
                         <p className="text-[8px] text-white/40 uppercase font-black">Depth</p>
                       </div>
                     </div>
