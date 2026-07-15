@@ -118,18 +118,17 @@ const AiConcierge: React.FC = () => {
           - Contact Phone: ${CONTACT_PHONE}
           - Contact Email: ${CONTACT_EMAIL}
           - WhatsApp: Available at the same number.
-          - PROMO: We are running a Winter Special! 50% OFF all packages.
-          - Packages & Pricing (After 50% Discount):
-            * Birdie Package (4 Hours): Now R3,150 (Was R6,300)
-            * Eagle Package (6 Hours): Now R4,500 (Was R9,000)
-            * Full Day Package (8 Hours): Now R6,000 (Was R12,000)
-          - Travel Policy: First 20km from base is FREE. Thereafter, R5 per km (round trip).
-          - Setup: We use a professional Sim2U branded inflatable booth that works beautifully outdoors at wine estates and luxury venues.
-          - What's Included: Full setup (Rapsodo MLM2PRO + Awesome Golf), driving range, games, course play, shot tracking, setup/pack-down.
-          - Requirements: We need access to a standard power outlet. We provide a 30m extension lead. 
-          - Space Req: 3.3m height, 4.6m width, 5.25m length.
+          - PROMO: We are running a Winter Special! 25% OFF until August.
+          - Setup Options & Pricing (Rates shown include the 25% discount, minimum 4 hours):
+            * Backyard Budget (2.5m H x 3.1m W x 5.0m D): R3,000 for 4 hours (Additional hours: R600/hr)
+            * Outdoor Enclosure (3.3m H x 4.6m W x 5.3m D): R4,725 for 4 hours (Additional hours: R1,050/hr)
+            * Corporate Indoor (2.6m H x 3.5m W x 5.0m D): Custom Quote (Available for Half or Full Day)
+          - Travel Policy: First 20km from Somerset West Country Club is FREE. Thereafter, R5 per km (round trip).
+          - Weather Policy: Max wind is 30 km/h (sustained or gusts). Rain is a no-go, but we offer rescheduling.
+          - What's Included: Full mobile simulator setup (Rapsodo MLM2PRO + Awesome Golf), driving range, games, course play, shot tracking, professional on-site technician/caddy, and setup/pack-down.
+          - Requirements: Access to a standard power outlet. We provide a 30m industrial extension lead.
           
-          Respond professionally and charm the customer. Mention the 50% Winter special enthusiastically. Be specific about the ZAR pricing and the 20km travel rule. If they want to book, suggest they can call or WhatsApp us at ${CONTACT_PHONE}. User: ${userMessage}` }] }
+          Respond professionally and charm the customer. Mention the 25% Winter special enthusiastically. Be specific about the ZAR pricing, the 20km travel rule, and the necessary space requirements if asked. If they want to book or get a custom corporate quote, suggest they can call or WhatsApp us at ${CONTACT_PHONE}. User: ${userMessage}` }] }
         ],
         config: {
           temperature: 0.7,
@@ -221,7 +220,6 @@ const AiConcierge: React.FC = () => {
     </div>
   );
 };
-
 // --- Main Components ---
 
 const SectionHeading: React.FC<{ title: string; subtitle?: string; dark?: boolean; left?: boolean }> = ({ title, subtitle, dark, left }) => (
