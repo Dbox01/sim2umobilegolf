@@ -958,6 +958,8 @@ const EnclosuresSection: React.FC = () => {
 // --- END NEW ENCLOSURES SECTION ---
 
 const App: React.FC = () => {
+  const [enclosureType, setEnclosureType] = useState('Backyard Budget');
+
   return (
     <div className="bg-cream selection:bg-gold selection:text-mountainGreen overflow-x-hidden pt-10 md:pt-6">
       <Nav />
@@ -1186,17 +1188,46 @@ const App: React.FC = () => {
                 
                 <div className="space-y-2">
                   <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-4">Event Date & Location</label>
-                  <input type="text" name="event_details" placeholder="Stellenbosch - Nov 20th" className="w-full bg-cream border-2 border-transparent focus:border-gold/30 p-5 rounded-2xl focus:ring-0 outline-none transition-all placeholder:text-gray-300" />
+                  <input type="text" name="event_details" placeholder="Somerset West / Stellenbosch - Nov 20th" className="w-full bg-cream border-2 border-transparent focus:border-gold/30 p-5 rounded-2xl focus:ring-0 outline-none transition-all placeholder:text-gray-300" />
                 </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-4">Desired Package</label>
-                  <select name="package" className="w-full bg-cream border-2 border-transparent focus:border-gold/30 p-5 rounded-2xl focus:ring-0 outline-none transition-all text-gray-500">
-                    <option>Birdie Package (4hr)</option>
-                    <option>Eagle Package (6hr)</option>
-                    <option>Full Day Package (8hr)</option>
-                  </select>
+
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-4">Enclosure Type</label>
+                    <select 
+                      name="enclosure_type" 
+                      value={enclosureType}
+                      onChange={(e) => setEnclosureType(e.target.value)}
+                      className="w-full bg-cream border-2 border-transparent focus:border-gold/30 p-5 rounded-2xl focus:ring-0 outline-none transition-all text-gray-500"
+                    >
+                      <option value="Backyard Budget">Backyard Budget</option>
+                      <option value="Outdoor Enclosure">Outdoor Enclosure</option>
+                      <option value="Corporate Indoor">Corporate Indoor</option>
+                    </select>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-4">Duration</label>
+                    <select 
+                      name="duration" 
+                      className="w-full bg-cream border-2 border-transparent focus:border-gold/30 p-5 rounded-2xl focus:ring-0 outline-none transition-all text-gray-500"
+                    >
+                      {enclosureType === 'Corporate Indoor' ? (
+                        <>
+                          <option value="Half Day">Half Day</option>
+                          <option value="Full Day">Full Day</option>
+                        </>
+                      ) : (
+                        <>
+                          <option value="4 Hours">4 Hours (Minimum)</option>
+                          <option value="5 Hours">5 Hours</option>
+                          <option value="6 Hours">6 Hours</option>
+                          <option value="7+ Hours">7+ Hours</option>
+                        </>
+                      )}
+                    </select>
+                  </div>
                 </div>
-                <button className="w-full bg-mountainGreen text-white font-black py-6 rounded-2xl hover:bg-maroon transition-all shadow-xl hover:scale-[1.02] active:scale-[0.98] uppercase tracking-[0.3em] flex items-center justify-center gap-4">
+                <button className="w-full bg-mountainGreen text-white font-black py-6 rounded-2xl hover:bg-maroon transition-all shadow-xl hover:scale-[1.02] active:scale-[0.98] uppercase tracking-[0.3em] flex items-center justify-center gap-4 mt-4">
                   Request a Quote
                   <Send size={20} />
                 </button>
