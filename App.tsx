@@ -755,7 +755,7 @@ const ProcessSection: React.FC = () => (
 
 const FeatureCard: React.FC<{ icon: React.ReactNode; title: string; items: string[] }> = ({ icon, title, items }) => (
   <div className="bg-white/5 p-10 rounded-[32px] border border-white/10 hover:border-gold transition-all duration-500 group relative overflow-hidden">
-    <div className="absolute top-0 right-0 w-32 h-32 bg-gold/5 rounded-full -mr-16 -mt-16 blur-3xl group-hover:bg-gold/10 transition-colors"></div>
+    <div className="absolute top-0 right-0 w-32 h-32 bg-gold/5 rounded-full -mr-16 -mt-16 blur-3xl group-hover:bg-gold/10 transition-colors" />
     <div className="text-gold mb-8 group-hover:scale-110 group-hover:-rotate-6 transition-transform relative">{icon}</div>
     <h3 className="text-3xl font-serif text-white mb-6 relative">{title}</h3>
     <ul className="space-y-4 relative">
@@ -835,7 +835,7 @@ const EnclosuresSection: React.FC = () => {
             <span className="text-xs font-black uppercase tracking-[0.2em] text-maroon">Winter Special: 25% OFF Till August</span>
           </div>
           <h2 className="text-4xl md:text-6xl font-serif mb-6 leading-tight text-mountainGreen">Choose Your Setup.</h2>
-          <div className="w-32 h-1.5 bg-gold mx-auto mb-8 rounded-full"></div>
+          <div className="w-32 h-1.5 bg-gold mx-auto mb-8 rounded-full" />
           <p className="max-w-2xl text-lg md:text-xl font-light leading-relaxed text-gray-600 mx-auto">
             Three tailored enclosures to fit your venue. Every booking requires a minimum of 4 hours to ensure the best experience.
           </p>
@@ -867,7 +867,7 @@ const EnclosuresSection: React.FC = () => {
               alt={currentEnclosure.name} 
               className="absolute inset-0 w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent lg:hidden"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent lg:hidden" />
             <h3 className="absolute bottom-6 left-6 text-3xl font-serif text-white lg:hidden">
               {currentEnclosure.name}
             </h3>
@@ -984,7 +984,7 @@ const App: React.FC = () => {
       {/* Tech / Features Grid */}
       <section id="tech" className="bg-mountainGreen py-32 px-6 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10 pointer-events-none">
-          <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-gold via-transparent to-transparent opacity-20 blur-[120px]"></div>
+          <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-gold via-transparent to-transparent opacity-20 blur-[120px]" />
         </div>
         <div className="container mx-auto relative z-10">
           <SectionHeading 
@@ -1052,7 +1052,7 @@ const App: React.FC = () => {
         <div className="container mx-auto max-w-7xl">
           <div className="max-w-4xl mx-auto">
             <div className="bg-mountainGreen rounded-[40px] p-10 md:p-16 shadow-2xl relative overflow-hidden group">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-gold/10 rounded-full -mr-32 -mt-32 blur-3xl"></div>
+              <div className="absolute top-0 right-0 w-64 h-64 bg-gold/10 rounded-full -mr-32 -mt-32 blur-3xl" />
               <div className="flex flex-col md:flex-row items-center gap-12 relative z-10">
                 <div className="bg-gold p-6 rounded-3xl text-mountainGreen shadow-xl">
                   <Truck size={48} />
@@ -1070,7 +1070,7 @@ const App: React.FC = () => {
                     </div>
                     <div className="bg-white/10 p-6 rounded-2xl border border-white/10">
                       <p className="text-gold font-black uppercase tracking-widest text-[10px] mb-2">Additional Distance</p>
-                      <p className="text-white font-bold text-xl">R 5 / km</p>
+                      <p className="text-white font-bold text-xl">{"R 5 / km"}</p>
                       <p className="text-white/40 text-[10px] mt-1 font-bold italic uppercase">Round Trip Applied</p>
                     </div>
                   </div>
