@@ -345,8 +345,8 @@ const Hero: React.FC = () => (
       
       {/* UPDATED SEO-FRIENDLY H1 */}
       <h1 className="hero-text text-4xl md:text-6xl lg:text-7xl font-black mb-8 tracking-tighter leading-tight animate-fadeInUp delay-100 drop-shadow-[0_15px_20px_rgba(0,0,0,0.6)]">
-        Premium Mobile <br className="hidden md:block" />
-        Golf Simulator Hire <br className="hidden md:block" />
+        Mobile Golf <br className="hidden md:block" />
+        Simulator Hire <br className="hidden md:block" />
         <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold via-white to-gold animate-shimmer bg-[length:200%_auto] font-black italic drop-shadow-[0_4px_4px_rgba(0,0,0,0.2)]">
           In The Western Cape.
         </span>
@@ -354,7 +354,7 @@ const Hero: React.FC = () => (
       
       {/* UPDATED PARAGRAPH FOR LOCAL SEO */}
       <p className="text-xl md:text-2xl mb-12 font-medium tracking-wide text-white/95 max-w-3xl animate-fadeInUp delay-200 leading-relaxed drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]">
-        Experience Sim2U. Based in Somerset West, we bring the ultimate virtual golf experience, the course, and the fun directly to your next corporate event or private party.
+        Experience Sim2U. We bring the ultimate virtual golf experience, the course, and the fun directly to your next corporate event or private party.
       </p>
       
       <div className="flex flex-col md:flex-row items-center gap-6 animate-fadeInUp delay-300 w-full md:w-auto">
