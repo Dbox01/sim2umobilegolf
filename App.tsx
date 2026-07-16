@@ -343,17 +343,19 @@ const Hero: React.FC = () => (
         <span className="text-sm font-black uppercase tracking-[0.4em] text-gold">Winter Special: 25% OFF Till August</span>
       </div>
       
-      <h1 className="hero-text text-4xl md:text-7xl font-black mb-8 tracking-tighter leading-tight animate-fadeInUp delay-100 drop-shadow-[0_15px_20px_rgba(0,0,0,0.6)]">
-  Mobile Golf <br />
-  Simulator Hire <br />
-  <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold via-white to-gold animate-shimmer bg-[length:200%_auto] font-black italic drop-shadow-[0_4px_4px_rgba(0,0,0,0.2)]">
-    Delivered.
-  </span>
-</h1>
+      {/* UPDATED SEO-FRIENDLY H1 */}
+      <h1 className="hero-text text-4xl md:text-6xl lg:text-7xl font-black mb-8 tracking-tighter leading-tight animate-fadeInUp delay-100 drop-shadow-[0_15px_20px_rgba(0,0,0,0.6)]">
+        Premium Mobile <br className="hidden md:block" />
+        Golf Simulator Hire <br className="hidden md:block" />
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold via-white to-gold animate-shimmer bg-[length:200%_auto] font-black italic drop-shadow-[0_4px_4px_rgba(0,0,0,0.2)]">
+          In The Western Cape.
+        </span>
+      </h1>
       
-      <p className="text-xl md:text-3xl mb-12 font-medium tracking-wide text-white/95 max-w-2xl animate-fadeInUp delay-200 leading-snug drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]">
-  Looking for <strong>golf for hire</strong> in the Western Cape? We bring the range, the course, and the fun to your next <strong>event</strong> or <strong>party</strong>.
-</p>
+      {/* UPDATED PARAGRAPH FOR LOCAL SEO */}
+      <p className="text-xl md:text-2xl mb-12 font-medium tracking-wide text-white/95 max-w-3xl animate-fadeInUp delay-200 leading-relaxed drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]">
+        Experience Sim2U. Based in Somerset West, we bring the ultimate virtual golf experience, the course, and the fun directly to your next corporate event or private party.
+      </p>
       
       <div className="flex flex-col md:flex-row items-center gap-6 animate-fadeInUp delay-300 w-full md:w-auto">
         <a href="#pricing" className="group w-full md:w-auto bg-gold text-mountainGreen px-14 py-6 rounded-2xl text-lg font-black hover:bg-white transition-all shadow-2xl hover:shadow-gold/60 flex items-center justify-center gap-4 tracking-[0.1em] overflow-hidden relative">
