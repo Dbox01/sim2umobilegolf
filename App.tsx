@@ -785,8 +785,8 @@ const EnclosuresSection: React.FC = () => {
       image: '/social-preview.png',
       specs: { h: '3.3m', w: '4.6m', d: '5.3m' }, 
       isCustomQuote: false,
-      basePrice: 6300,
-      hourlyRate: 1400, 
+      basePrice: 6000,
+      hourlyRate: 1000, 
     },
     {
       id: 'corporate',
