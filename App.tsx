@@ -765,7 +765,7 @@ const FeatureCard: React.FC<{ icon: React.ReactNode; title: string; items: strin
 // --- NEW ENCLOSURES SECTION (Replaces old PackageCard) ---
 const EnclosuresSection: React.FC = () => {
   const [activeTab, setActiveTab] = React.useState(0);
-  const [activeDuration, setActiveDuration] = React.useState<number>(4);
+  const [activeDuration, setActiveDuration] = React.useState<number>(3); // Set default to 3 for the initial backyard tab
 
   const enclosures = [
     {
@@ -807,7 +807,13 @@ const EnclosuresSection: React.FC = () => {
       return { original: null, discounted: 'Quote' };
     }
     
-    const total = currentEnclosure.basePrice + ((activeDuration - 4) * currentEnclosure.hourlyRate);
+    let total;
+    if (currentEnclosure.id === 'backyard' && activeDuration === 3) {
+      total = 3500;
+    } else {
+      total = currentEnclosure.basePrice + ((activeDuration - 4) * currentEnclosure.hourlyRate);
+    }
+
     const discountedTotal = total * 0.75; 
     
     return {
@@ -816,7 +822,12 @@ const EnclosuresSection: React.FC = () => {
     };
   };
 
-  const durationOptions = currentEnclosure.isCustomQuote ? [4, 8] : [4, 5, 6, 7, 8];
+  const durationOptions = currentEnclosure.isCustomQuote 
+    ? [4, 8] 
+    : currentEnclosure.id === 'backyard' 
+      ? [3, 4, 5, 6, 7, 8] 
+      : [4, 5, 6, 7, 8];
+      
   const { original, discounted } = calculatePrice();
 
   return (
@@ -830,7 +841,7 @@ const EnclosuresSection: React.FC = () => {
           <h2 className="text-4xl md:text-6xl font-serif mb-6 leading-tight text-mountainGreen">Choose Your Setup.</h2>
           <div className="w-32 h-1.5 bg-gold mx-auto mb-8 rounded-full" />
           <p className="max-w-2xl text-lg md:text-xl font-light leading-relaxed text-gray-600 mx-auto">
-            Three tailored enclosures to fit your venue. Every booking requires a minimum of 4 hours to ensure the best experience.
+            Three tailored enclosures to fit your venue. Most bookings require a minimum of 4 hours, with a special 3-hour option available for backyard setups.
           </p>
         </div>
 
@@ -840,7 +851,7 @@ const EnclosuresSection: React.FC = () => {
               key={enc.id}
               onClick={() => {
                 setActiveTab(idx);
-                setActiveDuration(4); 
+                setActiveDuration(enc.id === 'backyard' ? 3 : 4); 
               }}
               className={`px-8 py-4 rounded-full font-black uppercase tracking-widest text-sm transition-all duration-300 ${
                 activeTab === idx
@@ -957,6 +968,7 @@ const EnclosuresSection: React.FC = () => {
     </section>
   );
 };
+
 // --- END NEW ENCLOSURES SECTION ---
 
 const App: React.FC = () => {
