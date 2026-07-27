@@ -775,7 +775,7 @@ const EnclosuresSection: React.FC = () => {
       image: '/Backyard Setup.png',
       specs: { h: '2.5m', w: '3.1m', d: '5.0m' }, 
       isCustomQuote: false,
-      basePrice: 4000,
+      basePrice: 4200,
       hourlyRate: 800, 
     },
     {
