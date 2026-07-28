@@ -404,7 +404,8 @@ const TESTIMONIALS = [
     quote: "What an amazing team! I can definitely vouch for them - if you want to add a truely fun adventure at your event, @Sim2U is the answer! @Medipost Pharmacy will secure your services again⛳️",
     author: "Rentia M.",
     role: "Medipost",
-    location: "Corporate Event"
+    location: "Corporate Event",
+    photo: "https://res.cloudinary.com/bo8j9vxt/image/upload/f_auto,q_auto/v1785231127/Medipost_Stand_Ladies._1_fwwzwr.jpg"
   },
   {
     quote: "I got it for my son 14th birthday, it was the best ever the boys loved it, I will highly recommend it.",
@@ -450,11 +451,6 @@ const TESTIMONIALS = [
     author: "Andre van N.",
     role: "Event Guest"
   },
-   {
-    quote: "Service was fantastic, had a blast. These guys were very professional and had a great impact on the vibe of the event. I would recommend them for any function.",
-    author: "Andre van N.",
-    role: "Event Guest"
-  },
   {
     quote: "Great product with amazing service would recommend 10/10 any day great for parties and services!",
     author: "Riaan E.",
@@ -465,7 +461,6 @@ const TESTIMONIALS = [
     author: "Twane E.",
     role: "Event Guest"
   }
-  
 ];
 
 const ExperienceSection: React.FC = () => {
@@ -671,13 +666,33 @@ const ExperienceSection: React.FC = () => {
                     </p>
                   </div>
 
-                  {/* Author Details */}
-                  <div className="mt-8 pt-6 border-t border-mountainGreen/5 flex flex-col">
-                    <span className="text-mountainGreen font-black uppercase tracking-wider text-sm">{t.author}</span>
-                    <span className="text-xs text-gray-400 font-semibold">
-                      {t.role} {t.location ? `— ${t.location}` : ''}
-                    </span>
+                  {/* --- UPDATED AUTHOR DETAILS WITH PHOTO SUPPORT --- */}
+                  <div className="mt-8 pt-6 border-t border-mountainGreen/5 flex items-center gap-4">
+                    
+                    {/* Conditionally render the photo if it exists */}
+                    {t.photo && (
+                      <div className="flex-shrink-0">
+                        <img 
+                          src={t.photo} 
+                          alt={`${t.author} profile`} 
+                          className="w-12 h-12 rounded-full object-cover border-[2px] border-gold/30 shadow-sm"
+                        />
+                      </div>
+                    )}
+
+                    {/* Author Text */}
+                    <div className="flex flex-col">
+                      <span className="text-mountainGreen font-black uppercase tracking-wider text-sm">
+                        {t.author}
+                      </span>
+                      <span className="text-xs text-gray-400 font-semibold">
+                        {t.role} {t.location ? `— ${t.location}` : ''}
+                      </span>
+                    </div>
+                    
                   </div>
+                  {/* --- END UPDATED AUTHOR DETAILS --- */}
+
                 </div>
               </div>
             ))}
