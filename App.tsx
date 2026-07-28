@@ -397,51 +397,123 @@ const EXPERIENCE_IMAGES = [
   "https://res.cloudinary.com/bo8j9vxt/image/upload/f_auto,q_auto/v1785222583/57302338-eb85-467d-af77-6f2a99d3d9a4_e6dqro.jpg"
 ];
 
+// --- Extracted Testimonials Data ---
+// Easily add or remove items here; the carousel will automatically update.
+const TESTIMONIALS = [
+  {
+    quote: "What an amazing team! I can definitely vouch for them - if you want to add a truely fun adventure at your event, @Sim2U is the answer! @Medipost Pharmacy will secure your services again⛳️",
+    author: "Rentia M.",
+    role: "Medipost",
+    location: "Corporate Event"
+  },
+  {
+    quote: "I got it for my son 14th birthday, it was the best ever the boys loved it, I will highly recommend it.",
+    author: "Marelise De B.",
+    role: "Private Host",
+    location: "14th Birthday Party"
+  },
+   {
+    quote: "Babyshower well spent! Father to be and gents had a great time! Dylan and his team were very professional and seemed almost part of the group!",
+    author: "Jaco L.",
+    role: "Private Host",
+    location: "Baby Shower"
+  },
+   {
+    quote: "I can recommend Dylan anytime, it was a awesome experience and he did everything so professionally. Do yourself a favor and book.",
+    author: "Vincent De B.",
+    role: "Private Host",
+    location: "14th Birthday Party"
+  },
+  {
+    quote: "Fabulous team ensuring our event ran seamlessly and smoothly! Definite recommendation!!",
+    author: "Donovan M.",
+    role: "Medipost",
+    location: "Corporate Event"
+  },
+  {
+    quote: "Amazing service and very friendly team! Really enjoyed what they did for us. 100% recommend.",
+    author: "Shain N.",
+    role: "Event Guest"
+  },
+  {
+    quote: "Great service , they kept it professional and fun. Setup was neat and precise had no problem with any technology would definitely recommend.",
+    author: "Arno L.",
+    role: "Event Guest"
+  },
+  {
+    quote: "Great experience. Definitely will recommend for all types of events.",
+    author: "Keano H.",
+    role: "Event Guest"
+  },
+   {
+    quote: "Service was fantastic, had a blast. These guys were very professional and had a great impact on the vibe of the event. I would recommend them for any function.",
+    author: "Andre van N.",
+    role: "Event Guest"
+  },
+   {
+    quote: "Service was fantastic, had a blast. These guys were very professional and had a great impact on the vibe of the event. I would recommend them for any function.",
+    author: "Andre van N.",
+    role: "Event Guest"
+  },
+  {
+    quote: "Great product with amazing service would recommend 10/10 any day great for parties and services!",
+    author: "Riaan E.",
+    role: "Event Guest"
+  },
+  {
+    quote: "Had a nice day and loads of fun!!",
+    author: "Twane E.",
+    role: "Event Guest"
+  }
+  
+];
+
 const ExperienceSection: React.FC = () => {
   const [currentIdx, setCurrentIdx] = useState(0);
+  const testimonialScrollRef = useRef<HTMLDivElement>(null);
 
-  // Next slide helper
+  // --- Image Slide Helpers ---
   const nextSlide = () => {
     setCurrentIdx((prev) => (prev + 1) % EXPERIENCE_IMAGES.length);
   };
 
-  // Previous slide helper
   const prevSlide = () => {
     setCurrentIdx((prev) => (prev - 1 + EXPERIENCE_IMAGES.length) % EXPERIENCE_IMAGES.length);
   };
 
-  // --- Auto-Play Timer Logic ---
+  // --- Testimonial Scroll Helper ---
+  const scrollTestimonials = (direction: 'left' | 'right') => {
+    if (testimonialScrollRef.current) {
+      const { current } = testimonialScrollRef;
+      // Scroll by the current visible width of the container
+      const scrollAmount = direction === 'left' ? -current.offsetWidth : current.offsetWidth;
+      current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
+
+  // --- Image Auto-Play Timer ---
   useEffect(() => {
     const timer = setInterval(() => {
       nextSlide();
-    }, 5000); // 5000ms = 5 seconds
-
-    // Clear the interval when the component unmounts 
-    // OR when currentIdx changes (manual clicks reset the timer)
+    }, 5000); 
     return () => clearInterval(timer);
   }, [currentIdx]);
 
-  // --- Testimonials Data ---
-  const testimonials = [
-    {
-      quote: "What an amazing team! I can definitely vouch for them - if you want to add a truely fun adventure at your event, @Sim2U is the answer! @Medipost Pharmacy will secure your services again⛳️",
-      author: "Rentia M.",
-      role: "Medipost",
-      location: "Cape Town"
-    },
-    {
-      quote: "Fabulous team ensuring our event ran seamlessly and smoothly! Definite recommendation!!",
-      author: "Donovan M.",
-      role: "Marketing Analyst",
-      location: "Cape Town"
-    },
-    {
-      quote: "Amazing experience, well prepared and ensured everyone had lots of fun!",
-      author: "Carle le R.",
-      role: "Private Host",
-      location: "Somerset West"
-    }
-  ];
+  // --- Testimonial Auto-Play Timer ---
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (testimonialScrollRef.current) {
+        const { current } = testimonialScrollRef;
+        // If scrolled to the very end, snap back to the start; otherwise, scroll right
+        if (current.scrollLeft + current.clientWidth >= current.scrollWidth - 10) {
+          current.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          current.scrollBy({ left: current.offsetWidth, behavior: 'smooth' });
+        }
+      }
+    }, 8000); // 8000ms = 8 seconds per page shift
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <section id="experience" className="py-24 lg:py-48 bg-cream relative overflow-hidden">
@@ -483,17 +555,14 @@ const ExperienceSection: React.FC = () => {
             <div className="relative z-10 group">
               <div className="relative rounded-[50px] overflow-hidden border-[1px] border-mountainGreen/5 p-4 bg-white shadow-[0_50px_100px_-20px_rgba(33,54,49,0.15)] transition-all duration-700 group-hover:shadow-[0_60px_120px_-20px_rgba(33,54,49,0.25)]">
                 
-                {/* Fixed height aspect ratio container to prevent layout shifts */}
+                {/* Fixed height aspect ratio container */}
                 <div className="rounded-[40px] overflow-hidden aspect-video lg:aspect-[4/3] relative bg-gray-100">
                   
-                  {/* Optimized Mapped Images for lazy loading + smooth fading */}
+                  {/* Optimized Mapped Images */}
                   {EXPERIENCE_IMAGES.map((src, idx) => {
                     const isCurrent = idx === currentIdx;
-                    // Calculate if this image is the next or previous one in the loop
                     const isNext = idx === (currentIdx + 1) % EXPERIENCE_IMAGES.length;
                     const isPrev = idx === (currentIdx - 1 + EXPERIENCE_IMAGES.length) % EXPERIENCE_IMAGES.length;
-                    
-                    // Only load the image if it's currently visible, or up next in either direction
                     const shouldLoad = isCurrent || isNext || isPrev;
 
                     return (
@@ -545,39 +614,74 @@ const ExperienceSection: React.FC = () => {
               <div className="absolute -top-12 -left-12 w-64 h-64 bg-gold/5 rounded-full blur-3xl -z-20"></div>
             </div>
           </div>
-
         </div>
 
-        {/* Testimonials Grid Replacing Feature Blocks */}
-        <div className="grid md:grid-cols-3 gap-8 lg:gap-12 mb-24">
-          {testimonials.map((t, idx) => (
-            <div 
-              key={idx} 
-              className="relative flex flex-col justify-between p-10 bg-white rounded-[32px] border border-mountainGreen/[0.03] shadow-[0_15px_30px_-10px_rgba(33,54,49,0.03)] hover:shadow-[0_30px_60px_-15px_rgba(197,160,89,0.1)] transition-all duration-500 hover:-translate-y-2"
-            >
-              {/* Huge stylized quote mark */}
-              <span className="absolute top-4 left-6 text-8xl font-serif text-gold/15 select-none pointer-events-none">“</span>
-              
-              <div className="relative z-10 space-y-6">
-                {/* 5 Stars */}
-                <div className="flex gap-1">
-                  {[...Array(5)].map((_, i) => (
-                    <span key={i} className="text-gold text-lg">★</span>
-                  ))}
-                </div>
-                
-                <p className="text-gray-600 italic text-base leading-relaxed font-medium">
-                  "{t.quote}"
-                </p>
-              </div>
-
-              {/* Author Details */}
-              <div className="mt-8 pt-6 border-t border-mountainGreen/5 flex flex-col">
-                <span className="text-mountainGreen font-black uppercase tracking-wider text-sm">{t.author}</span>
-                <span className="text-xs text-gray-400 font-semibold">{t.role} — {t.location}</span>
-              </div>
+        {/* Testimonials Carousel Section */}
+        <div className="relative mb-24 group">
+          
+          {/* Testimonial Header & Controls */}
+          <div className="flex justify-between items-end mb-8 px-2">
+            <h3 className="text-3xl font-serif text-mountainGreen">What our clients say</h3>
+            <div className="flex gap-3">
+              <button 
+                onClick={() => scrollTestimonials('left')} 
+                className="bg-white hover:bg-gold text-mountainGreen p-3 rounded-full shadow-sm hover:shadow-md transition-all border border-mountainGreen/5 hover:text-white"
+                aria-label="Previous Testimonial"
+              >
+                <ChevronLeft size={20} />
+              </button>
+              <button 
+                onClick={() => scrollTestimonials('right')} 
+                className="bg-white hover:bg-gold text-mountainGreen p-3 rounded-full shadow-sm hover:shadow-md transition-all border border-mountainGreen/5 hover:text-white"
+                aria-label="Next Testimonial"
+              >
+                <ChevronRight size={20} />
+              </button>
             </div>
-          ))}
+          </div>
+
+          {/* Scrollable Flex Container */}
+          <div 
+            ref={testimonialScrollRef}
+            // Tailwind CSS scroll snap combined with utility classes to hide scrollbars cleanly
+            className="flex overflow-x-auto snap-x snap-mandatory gap-8 lg:gap-12 pb-8 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+          >
+            {TESTIMONIALS.map((t, idx) => (
+              <div 
+                key={idx} 
+                // Width math handles responsive layout: 1 item (mobile), 2 items (tablet), 3 items (desktop)
+                className="w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-2rem)] flex-shrink-0 snap-start"
+              >
+                {/* H-full ensures all cards match heights within the flex grid */}
+                <div className="relative h-full flex flex-col justify-between p-10 bg-white rounded-[32px] border border-mountainGreen/[0.03] shadow-[0_15px_30px_-10px_rgba(33,54,49,0.03)] hover:shadow-[0_30px_60px_-15px_rgba(197,160,89,0.1)] transition-all duration-500 hover:-translate-y-2">
+                  
+                  {/* Huge stylized quote mark */}
+                  <span className="absolute top-4 left-6 text-8xl font-serif text-gold/15 select-none pointer-events-none">“</span>
+                  
+                  <div className="relative z-10 space-y-6">
+                    {/* 5 Stars */}
+                    <div className="flex gap-1">
+                      {[...Array(5)].map((_, i) => (
+                        <span key={i} className="text-gold text-lg">★</span>
+                      ))}
+                    </div>
+                    
+                    <p className="text-gray-600 italic text-base leading-relaxed font-medium">
+                      "{t.quote}"
+                    </p>
+                  </div>
+
+                  {/* Author Details */}
+                  <div className="mt-8 pt-6 border-t border-mountainGreen/5 flex flex-col">
+                    <span className="text-mountainGreen font-black uppercase tracking-wider text-sm">{t.author}</span>
+                    <span className="text-xs text-gray-400 font-semibold">
+                      {t.role} {t.location ? `— ${t.location}` : ''}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* CTA Button */}
@@ -592,7 +696,6 @@ const ExperienceSection: React.FC = () => {
     </section>
   );
 };
-
 
 const OccasionsSection: React.FC = () => {
   const occasions: Occasion[] = [
