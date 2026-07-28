@@ -397,7 +397,6 @@ const EXPERIENCE_IMAGES = [
   "https://res.cloudinary.com/bo8j9vxt/image/upload/f_auto,q_auto/v1785222583/57302338-eb85-467d-af77-6f2a99d3d9a4_e6dqro.jpg"
 ];
 
-// --- Extracted Testimonials Data ---
 const TESTIMONIALS = [
   {
     quote: "What an amazing team! I can definitely vouch for them - if you want to add a truely fun adventure at your event, @Sim2U is the answer! @Medipost Pharmacy will secure your services again⛳️",
@@ -620,18 +619,19 @@ const ExperienceSection: React.FC = () => {
 
           <div 
             ref={testimonialScrollRef}
-            className="flex overflow-x-auto snap-x snap-mandatory gap-8 lg:gap-12 pb-8 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] items-stretch"
+            // CHANGED: "items-stretch" to "items-start" prevents the cards from stretching to match the height of the tallest sibling
+            className="flex overflow-x-auto snap-x snap-mandatory gap-8 lg:gap-12 pb-8 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] items-start"
           >
             {TESTIMONIALS.map((t, idx) => (
               <div 
                 key={idx} 
-                className="w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-2rem)] flex-shrink-0 snap-start h-auto flex"
+                className="w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-2rem)] flex-shrink-0 snap-start"
               >
-                <div className="relative w-full flex flex-col justify-between p-10 bg-white rounded-[32px] border border-mountainGreen/[0.03] shadow-[0_15px_30px_-10px_rgba(33,54,49,0.03)] hover:shadow-[0_30px_60px_-15px_rgba(197,160,89,0.1)] transition-all duration-500 hover:-translate-y-2">
+                <div className="relative w-full flex flex-col p-10 bg-white rounded-[32px] border border-mountainGreen/[0.03] shadow-[0_15px_30px_-10px_rgba(33,54,49,0.03)] hover:shadow-[0_30px_60px_-15px_rgba(197,160,89,0.1)] transition-all duration-500 hover:-translate-y-2">
                   
                   <span className="absolute top-4 left-6 text-8xl font-serif text-gold/15 select-none pointer-events-none">“</span>
                   
-                  <div className="relative z-10 flex flex-col flex-grow">
+                  <div className="relative z-10 flex flex-col">
                     <div className="flex gap-1 mb-6">
                       {[...Array(5)].map((_, i) => (
                         <span key={i} className="text-gold text-lg">★</span>
@@ -644,7 +644,7 @@ const ExperienceSection: React.FC = () => {
 
                     {/* Prominent Image Under the Quote */}
                     {t.photo && (
-                      <div className="w-full mt-auto mb-6 rounded-2xl overflow-hidden border border-mountainGreen/5 shadow-sm group/photo">
+                      <div className="w-full mb-6 rounded-2xl overflow-hidden border border-mountainGreen/5 shadow-sm group/photo">
                         <img 
                           src={t.photo} 
                           alt={`${t.author}'s event`} 
@@ -654,8 +654,8 @@ const ExperienceSection: React.FC = () => {
                     )}
                   </div>
 
-                  {/* Author Details (No Avatar) */}
-                  <div className={`pt-6 border-t border-mountainGreen/5 flex flex-col ${!t.photo ? 'mt-auto' : ''}`}>
+                  {/* Author Details */}
+                  <div className="pt-6 border-t border-mountainGreen/5 flex flex-col">
                     <span className="text-mountainGreen font-black uppercase tracking-wider text-sm">
                       {t.author}
                     </span>
