@@ -398,7 +398,6 @@ const EXPERIENCE_IMAGES = [
 ];
 
 // --- Extracted Testimonials Data ---
-// Easily add or remove items here; the carousel will automatically update.
 const TESTIMONIALS = [
   {
     quote: "What an amazing team! I can definitely vouch for them - if you want to add a truely fun adventure at your event, @Sim2U is the answer! @Medipost Pharmacy will secure your services again⛳️",
@@ -467,7 +466,6 @@ const ExperienceSection: React.FC = () => {
   const [currentIdx, setCurrentIdx] = useState(0);
   const testimonialScrollRef = useRef<HTMLDivElement>(null);
 
-  // --- Image Slide Helpers ---
   const nextSlide = () => {
     setCurrentIdx((prev) => (prev + 1) % EXPERIENCE_IMAGES.length);
   };
@@ -476,17 +474,14 @@ const ExperienceSection: React.FC = () => {
     setCurrentIdx((prev) => (prev - 1 + EXPERIENCE_IMAGES.length) % EXPERIENCE_IMAGES.length);
   };
 
-  // --- Testimonial Scroll Helper ---
   const scrollTestimonials = (direction: 'left' | 'right') => {
     if (testimonialScrollRef.current) {
       const { current } = testimonialScrollRef;
-      // Scroll by the current visible width of the container
       const scrollAmount = direction === 'left' ? -current.offsetWidth : current.offsetWidth;
       current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
   };
 
-  // --- Image Auto-Play Timer ---
   useEffect(() => {
     const timer = setInterval(() => {
       nextSlide();
@@ -494,34 +489,29 @@ const ExperienceSection: React.FC = () => {
     return () => clearInterval(timer);
   }, [currentIdx]);
 
-  // --- Testimonial Auto-Play Timer ---
   useEffect(() => {
     const timer = setInterval(() => {
       if (testimonialScrollRef.current) {
         const { current } = testimonialScrollRef;
-        // If scrolled to the very end, snap back to the start; otherwise, scroll right
         if (current.scrollLeft + current.clientWidth >= current.scrollWidth - 10) {
           current.scrollTo({ left: 0, behavior: 'smooth' });
         } else {
           current.scrollBy({ left: current.offsetWidth, behavior: 'smooth' });
         }
       }
-    }, 8000); // 8000ms = 8 seconds per page shift
+    }, 8000); 
     return () => clearInterval(timer);
   }, []);
 
   return (
     <section id="experience" className="py-24 lg:py-48 bg-cream relative overflow-hidden">
-      {/* Subtle Premium Background Texture */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(#213631_1px,transparent_1px)] [background-size:40px_40px]"></div>
       </div>
 
       <div className="container mx-auto px-6 max-w-7xl relative z-10">
-        {/* Premium Header Layout */}
         <div className="flex flex-col lg:flex-row gap-20 lg:gap-24 items-start lg:items-center mb-24">
           
-          {/* Left Column: Narrative Copy */}
           <div className="lg:w-[42%] space-y-8 order-2 lg:order-1">
             <div className="space-y-4">
               <div className="flex items-center gap-4">
@@ -545,15 +535,12 @@ const ExperienceSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column: Carousel Image Showcase */}
           <div className="lg:w-[58%] relative order-1 lg:order-2 w-full">
             <div className="relative z-10 group">
               <div className="relative rounded-[50px] overflow-hidden border-[1px] border-mountainGreen/5 p-4 bg-white shadow-[0_50px_100px_-20px_rgba(33,54,49,0.15)] transition-all duration-700 group-hover:shadow-[0_60px_120px_-20px_rgba(33,54,49,0.25)]">
                 
-                {/* Fixed height aspect ratio container */}
                 <div className="rounded-[40px] overflow-hidden aspect-video lg:aspect-[4/3] relative bg-gray-100">
                   
-                  {/* Optimized Mapped Images */}
                   {EXPERIENCE_IMAGES.map((src, idx) => {
                     const isCurrent = idx === currentIdx;
                     const isNext = idx === (currentIdx + 1) % EXPERIENCE_IMAGES.length;
@@ -570,7 +557,6 @@ const ExperienceSection: React.FC = () => {
                     );
                   })}
 
-                  {/* Navigation Arrows */}
                   <button 
                     onClick={prevSlide}
                     className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-mountainGreen p-3 rounded-full shadow-lg transition-all hover:scale-110 z-20"
@@ -587,7 +573,6 @@ const ExperienceSection: React.FC = () => {
                     <ChevronRight size={22} />
                   </button>
 
-                  {/* Dot Indicators */}
                   <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2.5 z-20 flex-wrap justify-center w-[90%]">
                     {EXPERIENCE_IMAGES.map((_, idx) => (
                       <button
@@ -604,7 +589,6 @@ const ExperienceSection: React.FC = () => {
                 </div>
               </div>
               
-              {/* Decorative Frame Accents */}
               <div className="absolute -inset-6 border-[1px] border-gold/20 rounded-[60px] -z-10 group-hover:scale-[1.02] transition-transform duration-700"></div>
               <div className="absolute -top-12 -left-12 w-64 h-64 bg-gold/5 rounded-full blur-3xl -z-20"></div>
             </div>
@@ -614,7 +598,6 @@ const ExperienceSection: React.FC = () => {
         {/* Testimonials Carousel Section */}
         <div className="relative mb-24 group">
           
-          {/* Testimonial Header & Controls */}
           <div className="flex justify-between items-end mb-8 px-2">
             <h3 className="text-3xl font-serif text-mountainGreen">What our clients say</h3>
             <div className="flex gap-3">
@@ -635,63 +618,51 @@ const ExperienceSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Scrollable Flex Container */}
           <div 
             ref={testimonialScrollRef}
-            // Tailwind CSS scroll snap combined with utility classes to hide scrollbars cleanly
-            className="flex overflow-x-auto snap-x snap-mandatory gap-8 lg:gap-12 pb-8 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+            className="flex overflow-x-auto snap-x snap-mandatory gap-8 lg:gap-12 pb-8 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] items-stretch"
           >
             {TESTIMONIALS.map((t, idx) => (
               <div 
                 key={idx} 
-                // Width math handles responsive layout: 1 item (mobile), 2 items (tablet), 3 items (desktop)
-                className="w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-2rem)] flex-shrink-0 snap-start"
+                className="w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-2rem)] flex-shrink-0 snap-start h-auto flex"
               >
-                {/* H-full ensures all cards match heights within the flex grid */}
-                <div className="relative h-full flex flex-col justify-between p-10 bg-white rounded-[32px] border border-mountainGreen/[0.03] shadow-[0_15px_30px_-10px_rgba(33,54,49,0.03)] hover:shadow-[0_30px_60px_-15px_rgba(197,160,89,0.1)] transition-all duration-500 hover:-translate-y-2">
+                <div className="relative w-full flex flex-col justify-between p-10 bg-white rounded-[32px] border border-mountainGreen/[0.03] shadow-[0_15px_30px_-10px_rgba(33,54,49,0.03)] hover:shadow-[0_30px_60px_-15px_rgba(197,160,89,0.1)] transition-all duration-500 hover:-translate-y-2">
                   
-                  {/* Huge stylized quote mark */}
                   <span className="absolute top-4 left-6 text-8xl font-serif text-gold/15 select-none pointer-events-none">“</span>
                   
-                  <div className="relative z-10 space-y-6">
-                    {/* 5 Stars */}
-                    <div className="flex gap-1">
+                  <div className="relative z-10 flex flex-col flex-grow">
+                    <div className="flex gap-1 mb-6">
                       {[...Array(5)].map((_, i) => (
                         <span key={i} className="text-gold text-lg">★</span>
                       ))}
                     </div>
                     
-                    <p className="text-gray-600 italic text-base leading-relaxed font-medium">
+                    <p className="text-gray-600 italic text-base leading-relaxed font-medium mb-6">
                       "{t.quote}"
                     </p>
-                  </div>
 
-                  {/* --- UPDATED AUTHOR DETAILS WITH PHOTO SUPPORT --- */}
-                  <div className="mt-8 pt-6 border-t border-mountainGreen/5 flex items-center gap-4">
-                    
-                    {/* Conditionally render the photo if it exists */}
+                    {/* Prominent Image Under the Quote */}
                     {t.photo && (
-                      <div className="flex-shrink-0">
+                      <div className="w-full mt-auto mb-6 rounded-2xl overflow-hidden border border-mountainGreen/5 shadow-sm group/photo">
                         <img 
                           src={t.photo} 
-                          alt={`${t.author} profile`} 
-                          className="w-12 h-12 rounded-full object-cover border-[2px] border-gold/30 shadow-sm"
+                          alt={`${t.author}'s event`} 
+                          className="w-full h-48 md:h-56 object-cover transform group-hover/photo:scale-105 transition-transform duration-700 ease-out"
                         />
                       </div>
                     )}
-
-                    {/* Author Text */}
-                    <div className="flex flex-col">
-                      <span className="text-mountainGreen font-black uppercase tracking-wider text-sm">
-                        {t.author}
-                      </span>
-                      <span className="text-xs text-gray-400 font-semibold">
-                        {t.role} {t.location ? `— ${t.location}` : ''}
-                      </span>
-                    </div>
-                    
                   </div>
-                  {/* --- END UPDATED AUTHOR DETAILS --- */}
+
+                  {/* Author Details (No Avatar) */}
+                  <div className={`pt-6 border-t border-mountainGreen/5 flex flex-col ${!t.photo ? 'mt-auto' : ''}`}>
+                    <span className="text-mountainGreen font-black uppercase tracking-wider text-sm">
+                      {t.author}
+                    </span>
+                    <span className="text-xs text-gray-400 font-semibold mt-1">
+                      {t.role} {t.location ? `— ${t.location}` : ''}
+                    </span>
+                  </div>
 
                 </div>
               </div>
@@ -699,7 +670,6 @@ const ExperienceSection: React.FC = () => {
           </div>
         </div>
 
-        {/* CTA Button */}
         <div className="flex justify-center mt-16">
           <a href="#contact" className="group relative inline-flex items-center justify-center gap-6 bg-mountainGreen text-white px-16 py-7 rounded-[28px] font-black uppercase tracking-[0.25em] text-sm hover:bg-gold hover:text-mountainGreen transition-all shadow-[0_30px_60px_-15px_rgba(33,54,49,0.3)] hover:scale-105 active:scale-95">
             Get a Quote
