@@ -76,11 +76,6 @@ const WHATSAPP_URL = "https://wa.me/27833182565";
 const LOGO_URL = "https://lh3.googleusercontent.com/d/1eXL8Q1M62yc2ztffpDIsa0hvm1_cONml";
 const PRODUCT_IMAGE_URL = "https://lh3.googleusercontent.com/d/1mHvfuuuVpt7biH8nTiQ0DbMMjvoAjz3W";
 
-// ⛳️ DEFINE YOUR CAROUSEL IMAGES HERE:
-const EXPERIENCE_IMAGES = [
-  "/social-preview.png"
-];
-
 // --- AI Concierge Component ---
 
 const AiConcierge: React.FC = () => {
