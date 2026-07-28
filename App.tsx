@@ -518,18 +518,18 @@ const ExperienceSection: React.FC = () => {
                 <span className="text-gold font-black uppercase tracking-[0.6em] text-[11px]">THE EXPERIENCE</span>
               </div>
               <h2 className="text-5xl md:text-6xl font-serif text-mountainGreen leading-[1.1] tracking-tighter">
-                The fairway, <br/>
+                Golf, <br/>
                 <span className="text-gold italic font-light">on your doorstep.</span>
               </h2>
               <p className="text-mountainGreen font-bold text-lg md:text-xl leading-snug tracking-tight max-w-md">
-                Experience elite-level virtual fairways delivered directly to your venue, winery, or private event across the Western Cape.
+                Experience virtual golf delivered directly to your venue, or private event across the Western Cape.
               </p>
             </div>
             
             <div className="relative">
               <div className="absolute -left-6 top-0 bottom-0 w-1 bg-gold/20 rounded-full"></div>
               <p className="text-mountainGreen/80 text-lg md:text-xl leading-relaxed font-medium pl-4">
-                Hire one of our private golf bays and play full courses, skill challenges, and longest-drive battles with real ball feedback. Powered by the Rapsodo MLM2PRO and Awesome Golf, every shot feels smooth, accurate, and fun — whether you’re a low handicapper or picking up a club for the first time. We arrive, set up fast, run the experience, and keep your guests rotating through effortlessly.
+                Hire a private golf bay and play full courses, skill challenges, and longest-drive battles. Powered by Rapsodo MLM2PRO and Awesome Golf, every shot is accurate and fun for all skill levels. We handle the setup and run the experience, keeping your guests rotating effortlessly.
               </p>
             </div>
           </div>
@@ -786,13 +786,13 @@ const ProcessSection: React.FC = () => (
               { 
                 step: "01", 
                 title: "You Book It", 
-                desc: "Choose your package and secure your date through our online concierge, phone call, or WhatsApp message.",
+                desc: "Choose your package and secure your date through an email, phone call, or WhatsApp message.",
                 icon: <ClipboardCheck size={24} />
               },
               { 
                 step: "02", 
-                title: "We Deliver & Setup", 
-                desc: "Our professional 'caddies' arrive at your venue to deploy the full simulator suite.",
+                title: "We Deliver, Setup & RUN the Event", 
+                desc: "Our professional 'caddies' arrive at your venue to setup and run the enitre day.",
                 icon: <Truck size={24} />
               },
               { 
