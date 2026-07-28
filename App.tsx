@@ -379,6 +379,29 @@ const Hero: React.FC = () => (
   </header>
 );
 
+
+const EXPERIENCE_IMAGES = [
+  "https://res.cloudinary.com/bo8j9vxt/image/upload/f_auto,q_auto/v1785222588/IMG_7758_vlrusn.jpg",
+  "https://res.cloudinary.com/bo8j9vxt/image/upload/f_auto,q_auto/v1785222584/20260516_134338_z0tkiu.jpg",
+  "https://res.cloudinary.com/bo8j9vxt/image/upload/f_auto,q_auto/v1785222587/20260725_134627_kce6ve.jpg",
+  "https://res.cloudinary.com/bo8j9vxt/image/upload/f_auto,q_auto/v1785222588/IMG_7660_ghaaja.jpg",
+  "https://res.cloudinary.com/bo8j9vxt/image/upload/f_auto,q_auto/v1785222590/04d620e0-bfa9-4eda-b973-6be047204a2a_bfm54u.jpg",
+  "https://res.cloudinary.com/bo8j9vxt/image/upload/f_auto,q_auto/v1785222593/StandDuringEvent_4_drdmsy.jpg",
+  "https://res.cloudinary.com/bo8j9vxt/image/upload/f_auto,q_auto/v1785222598/GolfSwing_5_elkcim.jpg",
+  "https://res.cloudinary.com/bo8j9vxt/image/upload/f_auto,q_auto/v1785222589/IMG_7735_nt2s0x.heic",
+  "https://res.cloudinary.com/bo8j9vxt/image/upload/f_auto,q_auto/v1785222588/IMG-20260420-WA0006_rf4bnz.jpg",
+  "https://res.cloudinary.com/bo8j9vxt/image/upload/f_auto,q_auto/v1785222586/20260516_134653_fgqave.jpg",
+  "https://res.cloudinary.com/bo8j9vxt/image/upload/f_auto,q_auto/v1785222582/99c19f3d-cfe6-4642-8c51-c0d674d6c1a9_hnby1c.jpg",
+  "https://res.cloudinary.com/bo8j9vxt/image/upload/f_auto,q_auto/v1785222584/IMG_0174_ieuzas.jpg",
+  "https://res.cloudinary.com/bo8j9vxt/image/upload/f_auto,q_auto/v1785222588/IMG_7757_hnz0nx.jpg",
+  "https://res.cloudinary.com/bo8j9vxt/image/upload/f_auto,q_auto/v1785222586/IMG_7581_hyo7n4.jpg",
+  "https://res.cloudinary.com/bo8j9vxt/image/upload/f_auto,q_auto/v1785222589/Stand_9_aozx7t.jpg",
+  "https://res.cloudinary.com/bo8j9vxt/image/upload/f_auto,q_auto/v1785222591/14bc34d1-eb70-4c95-8f87-3ea98b35621c_thwydl.jpg",
+  "https://res.cloudinary.com/bo8j9vxt/image/upload/f_auto,q_auto/v1785222587/IMG_7648_mzejac.jpg",
+  "https://res.cloudinary.com/bo8j9vxt/image/upload/f_auto,q_auto/v1785222591/Stand_8_vel0b3.jpg",
+  "https://res.cloudinary.com/bo8j9vxt/image/upload/f_auto,q_auto/v1785222583/57302338-eb85-467d-af77-6f2a99d3d9a4_e6dqro.jpg"
+];
+
 const ExperienceSection: React.FC = () => {
   const [currentIdx, setCurrentIdx] = useState(0);
 
@@ -464,14 +487,29 @@ const ExperienceSection: React.FC = () => {
           <div className="lg:w-[58%] relative order-1 lg:order-2 w-full">
             <div className="relative z-10 group">
               <div className="relative rounded-[50px] overflow-hidden border-[1px] border-mountainGreen/5 p-4 bg-white shadow-[0_50px_100px_-20px_rgba(33,54,49,0.15)] transition-all duration-700 group-hover:shadow-[0_60px_120px_-20px_rgba(33,54,49,0.25)]">
-                <div className="rounded-[40px] overflow-hidden aspect-video lg:aspect-[4/3] relative">
+                
+                {/* Fixed height aspect ratio container to prevent layout shifts */}
+                <div className="rounded-[40px] overflow-hidden aspect-video lg:aspect-[4/3] relative bg-gray-100">
                   
-                  {/* Image Display with smooth transition */}
-                  <img 
-                    src={EXPERIENCE_IMAGES[currentIdx]} 
-                    alt={`Sim2U Setup Gallery ${currentIdx + 1}`} 
-                    className="w-full h-full object-cover transition-all duration-750 ease-in-out"
-                  />
+                  {/* Optimized Mapped Images for lazy loading + smooth fading */}
+                  {EXPERIENCE_IMAGES.map((src, idx) => {
+                    const isCurrent = idx === currentIdx;
+                    // Calculate if this image is the next or previous one in the loop
+                    const isNext = idx === (currentIdx + 1) % EXPERIENCE_IMAGES.length;
+                    const isPrev = idx === (currentIdx - 1 + EXPERIENCE_IMAGES.length) % EXPERIENCE_IMAGES.length;
+                    
+                    // Only load the image if it's currently visible, or up next in either direction
+                    const shouldLoad = isCurrent || isNext || isPrev;
+
+                    return (
+                      <img 
+                        key={idx}
+                        src={shouldLoad ? src : undefined} 
+                        alt={`Sim2U Setup Gallery ${idx + 1}`} 
+                        className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-750 ease-in-out ${isCurrent ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+                      />
+                    );
+                  })}
 
                   {/* Navigation Arrows */}
                   <button 
@@ -491,7 +529,7 @@ const ExperienceSection: React.FC = () => {
                   </button>
 
                   {/* Dot Indicators */}
-                  <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2.5 z-20">
+                  <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2.5 z-20 flex-wrap justify-center w-[90%]">
                     {EXPERIENCE_IMAGES.map((_, idx) => (
                       <button
                         key={idx}
@@ -559,6 +597,8 @@ const ExperienceSection: React.FC = () => {
     </section>
   );
 };
+
+
 const OccasionsSection: React.FC = () => {
   const occasions: Occasion[] = [
     {
