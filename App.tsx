@@ -619,7 +619,6 @@ const ExperienceSection: React.FC = () => {
 
           <div 
             ref={testimonialScrollRef}
-            // CHANGED: "items-stretch" to "items-start" prevents the cards from stretching to match the height of the tallest sibling
             className="flex overflow-x-auto snap-x snap-mandatory gap-8 lg:gap-12 pb-8 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] items-start"
           >
             {TESTIMONIALS.map((t, idx) => (
@@ -627,7 +626,13 @@ const ExperienceSection: React.FC = () => {
                 key={idx} 
                 className="w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-2rem)] flex-shrink-0 snap-start"
               >
-                <div className="relative w-full flex flex-col p-10 bg-white rounded-[32px] border border-mountainGreen/[0.03] shadow-[0_15px_30px_-10px_rgba(33,54,49,0.03)] hover:shadow-[0_30px_60px_-15px_rgba(197,160,89,0.1)] transition-all duration-500 hover:-translate-y-2">
+                {/* 
+                  Standardized Heights: 
+                  - h-[600px] if there is a photo 
+                  - h-[380px] if there is NO photo 
+                  - flex-col + justify-between keeps elements perfectly anchored to top and bottom 
+                */}
+                <div className={`relative w-full flex flex-col justify-between p-10 bg-white rounded-[32px] border border-mountainGreen/[0.03] shadow-[0_15px_30px_-10px_rgba(33,54,49,0.03)] hover:shadow-[0_30px_60px_-15px_rgba(197,160,89,0.1)] transition-all duration-500 hover:-translate-y-2 ${t.photo ? 'h-[600px]' : 'h-[380px]'}`}>
                   
                   <span className="absolute top-4 left-6 text-8xl font-serif text-gold/15 select-none pointer-events-none">“</span>
                   
@@ -644,18 +649,18 @@ const ExperienceSection: React.FC = () => {
 
                     {/* Prominent Image Under the Quote */}
                     {t.photo && (
-                      <div className="w-full mb-6 rounded-2xl overflow-hidden border border-mountainGreen/5 shadow-sm group/photo">
+                      <div className="w-full mb-6 rounded-2xl overflow-hidden border border-mountainGreen/5 shadow-sm group/photo h-48 flex-shrink-0">
                         <img 
                           src={t.photo} 
                           alt={`${t.author}'s event`} 
-                          className="w-full h-48 md:h-56 object-cover transform group-hover/photo:scale-105 transition-transform duration-700 ease-out"
+                          className="w-full h-full object-cover transform group-hover/photo:scale-105 transition-transform duration-700 ease-out"
                         />
                       </div>
                     )}
                   </div>
 
-                  {/* Author Details */}
-                  <div className="pt-6 border-t border-mountainGreen/5 flex flex-col">
+                  {/* Author Details - Anchored to the bottom via justify-between */}
+                  <div className="pt-6 border-t border-mountainGreen/5 flex flex-col mt-auto">
                     <span className="text-mountainGreen font-black uppercase tracking-wider text-sm">
                       {t.author}
                     </span>
