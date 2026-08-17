@@ -1267,7 +1267,7 @@ const App: React.FC = () => {
           />
         </div>
         <div className="container mx-auto px-6 relative z-10">
-          <SectionHeading title="Check Availability" dark subtitle="Western Cape dates fill up quickly. Secure your slot for your next premium event now." />
+          <SectionHeading title="Check Availability" dark subtitle="Contact Dylan at" />
           <div className="max-w-6xl mx-auto grid lg:grid-cols-5 gap-16">
             <div className="lg:col-span-2 space-y-12">
               <div className="space-y-10">
