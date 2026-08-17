@@ -1102,6 +1102,47 @@ const EnclosuresSection: React.FC = () => {
 const App: React.FC = () => {
   const [enclosureType, setEnclosureType] = useState('Backyard Budget');
 
+  // --- NEW: Form handling state ---
+  const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  // --- NEW: Form submission handler ---
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setFormStatus('submitting');
+    setErrorMessage('');
+
+    const form = e.currentTarget;
+    const data = new FormData(form);
+
+    try {
+      const response = await fetch(form.action, {
+        method: form.method,
+        body: data,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        setFormStatus('success');
+        form.reset(); // Clear the form on success
+      } else {
+        const result = await response.json();
+        if (Object.hasOwn(result, 'errors')) {
+          // Formspree validation errors
+          setErrorMessage(result.errors.map((error: any) => error.message).join(', '));
+        } else {
+          setErrorMessage('Oops! There was a problem submitting your form.');
+        }
+        setFormStatus('error');
+      }
+    } catch (error) {
+      setErrorMessage('Network error. Please check your connection and try again.');
+      setFormStatus('error');
+    }
+  };
+
   return (
     <div className="bg-cream selection:bg-gold selection:text-mountainGreen overflow-x-hidden pt-10 md:pt-6">
       <Nav />
@@ -1179,7 +1220,7 @@ const App: React.FC = () => {
         </div>
       </section>
 
-{/* Pricing Section */}
+      {/* Pricing Section */}
       <EnclosuresSection />
 
       {/* Logistics & Safety Section (Unified Wrapper) */}
@@ -1257,7 +1298,7 @@ const App: React.FC = () => {
         </div>
       </section>
 
-{/* Contact Section */}
+      {/* Contact Section */}
       <section id="contact" className="relative py-32 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
@@ -1310,30 +1351,48 @@ const App: React.FC = () => {
             </div>
             
             <div className="lg:col-span-3">
-              <form action="https://formspree.io/f/mwvoapnp" method="POST" className="bg-white p-12 md:p-16 rounded-[60px] space-y-6 shadow-2xl relative overflow-hidden group">
+              {/* --- UPDATED: Form now uses onSubmit and displays status messages --- */}
+              <form onSubmit={handleFormSubmit} action="https://formspree.io/f/mwvoapnp" method="POST" className="bg-white p-12 md:p-16 rounded-[60px] space-y-6 shadow-2xl relative overflow-hidden group">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-mountainGreen/5 rounded-full -mr-16 -mt-16 blur-3xl transition-all duration-500 group-hover:bg-gold/10"></div>
-                <div className="grid md:grid-cols-2 gap-6">
+                
+                {/* --- NEW: Success Message --- */}
+                {formStatus === 'success' && (
+                  <div className="bg-[#25D366]/10 border border-[#25D366]/30 text-mountainGreen p-4 rounded-2xl mb-6 relative z-10">
+                    <p className="font-bold text-lg">Quote Request Sent!</p>
+                    <p className="text-sm">We'll get back to you shortly.</p>
+                  </div>
+                )}
+
+                {/* --- NEW: Error Message --- */}
+                {formStatus === 'error' && (
+                  <div className="bg-red-50 border border-red-200 text-red-800 p-4 rounded-2xl mb-6 relative z-10">
+                    <p className="font-bold text-lg">Failed to send</p>
+                    <p className="text-sm">{errorMessage}</p>
+                  </div>
+                )}
+
+                <div className="grid md:grid-cols-2 gap-6 relative z-10">
                   <div className="space-y-2">
                     <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-4">Full Name</label>
-                   <input type="text" name="name" placeholder="John Player" className="w-full bg-cream border-2 border-transparent focus:border-gold/30 p-5 rounded-2xl focus:ring-0 outline-none transition-all placeholder:text-gray-300" />
+                    <input type="text" name="name" required placeholder="John Player" className="w-full bg-cream border-2 border-transparent focus:border-gold/30 p-5 rounded-2xl focus:ring-0 outline-none transition-all placeholder:text-gray-300" />
                   </div>
                   <div className="space-y-2">
                     <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-4">Email</label>
-                    <input type="email" name="email" placeholder="john@events.co.za" className="w-full bg-cream border-2 border-transparent focus:border-gold/30 p-5 rounded-2xl focus:ring-0 outline-none transition-all placeholder:text-gray-300" />
+                    <input type="email" name="email" required placeholder="john@events.co.za" className="w-full bg-cream border-2 border-transparent focus:border-gold/30 p-5 rounded-2xl focus:ring-0 outline-none transition-all placeholder:text-gray-300" />
                   </div>
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-2 relative z-10">
                   <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-4">Phone Number</label>
-                  <input type="tel" name="phone" placeholder="082 123 4567" className="w-full bg-cream border-2 border-transparent focus:border-gold/30 p-5 rounded-2xl focus:ring-0 outline-none transition-all placeholder:text-gray-300" />
+                  <input type="tel" name="phone" required placeholder="082 123 4567" className="w-full bg-cream border-2 border-transparent focus:border-gold/30 p-5 rounded-2xl focus:ring-0 outline-none transition-all placeholder:text-gray-300" />
                 </div>
                 
-                <div className="space-y-2">
+                <div className="space-y-2 relative z-10">
                   <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-4">Event Date & Location</label>
-                  <input type="text" name="event_details" placeholder="Somerset West / Stellenbosch - Nov 20th" className="w-full bg-cream border-2 border-transparent focus:border-gold/30 p-5 rounded-2xl focus:ring-0 outline-none transition-all placeholder:text-gray-300" />
+                  <input type="text" name="event_details" required placeholder="Somerset West / Stellenbosch - Nov 20th" className="w-full bg-cream border-2 border-transparent focus:border-gold/30 p-5 rounded-2xl focus:ring-0 outline-none transition-all placeholder:text-gray-300" />
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid md:grid-cols-2 gap-6 relative z-10">
                   <div className="space-y-2">
                     <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-4">Enclosure Type</label>
                     <select 
@@ -1382,9 +1441,14 @@ const App: React.FC = () => {
                     </select>
                   </div>
                 </div>
-                <button className="w-full bg-mountainGreen text-white font-black py-6 rounded-2xl hover:bg-maroon transition-all shadow-xl hover:scale-[1.02] active:scale-[0.98] uppercase tracking-[0.3em] flex items-center justify-center gap-4 mt-4">
-                  Request a Quote
-                  <Send size={20} />
+                
+                {/* --- UPDATED: Disabled State and Dynamic Button Text --- */}
+                <button 
+                  disabled={formStatus === 'submitting'}
+                  className="w-full bg-mountainGreen text-white font-black py-6 rounded-2xl hover:bg-maroon transition-all shadow-xl hover:scale-[1.02] active:scale-[0.98] uppercase tracking-[0.3em] flex items-center justify-center gap-4 mt-4 disabled:opacity-50 disabled:cursor-not-allowed relative z-10"
+                >
+                  {formStatus === 'submitting' ? 'Sending...' : 'Request a Quote'}
+                  <Send size={20} className={formStatus === 'submitting' ? 'animate-pulse' : ''} />
                 </button>
               </form>
             </div>
