@@ -1257,7 +1257,7 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* Contact Section */}
+{/* Contact Section */}
       <section id="contact" className="relative py-32 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
@@ -1357,13 +1357,26 @@ const App: React.FC = () => {
                         <>
                           <option value="Half Day">Half Day</option>
                           <option value="Full Day">Full Day</option>
+                          <option value="Custom">Custom</option>
+                        </>
+                      ) : enclosureType === 'Backyard Budget' ? (
+                        <>
+                          <option value="3 Hours">3 Hours (Minimum)</option>
+                          <option value="4 Hours">4 Hours</option>
+                          <option value="5 Hours">5 Hours</option>
+                          <option value="6 Hours">6 Hours</option>
+                          <option value="7 Hours">7 Hours</option>
+                          <option value="8 Hours">8 Hours</option>
+                          <option value="Custom">Custom</option>
                         </>
                       ) : (
                         <>
                           <option value="4 Hours">4 Hours (Minimum)</option>
                           <option value="5 Hours">5 Hours</option>
                           <option value="6 Hours">6 Hours</option>
-                          <option value="7+ Hours">7+ Hours</option>
+                          <option value="7 Hours">7 Hours</option>
+                          <option value="8 Hours">8 Hours</option>
+                          <option value="Custom">Custom</option>
                         </>
                       )}
                     </select>
