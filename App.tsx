@@ -914,7 +914,7 @@ const EnclosuresSection: React.FC = () => {
       specs: { h: '3.3m', w: '4.6m', d: '5.3m' }, 
       isCustomQuote: false,
       basePrice: 6000,
-      hourlyRate: 1000, 
+      hourlyRate: 1500, 
     },
     {
       id: 'corporate',
