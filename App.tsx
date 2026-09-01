@@ -107,24 +107,23 @@ const AiConcierge: React.FC = () => {
       const ai = new GoogleGenAI({ apiKey: (process.env.API_KEY as string) });
       const response = await ai.models.generateContent({
         model: 'gemini-3-flash-preview',
-        contents: [
-          { role: 'user', parts: [{ text: `You are the Sim2U AI Concierge for a mobile golf simulator business in the Western Cape, South Africa.
-          Business Info:
-          - Contact Phone: ${CONTACT_PHONE}
-          - Contact Email: ${CONTACT_EMAIL}
-          - WhatsApp: Available at the same number.
-          - PROMO: We are running a Winter Special! 25% OFF until August.
-          - Setup Options & Pricing (Rates shown include the 25% discount, minimum 4 hours):
-            * Backyard Budget (2.5m H x 3.1m W x 5.0m D): R3,000 for 4 hours (Additional hours: R600/hr)
-            * Outdoor Enclosure (3.3m H x 4.6m W x 5.3m D): R4,725 for 4 hours (Additional hours: R1,050/hr)
-            * Corporate Indoor (2.6m H x 3.5m W x 5.0m D): Custom Quote (Available for Half or Full Day)
-          - Travel Policy: First 20km from Somerset West Country Club is FREE. Thereafter, R5 per km (round trip).
-          - Weather Policy: Max wind is 30 km/h (sustained or gusts). Rain is a no-go, but we offer rescheduling.
-          - What's Included: Full mobile simulator setup (Rapsodo MLM2PRO + Awesome Golf), driving range, games, course play, shot tracking, professional on-site technician/caddy, and setup/pack-down.
-          - Requirements: Access to a standard power outlet. We provide a 30m industrial extension lead.
-          
-          Respond professionally and charm the customer. Mention the 25% Winter special enthusiastically. Be specific about the ZAR pricing, the 20km travel rule, and the necessary space requirements if asked. If they want to book or get a custom corporate quote, suggest they can call or WhatsApp us at ${CONTACT_PHONE}. User: ${userMessage}` }] }
-        ],
+contents: [
+  { role: 'user', parts: [{ text: `You are the Sim2U AI Concierge for a mobile golf simulator business in the Western Cape, South Africa.
+  Business Info:
+  - Contact Phone: ${CONTACT_PHONE}
+  - Contact Email: ${CONTACT_EMAIL}
+  - WhatsApp: Available at the same number.
+  - Setup Options & Pricing (Minimum 4 hours, except for 3-hour Backyard option):
+    * Backyard Budget (2.5m H x 3.1m W x 5.0m D): R3,500 for 3 hours, R4,200 for 4 hours (Additional hours: R800/hr)
+    * Outdoor Enclosure (3.3m H x 4.6m W x 5.3m D): R6,000 for 4 hours (Additional hours: R1,500/hr)
+    * Corporate Indoor (2.6m H x 3.5m W x 5.0m D): Custom Quote (Available for Half or Full Day)
+  - Travel Policy: First 20km from Somerset West Country Club is FREE. Thereafter, R5 per km (round trip).
+  - Weather Policy: Max wind is 30 km/h (sustained or gusts). Rain is a no-go, but we offer rescheduling.
+  - What's Included: Full mobile simulator setup (Rapsodo MLM2PRO + Awesome Golf), driving range, games, course play, shot tracking, professional on-site technician/caddy, and setup/pack-down.
+  - Requirements: Access to a standard power outlet. We provide a 30m industrial extension lead.
+  
+  Respond professionally and charm the customer. Be specific about the ZAR pricing, the 20km travel rule, and the necessary space requirements if asked. If they want to book or get a custom corporate quote, suggest they can call or WhatsApp us at ${CONTACT_PHONE}. User: ${userMessage}` }] }
+],
         config: {
           temperature: 0.7,
         }
@@ -246,11 +245,7 @@ const Nav: React.FC = () => {
 
   return (
     <>
-      <div className="bg-maroon text-gold text-center py-2 px-4 text-[10px] font-black uppercase tracking-[0.3em] fixed w-full z-[60] top-0 flex items-center justify-center gap-3">
-        <Tag size={12} className="animate-pulse" />
-        Winter Special: 25% OFF Till August!
-      </div>
-      <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? 'bg-mountainGreen/95 backdrop-blur-md py-3 shadow-2xl' : 'bg-transparent py-8 mt-6'}`}>
+      <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? 'bg-mountainGreen/95 backdrop-blur-md py-3 shadow-2xl' : 'bg-transparent py-8'}`}>
         <div className="container mx-auto px-6 md:px-12 flex justify-between items-center">
           <a href="#home" className="flex items-center space-x-3 group">
             <div className="w-14 h-14 rounded-xl flex items-center justify-center p-0 group-hover:rotate-6 transition-transform overflow-hidden">
@@ -333,10 +328,6 @@ const Hero: React.FC = () => (
     </div>
     
     <div className="container mx-auto px-6 relative z-20 text-center md:text-left text-white max-w-7xl flex flex-col items-center md:items-start">
-      <div className="mb-6 inline-flex items-center gap-3 bg-mountainGreen/90 backdrop-blur-xl px-8 py-3 rounded-full border border-gold/40 animate-fadeInUp shadow-[0_0_25px_rgba(197,160,89,0.4)]">
-        <Tag size={18} className="text-gold" />
-        <span className="text-sm font-black uppercase tracking-[0.4em] text-gold">Winter Special: 25% OFF Till August</span>
-      </div>
       
       {/* UPDATED SEO-FRIENDLY H1 */}
       <h1 className="hero-text text-4xl md:text-6xl lg:text-7xl font-black mb-8 tracking-tighter leading-tight animate-fadeInUp delay-100 drop-shadow-[0_15px_20px_rgba(0,0,0,0.6)]">
@@ -930,25 +921,23 @@ const EnclosuresSection: React.FC = () => {
 
   const currentEnclosure = enclosures[activeTab];
 
-  const calculatePrice = () => {
-    if (currentEnclosure.isCustomQuote) {
-      return { original: null, discounted: 'Quote' };
-    }
-    
-    let total;
-    if (currentEnclosure.id === 'backyard' && activeDuration === 3) {
-      total = 3500;
-    } else {
-      total = currentEnclosure.basePrice + ((activeDuration - 4) * currentEnclosure.hourlyRate);
-    }
-
-    const discountedTotal = total * 0.75; 
-    
-    return {
-      original: `R ${total.toLocaleString()}`,
-      discounted: `R ${discountedTotal.toLocaleString()}`
-    };
+const calculatePrice = () => {
+  if (currentEnclosure.isCustomQuote) {
+    return { original: null, discounted: 'Quote' };
+  }
+  
+  let total;
+  if (currentEnclosure.id === 'backyard' && activeDuration === 3) {
+    total = 3500;
+  } else {
+    total = currentEnclosure.basePrice + ((activeDuration - 4) * currentEnclosure.hourlyRate);
+  }
+  
+  return {
+    original: null,
+    discounted: `R ${total.toLocaleString()}`
   };
+};
 
   const durationOptions = currentEnclosure.isCustomQuote 
     ? [4, 8] 
@@ -962,10 +951,6 @@ const EnclosuresSection: React.FC = () => {
     <section id="pricing" className="py-32 px-6 bg-cream/50">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-16 px-4">
-          <div className="mb-6 inline-flex items-center gap-3 bg-white px-6 py-2 rounded-full border border-gold/40 shadow-sm">
-            <Tag size={16} className="text-maroon animate-pulse" />
-            <span className="text-xs font-black uppercase tracking-[0.2em] text-maroon">Winter Special: 25% OFF Till August</span>
-          </div>
           <h2 className="text-4xl md:text-6xl font-serif mb-6 leading-tight text-mountainGreen">Choose Your Setup.</h2>
           <div className="w-32 h-1.5 bg-gold mx-auto mb-8 rounded-full" />
           <p className="max-w-2xl text-lg md:text-xl font-light leading-relaxed text-gray-600 mx-auto">
@@ -1058,18 +1043,17 @@ const EnclosuresSection: React.FC = () => {
                 ))}
               </div>
 
-              <div className="pt-6 border-t border-gray-100 flex items-center justify-between">
+             <div className="pt-6 border-t border-gray-100 flex items-center justify-between">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
                     <p className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">
                       {currentEnclosure.isCustomQuote ? 'Custom Rate' : 'Total Investment'}
                     </p>
-                    {!currentEnclosure.isCustomQuote && (
-                      <div className="bg-maroon/10 text-maroon text-[8px] font-black px-2 py-0.5 rounded-full uppercase tracking-widest">
-                        25% OFF
-                      </div>
-                    )}
+                  </div>              
+                  <div className="text-3xl md:text-4xl font-black text-mountainGreen">
+                    {discounted}
                   </div>
+                </div>
                   
                   {!currentEnclosure.isCustomQuote && (
                     <div className="text-sm font-bold text-maroon line-through opacity-50 mb-1">
