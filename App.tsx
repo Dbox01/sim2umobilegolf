@@ -1043,23 +1043,13 @@ const calculatePrice = () => {
                 ))}
               </div>
 
-             <div className="pt-6 border-t border-gray-100 flex items-center justify-between">
+            <div className="pt-6 border-t border-gray-100 flex items-center justify-between">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
                     <p className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">
                       {currentEnclosure.isCustomQuote ? 'Custom Rate' : 'Total Investment'}
                     </p>
-                  </div>              
-                  <div className="text-3xl md:text-4xl font-black text-mountainGreen">
-                    {discounted}
                   </div>
-                </div>
-                  
-                  {!currentEnclosure.isCustomQuote && (
-                    <div className="text-sm font-bold text-maroon line-through opacity-50 mb-1">
-                      {original}
-                    </div>
-                  )}
                   
                   <div className="text-3xl md:text-4xl font-black text-mountainGreen">
                     {discounted}
