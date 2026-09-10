@@ -1,18 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-F2XNSDKYXM"></script>
+    <!-- Legacy anchor redirects: the old single-page site used hash anchors.
+         Runs before React mounts so shared links land on the right page. -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-F2XNSDKYXM');
+      (function () {
+        if (window.location.pathname !== '/' || !window.location.hash) return;
+        var map = {
+          '#home': '/',
+          '#experience': '/gallery',
+          '#occasions': '/private-parties',
+          '#process': '/how-it-works',
+          '#tech': '/how-it-works',
+          '#pricing': '/packages',
+          '#contact': '/contact'
+        };
+        var target = map[window.location.hash];
+        if (target && target !== '/') window.location.replace(target);
+      })();
     </script>
 
-    <!-- Schema.org WebSite Structured Data -->
+    <!-- Google Analytics: live domain only, so staging traffic stays out of your reports -->
+    <script>
+      if (location.hostname === 'sim2umobilegolf.co.za') {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-F2XNSDKYXM';
+        document.head.appendChild(s);
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        window.gtag = gtag;
+        gtag('js', new Date());
+        gtag('config', 'G-F2XNSDKYXM');
+      }
+    </script>
+
+    <!-- Site-wide structured data. Page-specific schema is emitted per route. -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -23,7 +49,6 @@
     }
     </script>
 
-    <!-- Aggressive Local Business SEO Schema (Crucial for ranking in the Western Cape) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -31,7 +56,9 @@
       "name": "Sim2U Mobile Golf",
       "image": "https://sim2umobilegolf.co.za/social-preview.png",
       "url": "https://sim2umobilegolf.co.za",
-      "priceRange": "$$",
+      "telephone": "+27833182565",
+      "email": "info@sim2umobilegolf.co.za",
+      "priceRange": "RRR",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Somerset West",
@@ -39,96 +66,26 @@
         "addressCountry": "ZA"
       },
       "areaServed": [
-        {
-          "@type": "AdministrativeArea",
-          "name": "Somerset West"
-        },
-        {
-          "@type": "AdministrativeArea",
-          "name": "Stellenbosch"
-        },
-        {
-          "@type": "AdministrativeArea",
-          "name": "Cape Town"
-        },
-        {
-          "@type": "AdministrativeArea",
-          "name": "Cape Winelands"
-        },
-        {
-          "@type": "AdministrativeArea",
-          "name": "Western Cape"
-        }
+        { "@type": "AdministrativeArea", "name": "Somerset West" },
+        { "@type": "AdministrativeArea", "name": "Stellenbosch" },
+        { "@type": "AdministrativeArea", "name": "Cape Town" },
+        { "@type": "AdministrativeArea", "name": "Cape Winelands" },
+        { "@type": "AdministrativeArea", "name": "Western Cape" }
       ],
-      "description": "Premium mobile golf simulator hire and rental services for corporate events, team buildings, weddings, and private parties."
+      "description": "Premium mobile golf simulator hire and rental for corporate events, team building, weddings and private parties across the Western Cape."
     }
     </script>
-    
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Aggressive SEO Title: Targets high-intent keywords + high-volume locations -->
-    <title>Mobile Golf Simulator Rental & Hire | Cape Town & Winelands | Sim2U</title>
-    
-    <!-- Optimized Meta Description (Under 160 characters, heavy search-intent terms) -->
-    <meta name="description" content="Premium mobile golf simulator hire in Cape Town, Stellenbosch & Somerset West. Rent a simulator for your corporate events, weddings & parties." />
-    
-    <!-- Open Graph Tags (Optimized for WhatsApp / Social shares) -->
-    <meta property="og:title" content="Mobile Golf Simulator Rental & Hire | Cape Town & Winelands" />
-    <meta property="og:description" content="Premium mobile golf simulator hire in Cape Town, Stellenbosch & Somerset West. Rent our setup for corporate events, weddings & parties." />
-    <meta property="og:image" content="https://sim2umobilegolf.co.za/social-preview.png" />
-    <meta property="og:url" content="https://sim2umobilegolf.co.za" />
-    <meta property="og:type" content="website" />
-    
-    <script src="https://cdn.tailwindcss.com"></script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <!-- Apple devices (iOS Home Screen) -->
+
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon_180x180.png">
-    
-    <!-- Standard high-res browsers and Android devices -->
     <link rel="icon" type="image/png" sizes="192x192" href="/favicon_192x192.png">
     <link rel="icon" type="image/png" sizes="512x512" href="/favicon_512x512.png">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        mountainGreen: '#213631',
-                        maroon: '#4D232F',
-                        gold: '#C5A059',
-                        cream: '#F9F6F0'
-                    },
-                    fontFamily: {
-                        serif: ['"Playfair Display"', 'serif'],
-                        sans: ['Montserrat', 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        html { scroll-behavior: smooth; }
-        body { font-family: 'Montserrat', sans-serif; }
-        .hero-text { font-family: 'Playfair Display', serif; }
-    </style>
-<script type="importmap">
-{
-  "imports": {
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "react": "https://esm.sh/react@^19.2.3",
-    "@google/genai": "https://esm.sh/@google/genai@^1.37.0",
-    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/"
-  }
-}
-</script>
-<link rel="stylesheet" href="/index.css">
 </head>
-<body class="bg-white text-gray-900">
+<body class="bg-cream text-gray-900">
     <div id="root"></div>
-    <script type="module" src="/index.tsx"></script>
+    <script type="module" src="/src/main.tsx"></script>
 </body>
 </html>
