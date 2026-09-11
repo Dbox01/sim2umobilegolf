@@ -1,19 +1,33 @@
 import React from 'react'
-import { CheckCircle2, PlusCircle, Truck, Wind } from 'lucide-react'
+import {
+  BadgeCheck,
+  CalendarX2,
+  CheckCircle2,
+  ChevronRight,
+  Hand,
+  PackageOpen,
+  PlayCircle,
+  Plug,
+  PlusCircle,
+  ShieldCheck,
+  Truck,
+  Wind,
+} from 'lucide-react'
+import { Link } from 'react-router-dom'
 import Seo from '../components/Seo'
 import PricingTiers from '../components/PricingTiers'
+import SmallerSpacesNote from '../components/SmallerSpacesNote'
 import { CTABand, PageHero, SectionHeading, StatCard } from '../components/Primitives'
-import { EXPERIENCE_IMAGES } from '../data/gallery'
+import { IMAGES } from '../data/images'
 import {
   ADD_ONS,
+  CANCELLATION_POLICY,
+  DEPOSIT,
   INCLUDED_IN_EVERY_PACKAGE,
   TIERS,
   TRAVEL_POLICY,
   WEATHER_POLICY,
-  formatRand,
-  priceFor,
 } from '../data/packages'
-import { PLAY_MODES, TRACKING_TECH } from '../data/tech'
 import { SITE_URL } from '../data/site'
 
 const Packages: React.FC = () => (
@@ -32,7 +46,7 @@ const Packages: React.FC = () => (
           name: tier.name,
           description: tier.tagline,
           priceCurrency: 'ZAR',
-          price: tier.id === 'backyard' ? 3500 : tier.basePrice,
+          price: tier.basePrice,
           availability: 'https://schema.org/InStock',
           areaServed: 'Western Cape, South Africa',
         })),
@@ -49,7 +63,7 @@ const Packages: React.FC = () => (
         </>
       }
       intro="Three enclosure sizes, priced by the hour. Pick the setup that fits your venue, choose your duration, and the number you see is the number you pay — travel beyond 20km aside."
-      image={EXPERIENCE_IMAGES[1]}
+      image={IMAGES.packagesHero}
       primary={{ label: 'Request a Quote', to: '/contact' }}
     />
 
@@ -62,67 +76,154 @@ const Packages: React.FC = () => (
           subtitle="Most bookings run a minimum of four hours, with a three-hour option available for backyard setups."
         />
         <PricingTiers />
+
+        <SmallerSpacesNote className="mt-10" />
+
+        {/* The things worth knowing before you commit: how the date is held,
+            what happens if it moves, and the two practical constraints that
+            catch people out. All four match the booking terms — see
+            src/data/terms.ts before changing any of the wording here. */}
+        <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl mx-auto">
+          {[
+            {
+              icon: <ShieldCheck size={24} />,
+              title: 'Securing your date',
+              body: DEPOSIT.summary,
+            },
+            {
+              icon: <Plug size={24} />,
+              title: 'Power within 30m',
+              body: 'We need a standard 220V plug point within 30 metres of where the bay will stand — that is the length of the industrial extension lead we bring. If your only outlet is further away, tell us when you enquire so we can plan for it.',
+            },
+            {
+              icon: <Hand size={24} />,
+              title: 'Right-handed clubs only',
+              body: 'The club set we bring is right-handed. Left-handed guests are welcome to bring their own clubs — just let us know when you book so we can plan the bay around it.',
+            },
+            {
+              icon: <CalendarX2 size={24} />,
+              title: 'If the date has to move',
+              body: `${CANCELLATION_POLICY.early} ${CANCELLATION_POLICY.late}`,
+            },
+          ].map((note) => (
+            <div
+              key={note.title}
+              className="bg-white rounded-3xl p-7 border border-gold/25 flex items-start gap-4"
+            >
+              <span className="text-gold flex-shrink-0 mt-0.5">{note.icon}</span>
+              <div>
+                <h3 className="font-black text-mountainGreen text-xs uppercase tracking-widest mb-2">
+                  {note.title}
+                </h3>
+                <p className="text-gray-500 text-sm leading-relaxed">{note.body}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
 
-    {/* --------------------------- Included in every -------------------------- */}
-    <section className="py-24 md:py-32 px-6 bg-white">
-      <div className="container mx-auto max-w-6xl">
-        <SectionHeading
-          eyebrow="Standard On Every Booking"
-          title="What the price already covers."
-          subtitle="No line items for setup, no charge for the technician, no equipment hire on top."
-        />
+    {/* ------------------------- What the price covers ------------------------ */}
+    <section className="py-24 md:py-32 px-6 bg-mountainGreen relative overflow-hidden">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[900px] bg-gold/[0.07] rounded-full blur-[140px] pointer-events-none" />
 
-        <div className="grid md:grid-cols-2 gap-4 mb-16">
-          {INCLUDED_IN_EVERY_PACKAGE.map((item) => (
+      <div className="container mx-auto max-w-6xl relative z-10">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-3 bg-gold text-mountainGreen px-6 py-2.5 rounded-full mb-8 shadow-xl">
+            <BadgeCheck size={18} />
+            <span className="text-[11px] font-black uppercase tracking-[0.2em]">
+              No hidden costs
+            </span>
+          </div>
+
+          <h2 className="text-4xl md:text-6xl font-serif text-white mb-6 leading-[1.1] tracking-tight">
+            One price.
+            <br />
+            <span className="text-gold italic">Everything in it.</span>
+          </h2>
+
+          <p className="max-w-2xl mx-auto text-lg md:text-xl text-white/60 font-light leading-relaxed">
+            The number on the calculator above is what you pay. Delivery, build,
+            calibration, the technician who runs your whole session, and
+            pack-down at the end are all inside it.
+          </p>
+        </div>
+
+        {/* The three phases — this is the part people are actually worried about */}
+        <div className="grid md:grid-cols-3 gap-5 mb-16">
+          {[
+            {
+              icon: <Truck size={30} />,
+              step: 'Before',
+              title: 'We deliver and build',
+              body: 'Transport, assembly, calibration and testing — finished before your first guest arrives, outside your booked hours.',
+            },
+            {
+              icon: <PlayCircle size={30} />,
+              step: 'During',
+              title: 'We run the session',
+              body: 'A professional technician stays for the duration, setting up players, coaching beginners and keeping the rotation moving.',
+            },
+            {
+              icon: <PackageOpen size={30} />,
+              step: 'After',
+              title: 'We pack it all down',
+              body: 'Everything comes apart and goes back in the van once your guests have gone. Your venue is left exactly as we found it.',
+            },
+          ].map((phase) => (
             <div
-              key={item}
-              className="flex items-center gap-4 bg-cream p-6 rounded-2xl border border-mountainGreen/5 hover:border-gold/40 transition-colors"
+              key={phase.step}
+              className="bg-white/[0.06] border border-white/10 rounded-[32px] p-9 hover:border-gold/60 transition-colors group"
             >
-              <CheckCircle2 className="text-gold flex-shrink-0" size={24} />
-              <span className="text-mountainGreen font-medium">{item}</span>
+              <div className="flex items-center justify-between mb-7">
+                <span className="text-gold group-hover:scale-110 transition-transform">
+                  {phase.icon}
+                </span>
+                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white/25">
+                  {phase.step}
+                </span>
+              </div>
+              <h3 className="text-2xl font-serif text-white mb-4">{phase.title}</h3>
+              <p className="text-white/55 text-sm leading-relaxed">{phase.body}</p>
             </div>
           ))}
         </div>
 
-        <div className="bg-mountainGreen rounded-[40px] p-10 md:p-14">
-          <h3 className="text-2xl md:text-3xl font-serif text-white mb-3">
-            The technology that comes with it
-          </h3>
-          <p className="text-white/50 mb-10 max-w-2xl leading-relaxed">
-            We match the tracking system to your venue and format, and calibrate
-            it on site. Every booking runs on professional equipment — never a
-            consumer toy.
-          </p>
+        <div className="grid md:grid-cols-2 gap-3 mb-14">
+          {INCLUDED_IN_EVERY_PACKAGE.map((item) => (
+            <div
+              key={item}
+              className="flex items-center gap-4 bg-white/[0.04] border border-white/10 p-5 rounded-2xl"
+            >
+              <CheckCircle2 className="text-gold flex-shrink-0" size={20} />
+              <span className="text-white/85 text-sm font-medium">{item}</span>
+            </div>
+          ))}
+        </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            {TRACKING_TECH.map((hw) => (
-              <div
-                key={hw.name}
-                className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-gold/50 transition-colors"
-              >
-                <p className="text-gold text-[10px] font-black uppercase tracking-widest mb-2">
-                  {hw.role}
-                </p>
-                <p className="text-white font-bold">{hw.name}</p>
-              </div>
-            ))}
-          </div>
+        <p className="text-center text-white/40 text-sm md:text-base max-w-3xl mx-auto leading-relaxed">
+          No setup fee. No technician fee. No equipment hire on top. Travel
+          beyond the first 20km is the one thing quoted separately, and we
+          confirm it in writing before you commit. Anything else only ever
+          applies in the situations set out in our{' '}
+          <Link
+            to="/terms"
+            className="text-gold underline decoration-gold/40 underline-offset-4 hover:decoration-gold transition-colors"
+          >
+            booking terms
+          </Link>{' '}
+          — a site that turns out to be unusable, or a pack-down the venue
+          delays past the agreed time.
+        </p>
 
-          <div className="grid sm:grid-cols-2 gap-4">
-            {PLAY_MODES.map((sw) => (
-              <div
-                key={sw.name}
-                className="bg-gold/10 border border-gold/30 rounded-2xl p-6"
-              >
-                <p className="text-gold text-[10px] font-black uppercase tracking-widest mb-2">
-                  {sw.role}
-                </p>
-                <p className="text-white font-bold">{sw.name}</p>
-              </div>
-            ))}
-          </div>
+        <div className="text-center mt-12">
+          <Link
+            to="/how-it-works#technology"
+            className="group inline-flex items-center gap-3 border-2 border-gold/60 text-gold px-10 py-4 rounded-2xl font-black uppercase tracking-[0.15em] text-xs hover:bg-gold hover:text-mountainGreen transition-all"
+          >
+            See the technology we bring
+            <ChevronRight size={18} className="group-hover:translate-x-1.5 transition-transform" />
+          </Link>
         </div>
       </div>
     </section>
@@ -131,16 +232,16 @@ const Packages: React.FC = () => (
     <section className="py-24 md:py-32 px-6 bg-cream">
       <div className="container mx-auto max-w-6xl">
         <SectionHeading
-          eyebrow="Optional Extra"
-          title="One add-on, quoted per event."
-          subtitle="Added at the time of booking and quoted alongside your package."
+          eyebrow="Optional Extras"
+          title="Raise the stakes."
+          subtitle="Two ways to make the day land harder — put your brand on the bay, or put the competition in everyone's pocket. Both quoted alongside your package."
         />
 
-        <div className="max-w-3xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
           {ADD_ONS.map((addon) => (
             <div
               key={addon.name}
-              className="bg-white p-9 md:p-12 rounded-[36px] border border-gold/25 shadow-[0_30px_70px_-40px_rgba(33,54,49,0.5)] flex flex-col sm:flex-row gap-8"
+              className="bg-white p-9 md:p-10 rounded-[36px] border border-gold/25 shadow-[0_30px_70px_-40px_rgba(33,54,49,0.5)] flex flex-col gap-6"
             >
               <div className="bg-gold/15 text-gold w-16 h-16 rounded-3xl flex items-center justify-center flex-shrink-0">
                 <PlusCircle size={30} />
@@ -202,70 +303,34 @@ const Packages: React.FC = () => (
             <h2 className="text-3xl font-serif text-white mb-4">
               Weather &amp; Safety
             </h2>
+            {/* No wind speed here on purpose — see WEATHER_POLICY. The
+                agreement makes this a judgement call, so a published number
+                would be a threshold the contract does not contain. */}
             <p className="text-white/60 leading-relaxed mb-8 font-light">
-              Our equipment is high-end electronics in an outdoor enclosure, so we
-              hold firm limits. If conditions force a cancellation, you reschedule
-              at no extra cost.
+              Our equipment is high-end electronics in an outdoor enclosure, so
+              we stop for weather rather than risk it. What you get back depends
+              on whether we have already built the bay.
             </p>
             <div className="grid sm:grid-cols-2 gap-4">
               <StatCard
-                label="Max Wind"
+                label="Wind"
                 value={WEATHER_POLICY.maxWind}
                 note={WEATHER_POLICY.windNote}
               />
               <StatCard
-                label="Rain Policy"
+                label="Rain"
                 value={WEATHER_POLICY.rain}
                 note={WEATHER_POLICY.rainNote}
               />
             </div>
+            <div className="mt-4">
+              <StatCard
+                label="Cancelled before we load"
+                value={WEATHER_POLICY.refund}
+                note={WEATHER_POLICY.refundNote}
+              />
+            </div>
           </div>
-        </div>
-      </div>
-    </section>
-
-    {/* ------------------------------ Quick table ---------------------------- */}
-    <section className="pb-24 md:pb-32 px-6 bg-white">
-      <div className="container mx-auto max-w-5xl">
-        <h2 className="text-2xl md:text-3xl font-serif text-mountainGreen mb-8 text-center">
-          At a glance
-        </h2>
-        <div className="overflow-x-auto rounded-[28px] border border-mountainGreen/10">
-          <table className="w-full min-w-[560px] text-left bg-white">
-            <thead>
-              <tr className="bg-cream">
-                {['Setup', 'Minimum', 'From', 'Extra hour', 'Footprint'].map((h) => (
-                  <th
-                    key={h}
-                    className="p-5 text-[10px] font-black uppercase tracking-widest text-mountainGreen"
-                  >
-                    {h}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {TIERS.map((tier) => (
-                <tr key={tier.id} className="border-t border-mountainGreen/5">
-                  <td className="p-5 font-bold text-mountainGreen">{tier.name}</td>
-                  <td className="p-5 text-gray-500 text-sm">
-                    {tier.isCustomQuote ? 'Half day' : `${tier.minHours} hrs`}
-                  </td>
-                  <td className="p-5 text-gold font-black">
-                    {priceFor(tier, tier.minHours)}
-                  </td>
-                  <td className="p-5 text-gray-500 text-sm">
-                    {tier.isCustomQuote
-                      ? 'On quote'
-                      : formatRand(tier.hourlyRate)}
-                  </td>
-                  <td className="p-5 text-gray-500 text-sm whitespace-nowrap">
-                    {tier.specs.h} × {tier.specs.w} × {tier.specs.d}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
         </div>
       </div>
     </section>
@@ -275,6 +340,22 @@ const Packages: React.FC = () => (
       body="Send your date, venue and guest count. We'll confirm the package, add travel and give you a fixed price in writing."
       primaryLabel="Get My Quote"
     />
+
+    {/* Every quote carries the booking terms, so the page that sets the price
+        should be one click from them. */}
+    <section className="bg-white py-10 px-6">
+      <p className="container mx-auto max-w-3xl text-center text-gray-500 text-sm leading-relaxed">
+        Deposits, site requirements, cancellations and our weather policy are set
+        out in full in our{' '}
+        <Link
+          to="/terms"
+          className="text-mountainGreen font-bold underline decoration-gold decoration-2 underline-offset-4 hover:text-gold transition-colors"
+        >
+          booking terms and conditions
+        </Link>
+        , which form part of every quote.
+      </p>
+    </section>
   </>
 )
 

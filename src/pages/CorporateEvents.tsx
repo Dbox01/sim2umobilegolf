@@ -3,16 +3,17 @@ import {
   BarChart3,
   Building2,
   CalendarCheck,
-  Clock,
   Palette,
   Presentation,
   Trophy,
   Users,
 } from 'lucide-react'
 import Seo from '../components/Seo'
-import Testimonials from '../components/Testimonials'
+import ProofGrid from '../components/ProofGrid'
 import { CTABand, FeatureCard, PageHero, SectionHeading } from '../components/Primitives'
-import { EXPERIENCE_IMAGES } from '../data/gallery'
+import { CORPORATE_IMAGES } from '../data/gallery'
+import { IMAGES } from '../data/images'
+import { CORPORATE_TESTIMONIALS } from '../data/testimonials'
 import { SITE_URL } from '../data/site'
 
 const USE_CASES = [
@@ -68,7 +69,7 @@ const CorporateEvents: React.FC = () => (
         </>
       }
       intro="Team building, golf days, conference stands and brand activations across Cape Town and the Winelands — with live leaderboards, precision shot tracking and logistics you never have to think about."
-      image={EXPERIENCE_IMAGES[0]}
+      image={IMAGES.corporateHero}
       primary={{ label: 'Request a Quote', to: '/contact' }}
       secondary={{ label: 'See Packages', to: '/packages' }}
     />
@@ -87,17 +88,17 @@ const CorporateEvents: React.FC = () => (
           <FeatureCard
             icon={<BarChart3 size={44} />}
             title="Live Leaderboards"
-            body="Real-time scoring on screen for the whole session. Teams, departments or individuals — we agree the competition format before the doors open, keep the standings visible throughout, and announce the winners at the end with everyone watching."
+            body="Scoring runs live on the bay screen for the whole session, and the format that lands best is closest-to-the-pin on a world-famous par 3 — one shot, instant ranking, bragging rights settled. Add our live leaderboard and the standings follow your guests onto their own phones or a second screen anywhere at the venue, so the competition stays alive across the room."
           />
           <FeatureCard
             icon={<Palette size={44} />}
             title="Branded Enclosure Prints"
-            body="Custom printed panels fitted to the outdoor enclosure — your logo, event branding or campaign artwork, sized and mounted by us. It turns the bay into the backdrop guests photograph. Artwork needs to reach us two weeks out; we handle print and fitting."
+            body="Custom printed panels fitted to the outdoor enclosure — your logo, event branding or campaign artwork, sized and mounted by us. It turns the bay into the backdrop guests photograph. Artwork needs to reach us at least 10 business days out; we handle print and fitting."
           />
           <FeatureCard
             icon={<CalendarCheck size={44} />}
             title="Seamless Logistics"
-            body="We arrive around 90 minutes before your start, build, calibrate and test. Our technician runs the session end to end. Pack-down happens after your guests leave. Your team never touches a cable."
+            body="We arrive ahead of your start time, build the bay, calibrate it and test every mode before your first guest walks in. Our technician runs the session end to end. Pack-down happens once your guests have gone. Your team never touches a cable."
           />
         </div>
       </div>
@@ -130,52 +131,19 @@ const CorporateEvents: React.FC = () => (
       </div>
     </section>
 
-    {/* ------------------------------ Throughput ----------------------------- */}
-    <section className="py-24 md:py-32 px-6 bg-white">
-      <div className="container mx-auto max-w-5xl">
-        <div className="bg-mountainGreen rounded-[48px] p-10 md:p-16 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-80 h-80 bg-gold/10 rounded-full -mr-40 -mt-40 blur-3xl" />
-
-          <div className="relative z-10">
-            <div className="flex items-center gap-4 mb-8">
-              <div className="bg-gold p-4 rounded-2xl text-mountainGreen shadow-xl">
-                <Clock size={28} />
-              </div>
-              <h2 className="text-3xl md:text-4xl font-serif text-white">
-                Planning for guest numbers
-              </h2>
-            </div>
-
-            <p className="text-white/60 leading-relaxed text-lg mb-10 max-w-3xl font-light">
-              The most common planning mistake is underestimating throughput. One
-              bay handles a party comfortably; a conference floor is a different
-              problem. Rough numbers to budget against:
-            </p>
-
-            <div className="grid sm:grid-cols-3 gap-5">
-              {[
-                { n: '30–40', l: 'Guests per bay', s: 'Over a 4-hour party format' },
-                { n: '60+', l: 'Book a second bay', s: 'Keeps queues under control' },
-                { n: '~90 min', l: 'Setup before start', s: 'Outside your booked hours' },
-              ].map((stat) => (
-                <div
-                  key={stat.l}
-                  className="bg-white/10 border border-white/10 rounded-3xl p-7"
-                >
-                  <p className="text-gold text-4xl font-black mb-2">{stat.n}</p>
-                  <p className="text-white font-bold text-sm mb-1">{stat.l}</p>
-                  <p className="text-white/40 text-xs">{stat.s}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section className="py-24 px-6 bg-cream">
+    {/* --------------------------- Photos & reviews -------------------------- */}
+    <section className="py-24 md:py-32 px-6 bg-cream">
       <div className="container mx-auto max-w-7xl">
-        <Testimonials limit={6} heading="From corporate clients" />
+        <SectionHeading
+          eyebrow="Proof"
+          title="Corporate events we've run."
+          subtitle="Photographs from real bookings, and what the people who booked them said afterwards."
+        />
+        <ProofGrid
+          quotes={CORPORATE_TESTIMONIALS}
+          images={CORPORATE_IMAGES}
+          context="corporate event"
+        />
       </div>
     </section>
 

@@ -8,9 +8,14 @@ const labelClass =
   'text-[10px] font-black uppercase tracking-widest text-gold ml-3 block mb-2'
 
 /**
- * Priority-access capture for the Gauteng pop-up.
+ * Sign-up for the Gauteng pop-up.
+ *
+ * The offer has to read in one pass: signing up is free, and the people on
+ * the list get the dates by email before anyone else, with first choice of
+ * slots. No jargon — not "priority access", not "waitlist".
+ *
  * The page renders this twice, so field ids are namespaced with useId and
- * only the first instance claims the #priority-access anchor.
+ * only the first instance claims the #sign-up anchor.
  */
 const LeadCaptureForm: React.FC<{ anchorId?: string }> = ({ anchorId }) => {
   const { status, errorMessage, handleSubmit } = useFormspree()
@@ -28,12 +33,12 @@ const LeadCaptureForm: React.FC<{ anchorId?: string }> = ({ anchorId }) => {
       <div className="relative z-10 space-y-5">
         <div>
           <h2 className="text-2xl md:text-3xl font-serif text-white mb-2">
-            Get Priority Access
+            Get the dates first
           </h2>
           <p className="text-white/60 text-sm leading-relaxed">
-            Priority access holders are contacted before the tour dates open to
-            anyone else, and get first choice of slots. It costs nothing and
-            commits you to nothing.
+            Signing up is free. When the Joburg dates are set, everyone on this
+            list gets them by email before they go public — and first choice of
+            slots. That is the whole deal. No cost, no commitment.
           </p>
         </div>
 
@@ -42,10 +47,10 @@ const LeadCaptureForm: React.FC<{ anchorId?: string }> = ({ anchorId }) => {
             role="status"
             className="bg-gold/20 border border-gold/40 text-white p-5 rounded-2xl"
           >
-            <p className="font-bold text-lg">You&apos;re on the priority list.</p>
+            <p className="font-bold text-lg">You&apos;re on the list.</p>
             <p className="text-sm text-white/80">
-              We&apos;ll be in touch the moment Joburg dates are confirmed —
-              before they go public.
+              We&apos;ll email you the Joburg dates as soon as they&apos;re set —
+              before anyone else sees them.
             </p>
           </div>
         )}
@@ -144,12 +149,12 @@ const LeadCaptureForm: React.FC<{ anchorId?: string }> = ({ anchorId }) => {
 
         <div>
           <label className={labelClass} htmlFor={fid('dates')}>
-            Preferred Dates or Month
+            Any timing preference?
           </label>
           <input
             id={fid('dates')}
             name="preferred_dates"
-            placeholder="Any week in March would work"
+            placeholder="Weekends suit us best, or midweek is fine"
             className={inputClass}
           />
         </div>
@@ -157,21 +162,21 @@ const LeadCaptureForm: React.FC<{ anchorId?: string }> = ({ anchorId }) => {
         <input
           type="hidden"
           name="_subject"
-          value="Joburg Tour — priority access request"
+          value="Joburg Tour — sign-up"
         />
-        <input type="hidden" name="lead_source" value="Joburg Tour page" />
+        <input type="hidden" name="lead_source" value="Joburg Tour sign-up" />
 
         <button
           type="submit"
           disabled={status === 'submitting'}
           className="w-full bg-gold text-mountainGreen font-black py-5 rounded-2xl hover:bg-white transition-all shadow-xl hover:scale-[1.01] active:scale-[0.99] uppercase tracking-[0.25em] text-sm flex items-center justify-center gap-4 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {status === 'submitting' ? 'Sending…' : 'Get Priority Access'}
+          {status === 'submitting' ? 'Sending…' : 'Sign Up — Free'}
           <ArrowRight size={18} />
         </button>
 
         <p className="text-white/30 text-[10px] text-center uppercase tracking-widest font-bold">
-          No spam. One email when dates are locked in.
+          Free. No spam. One email when the dates are locked in.
         </p>
       </div>
     </form>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ChevronRight, Clock, Maximize } from 'lucide-react'
+import { ChevronRight, Clock, Maximize, Truck } from 'lucide-react'
 import { TIERS, priceFor } from '../data/packages'
 
 const PricingTiers: React.FC = () => {
@@ -72,11 +72,19 @@ const PricingTiers: React.FC = () => {
             </div>
 
             <div className="bg-cream/60 p-6 rounded-2xl border border-gold/20">
-              <div className="flex items-center gap-2 mb-4">
-                <Maximize size={18} className="text-gold" />
-                <span className="font-bold text-mountainGreen text-xs uppercase tracking-widest">
-                  Space Required
-                </span>
+              <div className="flex items-center justify-between gap-4 mb-4 flex-wrap">
+                <div className="flex items-center gap-2">
+                  <Maximize size={18} className="text-gold" />
+                  <span className="font-bold text-mountainGreen text-xs uppercase tracking-widest">
+                    Space Required
+                  </span>
+                </div>
+                <div className="flex items-center gap-2 text-mountainGreen/70">
+                  <Truck size={16} className="text-gold" />
+                  <span className="text-xs font-semibold">
+                    {tier.setupTime} setup
+                  </span>
+                </div>
               </div>
               <div className="grid grid-cols-3 gap-4">
                 {(

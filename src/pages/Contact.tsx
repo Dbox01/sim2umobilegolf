@@ -5,7 +5,7 @@ import ContactForm from '../components/ContactForm'
 import CoverageMap from '../components/CoverageMap'
 import FaqAccordion from '../components/FaqAccordion'
 import { PageHero, SectionHeading } from '../components/Primitives'
-import { EXPERIENCE_IMAGES } from '../data/gallery'
+import { IMAGES } from '../data/images'
 import { FAQS } from '../data/faqs'
 import {
   CONTACT_EMAIL,
@@ -75,7 +75,7 @@ const Contact: React.FC = () => (
         </>
       }
       intro="Tell us when and where, and roughly how many guests. We reply to every enquiry within one business day — usually a lot sooner."
-      image={EXPERIENCE_IMAGES[9]}
+      image={IMAGES.contactHero}
     />
 
     {/* ------------------------------- Channels ------------------------------ */}

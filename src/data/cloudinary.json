@@ -1,0 +1,140 @@
+{
+  "generatedAt": "2026-09-11T15:38:23Z",
+  "source": "previous",
+  "gallery": [
+    {
+      "publicId": "IMG_7758_vlrusn",
+      "version": 1785222588,
+      "format": "jpg"
+    },
+    {
+      "publicId": "20260516_134338_z0tkiu",
+      "version": 1785222584,
+      "format": "jpg"
+    },
+    {
+      "publicId": "20260725_134627_kce6ve",
+      "version": 1785222587,
+      "format": "jpg"
+    },
+    {
+      "publicId": "IMG_7660_ghaaja",
+      "version": 1785222588,
+      "format": "jpg"
+    },
+    {
+      "publicId": "04d620e0-bfa9-4eda-b973-6be047204a2a_bfm54u",
+      "version": 1785222590,
+      "format": "jpg"
+    },
+    {
+      "publicId": "StandDuringEvent_4_drdmsy",
+      "version": 1785222593,
+      "format": "jpg"
+    },
+    {
+      "publicId": "GolfSwing_5_elkcim",
+      "version": 1785222598,
+      "format": "jpg"
+    },
+    {
+      "publicId": "IMG_7735_nt2s0x",
+      "version": 1785222589,
+      "format": "heic"
+    },
+    {
+      "publicId": "IMG-20260420-WA0006_rf4bnz",
+      "version": 1785222588,
+      "format": "jpg"
+    },
+    {
+      "publicId": "20260516_134653_fgqave",
+      "version": 1785222586,
+      "format": "jpg"
+    },
+    {
+      "publicId": "99c19f3d-cfe6-4642-8c51-c0d674d6c1a9_hnby1c",
+      "version": 1785222582,
+      "format": "jpg"
+    },
+    {
+      "publicId": "IMG_0174_ieuzas",
+      "version": 1785222584,
+      "format": "jpg"
+    },
+    {
+      "publicId": "IMG_7757_hnz0nx",
+      "version": 1785222588,
+      "format": "jpg"
+    },
+    {
+      "publicId": "IMG_7581_hyo7n4",
+      "version": 1785222586,
+      "format": "jpg"
+    },
+    {
+      "publicId": "Stand_9_aozx7t",
+      "version": 1785222589,
+      "format": "jpg"
+    },
+    {
+      "publicId": "14bc34d1-eb70-4c95-8f87-3ea98b35621c_thwydl",
+      "version": 1785222591,
+      "format": "jpg"
+    },
+    {
+      "publicId": "IMG_7648_mzejac",
+      "version": 1785222587,
+      "format": "jpg"
+    },
+    {
+      "publicId": "Stand_8_vel0b3",
+      "version": 1785222591,
+      "format": "jpg"
+    },
+    {
+      "publicId": "57302338-eb85-467d-af77-6f2a99d3d9a4_e6dqro",
+      "version": 1785222583,
+      "format": "jpg"
+    }
+  ],
+  "corporate": [
+    {
+      "publicId": "StandDuringEvent_4_drdmsy",
+      "version": 1785222593,
+      "format": "jpg"
+    },
+    {
+      "publicId": "Stand_9_aozx7t",
+      "version": 1785222589,
+      "format": "jpg"
+    },
+    {
+      "publicId": "Stand_8_vel0b3",
+      "version": 1785222591,
+      "format": "jpg"
+    },
+    {
+      "publicId": "IMG_7758_vlrusn",
+      "version": 1785222588,
+      "format": "jpg"
+    },
+    {
+      "publicId": "20260725_134627_kce6ve",
+      "version": 1785222587,
+      "format": "jpg"
+    },
+    {
+      "publicId": "IMG_0174_ieuzas",
+      "version": 1785222584,
+      "format": "jpg"
+    },
+    {
+      "publicId": "IMG_7648_mzejac",
+      "version": 1785222587,
+      "format": "jpg"
+    }
+  ],
+  "videos": [],
+  "note": "Some tags could not be read; the previous list was kept for those. sim2u-gallery: the request never reached Cloudinary — something on this network returned 403. This is a firewall/proxy/egress issue, not a Cloudinary setting. Response was: Host not in allowlist: res.cloudinary.com. Add this host to your network egress settings to allow access. | sim2u-corporate: the request never reached Cloudinary — something on this network returned 403. This is a firewall/proxy/egress issue, not a Cloudinary setting. Response was: Host not in allowlist: res.cloudinary.com. Add this host to your network egress settings to allow access. | sim2u-video: the request never reached Cloudinary — something on this network returned 403. This is a firewall/proxy/egress issue, not a Cloudinary setting. Response was: Host not in allowlist: res.cloudinary.com. Add this host to your network egress settings to allow access."
+}

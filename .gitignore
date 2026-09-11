@@ -27,3 +27,6 @@ dist-ssr
 .env
 .env.local
 .env.*.local
+
+# Generated locally by `npm run photos`
+photo-index.html

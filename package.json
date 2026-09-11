@@ -7,7 +7,12 @@
     "dev": "vite",
     "build": "vite-react-ssg build",
     "postbuild": "node scripts/generate-sitemap.mjs",
-    "preview": "vite preview --port 4173"
+    "preview": "vite preview --port 4173",
+    "photos": "node scripts/fetch-cloudinary.mjs && node scripts/photo-index.mjs",
+    "prebuild": "node scripts/fetch-cloudinary.mjs",
+    "typecheck": "tsc --noEmit",
+    "verify": "node scripts/verify.mjs",
+    "agreement": "node scripts/build-agreement.mjs"
   },
   "dependencies": {
     "lucide-react": "^0.562.0",
@@ -20,6 +25,8 @@
     "@types/node": "^22.14.0",
     "@vitejs/plugin-react": "^5.0.0",
     "autoprefixer": "^10.5.5",
+    "esbuild": "^0.25.12",
+    "playwright": "^1.63.0",
     "postcss": "^8.5.28",
     "tailwindcss": "^3.4.19",
     "typescript": "~5.8.2",

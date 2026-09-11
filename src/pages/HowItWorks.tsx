@@ -9,8 +9,9 @@ import {
   Truck,
 } from 'lucide-react'
 import Seo from '../components/Seo'
+import SmallerSpacesNote from '../components/SmallerSpacesNote'
 import { CTABand, FeatureCard, PageHero, SectionHeading } from '../components/Primitives'
-import { EXPERIENCE_IMAGES } from '../data/gallery'
+import { IMAGES } from '../data/images'
 import {
   CAPABILITIES,
   PLAY_MODES,
@@ -30,7 +31,7 @@ const STEPS = [
   {
     step: '02',
     title: 'We Deliver & Set Up',
-    desc: 'We arrive around 90 minutes before your start time, build the enclosure, calibrate the tracking system and test every game mode before a single guest arrives.',
+    desc: 'We arrive ahead of your start time, build the enclosure, calibrate the tracking system and test every game mode before a single guest arrives. Build time runs from one hour to three depending on the enclosure — the exact figure is on the packages page — and always happens outside your booked hours.',
     icon: <Truck size={26} />,
   },
   {
@@ -71,7 +72,7 @@ const HowItWorks: React.FC = () => (
         </>
       }
       intro="Three steps from enquiry to pack-down, the exact space and power the bay needs, and the tracking technology that makes the numbers on screen trustworthy."
-      image={EXPERIENCE_IMAGES[2]}
+      image={IMAGES.howItWorksHero}
       primary={{ label: 'Check My Space', to: '/contact' }}
     />
 
@@ -151,6 +152,8 @@ const HowItWorks: React.FC = () => (
           ))}
         </div>
 
+        <SmallerSpacesNote className="mb-10" />
+
         <div className="bg-mountainGreen rounded-[32px] p-8 md:p-10 flex flex-col sm:flex-row items-start gap-6">
           <div className="bg-gold p-4 rounded-2xl text-mountainGreen shadow-lg flex-shrink-0">
             <Plug size={26} />
@@ -164,16 +167,21 @@ const HowItWorks: React.FC = () => (
     </section>
 
     {/* -------------------------------- Tracking ----------------------------- */}
-    <section className="py-24 md:py-32 px-6 bg-mountainGreen">
+    {/* id + scroll-mt so /packages can deep-link here without the fixed nav
+        covering the heading. */}
+    <section
+      id="technology"
+      className="py-24 md:py-32 px-6 bg-mountainGreen scroll-mt-24"
+    >
       <div className="container mx-auto max-w-7xl">
         <SectionHeading
           dark
           eyebrow="The Tracking"
           title="Measured, not estimated."
-          subtitle="Different spaces demand different tracking technology. We bring the system that will actually be accurate where you are putting us, and calibrate it on the day."
+          subtitle="Every shot is measured by a professional launch monitor and calibrated to your venue on the day. What appears on screen is what the ball actually did."
         />
 
-        <div className="grid sm:grid-cols-2 gap-6 mb-20">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
           {TRACKING_TECH.map((hw) => (
             <div
               key={hw.name}

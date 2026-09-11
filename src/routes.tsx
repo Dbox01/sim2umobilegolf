@@ -19,9 +19,9 @@ export const routes: RouteRecord[] = [
         entry: 'src/pages/CorporateEvents.tsx',
       },
       {
-        path: 'private-parties',
-        Component: React.lazy(() => import('./pages/PrivateParties')),
-        entry: 'src/pages/PrivateParties.tsx',
+        path: 'social-events',
+        Component: React.lazy(() => import('./pages/SocialEvents')),
+        entry: 'src/pages/SocialEvents.tsx',
       },
       {
         path: 'packages',
@@ -47,6 +47,16 @@ export const routes: RouteRecord[] = [
         path: 'contact',
         Component: React.lazy(() => import('./pages/Contact')),
         entry: 'src/pages/Contact.tsx',
+      },
+      {
+        path: 'terms',
+        Component: React.lazy(() => import('./pages/Terms')),
+        entry: 'src/pages/Terms.tsx',
+      },
+      {
+        path: 'privacy',
+        Component: React.lazy(() => import('./pages/Privacy')),
+        entry: 'src/pages/Privacy.tsx',
       },
       // Pre-rendered to dist/404.html, which is what GitHub Pages serves
       // for any unknown path.

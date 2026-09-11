@@ -1,6 +1,21 @@
 import React from 'react'
 import { Send } from 'lucide-react'
 import { useFormspree } from '../hooks/useFormspree'
+import { TIERS } from '../data/packages'
+
+/**
+ * The package picker is generated from TIERS, so it can never offer a setup or
+ * a duration the Packages page does not sell. Change a tier's durations there
+ * and this list follows on the next build.
+ *
+ * Corporate is quoted by the half or full day rather than by the hour, which
+ * is how people actually ask for it, so its two durations are labelled that
+ * way.
+ */
+const durationLabel = (tierId: string, hours: number) =>
+  tierId === 'corporate'
+    ? `${hours === 4 ? 'Half day' : 'Full day'} (${hours} hours)`
+    : `${hours} hours`
 
 const inputClass =
   'w-full bg-cream border-2 border-transparent focus:border-gold/40 p-4 rounded-2xl focus:ring-0 outline-none transition-all placeholder:text-gray-300'
@@ -112,15 +127,32 @@ const ContactForm: React.FC = () => {
           <Field
             label="Guest Count"
             name="guest_count"
-            required
             placeholder="e.g. 45"
+            hint="A rough number is fine, and you can leave it blank."
           />
           <Field
-            label="Available Space"
-            name="dimensions"
-            placeholder="Height x Width x Depth"
-            hint="Ceiling height is the one that catches people out. Rough is fine."
-          />
+            label="Package"
+            name="package"
+            hint="Not sure which one? Leave it as is and we'll recommend one."
+          >
+            <select id="package" name="package" className={inputClass} defaultValue="">
+              <option value="">Not sure yet — recommend one</option>
+              {TIERS.map((tier) => (
+                <optgroup key={tier.id} label={tier.name}>
+                  {tier.durations.map((hours) => (
+                    <option
+                      key={hours}
+                      /* The value carries the tier name because the optgroup
+                         heading does not survive into the enquiry email. */
+                      value={`${tier.name} — ${durationLabel(tier.id, hours)}`}
+                    >
+                      {durationLabel(tier.id, hours)}
+                    </option>
+                  ))}
+                </optgroup>
+              ))}
+            </select>
+          </Field>
         </div>
 
         <Field label="Event Type" name="event_type">
@@ -142,7 +174,10 @@ const ContactForm: React.FC = () => {
             id="message"
             name="message"
             rows={4}
-            placeholder="Indoor or outdoor, branding requirements, timings…"
+            /* Ceiling height used to have its own field. It is the one
+               measurement that cannot bend, so it keeps a mention here rather
+               than disappearing with the field. */
+            placeholder="Indoor or outdoor, ceiling height if indoors, branding, timings…"
             className={`${inputClass} resize-y`}
           />
         </Field>

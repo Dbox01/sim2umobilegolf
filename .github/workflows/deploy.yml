@@ -3,6 +3,14 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: ["main"]
+
+  # Rebuilds the site every morning so photos and videos newly tagged in
+  # Cloudinary go live without anyone touching the code.
+  schedule:
+    - cron: "0 3 * * *" # 03:00 UTC = 05:00 South Africa
+
+  # "Run workflow" button on the Actions tab — use it to publish a new photo
+  # immediately instead of waiting for the nightly build.
   workflow_dispatch:
 
 permissions:

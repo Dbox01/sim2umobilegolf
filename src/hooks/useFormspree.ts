@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type FormEvent } from 'react'
 import { FORMSPREE_URL } from '../data/site'
 
 export type FormStatus = 'idle' | 'submitting' | 'success' | 'error'
@@ -7,7 +7,7 @@ export function useFormspree() {
   const [status, setStatus] = useState<FormStatus>('idle')
   const [errorMessage, setErrorMessage] = useState('')
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setStatus('submitting')
     setErrorMessage('')

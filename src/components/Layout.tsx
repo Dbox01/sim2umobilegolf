@@ -5,17 +5,44 @@ import Nav from './Nav'
 import Footer from './Footer'
 import { WHATSAPP_URL } from '../data/site'
 
-/** SPA navigation doesn't reset scroll position on its own. */
+/**
+ * SPA navigation doesn't reset scroll position on its own.
+ *
+ * Honours a hash when there is one (/how-it-works#technology), otherwise goes
+ * to the top. Without the hash branch, a deep link would land at the top of
+ * the page and the anchor would look broken.
+ */
 const ScrollToTop: React.FC = () => {
-  const { pathname } = useLocation()
+  const { pathname, hash } = useLocation()
+
   useEffect(() => {
+    if (hash) {
+      // Wait a frame: the lazy-loaded page may not be in the DOM yet.
+      const id = hash.slice(1)
+      requestAnimationFrame(() => {
+        const el = document.getElementById(id)
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        else window.scrollTo(0, 0)
+      })
+      return
+    }
     window.scrollTo(0, 0)
-  }, [pathname])
+  }, [pathname, hash])
+
   return null
 }
 
+/**
+ * Note the wrapper uses overflow-x-CLIP, not overflow-x-hidden.
+ *
+ * `overflow-x: hidden` computes `overflow-y` to `auto`, which turns this div
+ * into a scroll container — and a `position: sticky` descendant then sticks to
+ * this box instead of the viewport. That silently killed the contents sidebar
+ * on /terms. `clip` does the same visual job without creating the scroll box,
+ * so do not "simplify" it back to hidden.
+ */
 const Layout: React.FC = () => (
-  <div className="bg-cream selection:bg-gold selection:text-mountainGreen overflow-x-hidden min-h-screen flex flex-col">
+  <div className="bg-cream selection:bg-gold selection:text-mountainGreen overflow-x-clip min-h-screen flex flex-col">
     <ScrollToTop />
     <Nav />
 

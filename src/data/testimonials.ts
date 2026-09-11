@@ -75,16 +75,25 @@ export const TESTIMONIALS: Testimonial[] = [
   },
 ]
 
+/** The reviews that came from corporate bookings. */
+export const CORPORATE_TESTIMONIALS = TESTIMONIALS.filter(
+  (t) => t.location === 'Corporate Event',
+)
+
 /**
- * NOTE FOR DYLAN: placeholder client names for the logo strip.
- * Only Medipost is confirmed from your existing testimonials — replace or
- * remove the rest before launch. Naming a client you haven't worked with
- * is a real legal risk, not just an SEO one.
+ * The "Trusted By" strip on the home page.
+ *
+ * Only add a name here once you have actually worked with them — naming a
+ * client you haven't is a real legal risk, not just an SEO one.
+ *
+ * Brand names are spelled the way the brand spells them, because that is what
+ * people search for and what the brand will expect to see: "BMW", "MINI" and
+ * "Mercedes-Benz" are all trademarks with a fixed form.
  */
 export const CLIENT_LOGOS = [
   'Medipost Pharmacy',
-  'Client Name',
-  'Client Name',
-  'Client Name',
-  'Client Name',
+  'BMW & MINI Tygervalley',
+  'Rola Motors Mercedes-Benz',
+  'Qurtuba Online Academy',
+  'Private Functions',
 ]

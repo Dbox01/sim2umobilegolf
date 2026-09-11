@@ -9,6 +9,7 @@ import {
   Sun,
   Users,
 } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import Seo from '../components/Seo'
 import Testimonials from '../components/Testimonials'
 import { CTABand, FeatureCard, PageHero, SectionHeading } from '../components/Primitives'
@@ -24,9 +25,9 @@ const OCCASIONS = [
   },
   {
     icon: <Users size={28} />,
-    title: 'Bachelor Parties',
-    body: 'A full round, a longest-drive contest and a leaderboard with everyone on it. Considerably easier to organise than a day at a course.',
-    image: IMAGES.occasionBachelor,
+    title: 'Private Functions',
+    body: 'Club evenings, supper clubs, end-of-season dinners and anything else with a guest list. A full round, a longest-drive contest and a leaderboard with everyone on it.',
+    image: IMAGES.occasionFunctions,
   },
   {
     icon: <Heart size={28} />,
@@ -54,37 +55,37 @@ const OCCASIONS = [
   },
 ]
 
-const PrivateParties: React.FC = () => (
+const SocialEvents: React.FC = () => (
   <>
     <Seo
-      title="Golf Simulator Hire for Parties & Home Events | Sim2U"
-      description="Hire a mobile golf simulator for birthdays, bachelor parties, weddings and braais across the Western Cape. Multiplayer games for all ages, indoors or in your garden."
-      path="/private-parties"
+      title="Golf Simulator Hire for Social Events & Functions | Sim2U"
+      description="Hire a mobile golf simulator for birthdays, weddings, functions and braais across the Western Cape. Multiplayer games for all ages, indoors or in your garden."
+      path="/social-events"
       schema={{
         '@context': 'https://schema.org',
         '@type': 'Service',
-        name: 'Golf simulator hire for private parties',
-        serviceType: 'Party entertainment hire',
+        name: 'Golf simulator hire for social events',
+        serviceType: 'Social event entertainment hire',
         provider: { '@type': 'LocalBusiness', name: 'Sim2U Mobile Golf' },
         areaServed: {
           '@type': 'AdministrativeArea',
           name: 'Western Cape, South Africa',
         },
-        url: `${SITE_URL}/private-parties`,
+        url: `${SITE_URL}/social-events`,
       }}
     />
 
     <PageHero
-      eyebrow="Private Parties & Functions"
+      eyebrow="Social Events & Functions"
       title={
         <>
-          The party everyone
+          The event everyone
           <br />
-          <span className="text-gold italic">actually plays at.</span>
+          <span className="text-gold italic">actually joins in.</span>
         </>
       }
-      intro="Birthdays, bachelor parties, weddings and braais across the Western Cape. We set up in your garden, your garage or your venue — and every guest gets a turn, whether they golf or not."
-      image={IMAGES.privatePartiesHero}
+      intro="Birthdays, weddings, functions and braais across the Western Cape. We set up in your garden, your garage or your venue — and every guest gets a turn, whether they golf or not."
+      image={IMAGES.socialEventsHero}
       primary={{ label: 'Check My Date', to: '/contact' }}
       secondary={{ label: 'See Packages', to: '/packages' }}
     />
@@ -94,9 +95,9 @@ const PrivateParties: React.FC = () => (
       <div className="container mx-auto max-w-7xl">
         <SectionHeading
           dark
-          eyebrow="Why It Works At Home"
+          eyebrow="Why It Works"
           title="Built for guests who have never played."
-          subtitle="The failure mode of hiring a golf simulator for a party is that three people monopolise it. Here is how we stop that happening."
+          subtitle="The failure mode of hiring a golf simulator is that three keen golfers monopolise it and everyone else drifts off. Here is how we stop that happening."
         />
 
         <div className="grid md:grid-cols-3 gap-8">
@@ -165,15 +166,23 @@ const PrivateParties: React.FC = () => (
             </h2>
             <p className="text-gray-600 leading-relaxed mb-4">
               It is the Western Cape, so it is a fair question. The simulator runs
-              high-end electronics, which means our limit is sustained or gusting
-              wind of 30 km/h, and rain is a no-go. We watch the forecast in the
+              high-end electronics, so rain is a no-go and we suspend play if
+              gusts start to threaten the structure. We watch the forecast in the
               days before your event and talk to you early rather than on the
               morning.
             </p>
             <p className="text-gray-600 leading-relaxed">
-              If we can move indoors, we will. If conditions force a cancellation,
-              you reschedule to an agreed date at no extra charge. You are never
-              left paying for an event that could not happen.
+              If we can move indoors, we will — that is always the first
+              conversation. If it has to be called off before we dispatch, 70% of
+              the fee is refunded; once the bay is going up on site, the fee
+              stands. The full policy is in our{' '}
+              <Link
+                to="/terms"
+                className="text-mountainGreen font-bold underline decoration-gold decoration-2 underline-offset-4 hover:text-gold transition-colors"
+              >
+                booking terms
+              </Link>
+              .
             </p>
           </div>
         </div>
@@ -182,16 +191,16 @@ const PrivateParties: React.FC = () => (
 
     <section className="py-24 px-6 bg-cream">
       <div className="container mx-auto max-w-7xl">
-        <Testimonials limit={6} heading="From private hosts" />
+        <Testimonials limit={6} heading="From the people who booked us" />
       </div>
     </section>
 
     <CTABand
       title="Got a date in mind?"
-      body="Send it through with your suburb and rough guest numbers. We'll confirm availability and price, usually within the day."
+      body="Send it through with your venue or suburb. We'll confirm availability and price, usually within the day."
       primaryLabel="Check Availability"
     />
   </>
 )
 
-export default PrivateParties
+export default SocialEvents

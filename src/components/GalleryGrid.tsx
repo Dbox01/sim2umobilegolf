@@ -1,10 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { ChevronLeft, ChevronRight, X } from 'lucide-react'
-import { EXPERIENCE_IMAGES } from '../data/gallery'
+import { GALLERY_ASSETS, imageThumb, imageUrl } from '../data/gallery'
 
-const GalleryGrid: React.FC<{ images?: string[] }> = ({
-  images = EXPERIENCE_IMAGES,
-}) => {
+const GalleryGrid: React.FC = () => {
+  // Grid tiles get a sized crop; the lightbox gets the full-size image.
+  const images = GALLERY_ASSETS.map((a) => imageThumb(a, 900))
+  const fullSize = GALLERY_ASSETS.map((a) => imageUrl(a))
   const [openIdx, setOpenIdx] = useState<number | null>(null)
 
   const close = useCallback(() => setOpenIdx(null), [])
@@ -84,7 +85,7 @@ const GalleryGrid: React.FC<{ images?: string[] }> = ({
           </button>
 
           <img
-            src={images[openIdx]}
+            src={fullSize[openIdx]}
             alt={`Sim2U mobile golf simulator setup ${openIdx + 1}`}
             className="max-h-full max-w-full object-contain rounded-2xl shadow-2xl"
             onClick={(e) => e.stopPropagation()}

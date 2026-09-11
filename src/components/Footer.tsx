@@ -102,24 +102,24 @@ const Footer: React.FC = () => (
           © {new Date().getFullYear()} Sim2U Mobile Golf. Western Cape, South Africa.
         </p>
         <div className="flex items-center gap-6">
-          <a
-            href="/privacy.html"
+          <Link
+            to="/privacy"
             className="text-white/40 hover:text-gold text-sm transition-colors"
           >
             Privacy Policy
-          </a>
-          <a
-            href="/terms.html"
+          </Link>
+          <Link
+            to="/terms"
             className="text-white/40 hover:text-gold text-sm transition-colors"
           >
             Booking Terms
-          </a>
+          </Link>
           <a
             href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="WhatsApp Sim2U"
-            className="text-white/40 hover:text-gold transition-colors"
+            className="text-[#25D366] hover:brightness-125 transition-all"
           >
             <MessageCircle size={20} />
           </a>

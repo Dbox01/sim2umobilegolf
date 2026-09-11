@@ -6,10 +6,13 @@ export interface TechItem {
 
 /**
  * IMPORTANT: no manufacturer or software brand names anywhere on this site.
- * Several of the systems we run carry licence terms that restrict commercial
- * use of their name, so everything here describes capability rather than
- * product. Keep it that way when you edit — describe what the technology
- * measures or does, never what it is called.
+ * The equipment we run carries licence terms that restrict commercial use of
+ * its name, so everything here describes capability rather than product. Keep
+ * it that way when you edit — describe what the technology measures or does,
+ * never what it is called.
+ *
+ * ALSO: Sim2U runs ONE launch monitor. Nothing here may imply a fleet, a
+ * choice of units, or that different systems are brought to different venues.
  */
 
 /** What the tracking technology actually measures. */
@@ -27,10 +30,10 @@ export const TRACKING_TECH: TechItem[] = [
       'Club head speed, smash factor and strike quality alongside the ball data — enough detail that a low-handicap player can work on something specific, rather than just watching a ball fly.',
   },
   {
-    name: 'Multiple Tracking Systems',
-    role: 'Matched to your venue',
+    name: 'Indoors Or Outdoors',
+    role: 'One setup, either way',
     detail:
-      'We run several different tracking technologies — optical, radar and photometric — because each performs best in different conditions. We bring the one that will be accurate in the space you are putting us in.',
+      'The same tracking unit works in a marquee, a conference foyer or on a lawn. Nothing changes about the accuracy of the numbers when we move the bay inside because the Cape wind turned.',
   },
   {
     name: 'Calibrated On Site',
@@ -78,9 +81,9 @@ export const CAPABILITIES = [
   {
     title: 'Live Competition',
     items: [
-      'Real-time leaderboard on screen',
+      'Live scoring on the bay screen',
       'Closest-to-the-pin and longest drive',
-      'Scoring across teams or individuals',
+      'Team, department or individual formats',
       'Results announced at the end of the session',
     ],
   },
@@ -121,4 +124,27 @@ export const SETUP_REQUIREMENTS = [
 ]
 
 export const POWER_REQUIREMENT =
-  'A single standard 220V wall outlet. We arrive with a 30m industrial extension lead, so the bay can sit well away from the plug point.'
+  'A single standard 220V wall outlet within 30 metres of where the bay will stand — that is the length of the industrial extension lead we bring. It does not need to be close, but it does need to be within reach. If your only outlet is further away, tell us when you enquire.'
+
+/**
+ * The counterweight to a page full of hard numbers.
+ *
+ * Two rules this copy has to hold at once, which is why it is worded the way
+ * it is and why it lives in one place rather than being retyped per page:
+ *
+ *  1. It must invite the conversation BEFORE the booking, never suggest the
+ *     measurements soften once we are on site. The booking terms charge the
+ *     full fee for an unusable site (clause 2), so a note that reads like a
+ *     promise to squeeze in would hand a client an argument that the clause
+ *     was waived.
+ *  2. It must not contradict the ceiling rule. Width, depth and awkward
+ *     corners genuinely do flex. Ceiling height does not — below the stated
+ *     height the ball cannot be struck safely — and the Site Requirements
+ *     section says so plainly. Blurring that to sound accommodating would
+ *     produce exactly the wasted trip the note is meant to prevent.
+ */
+export const SMALLER_SPACES_NOTE = {
+  title: 'Tighter than that? Ask us anyway.',
+  body:
+    'Width and depth are where we have surprised people — we have set up in smaller gardens and more awkward corners than you would expect. Ceiling height is the one measurement that cannot bend: below the height listed, the ball cannot be struck safely. Send us your measurements before you book and we will tell you honestly whether it works. What we confirm in writing is what applies on the day.',
+}
