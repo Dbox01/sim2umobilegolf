@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { FORMSPREE_URL } from '../data/site'
 import { track } from '../lib/analytics'
+import { attributionFields, attributionSummary } from '../lib/attribution'
 
 export type FormStatus = 'idle' | 'submitting' | 'success' | 'error'
 
@@ -31,6 +32,13 @@ export function useFormspree({ formName }: FormspreeOptions = {}) {
     data.append('_origin', window.location.hostname)
     data.append('_page', window.location.pathname)
 
+    // Where this person came from, written into the enquiry itself. Unlike
+    // Analytics, this survives ad blockers — if the form reaches Formspree,
+    // the source reaches Formspree with it.
+    for (const [label, value] of Object.entries(attributionFields())) {
+      data.append(label, value)
+    }
+
     try {
       const response = await fetch(FORMSPREE_URL, {
         method: 'POST',
@@ -44,11 +52,19 @@ export function useFormspree({ formName }: FormspreeOptions = {}) {
         // Fired only on a confirmed 2xx from Formspree — never on submit.
         // Counting attempts rather than successes is how a conversion number
         // quietly inflates and stops being worth reading.
+        const attr = attributionSummary()
         track('generate_lead', {
           form_name: formName,
           // Which page the enquiry came from. This is the number that answers
           // "is the Packages page earning its keep?"
           page_path: window.location.pathname,
+          lead_source: attr.source,
+          lead_medium: attr.medium,
+          lead_campaign: attr.campaign,
+          // What the person said themselves, when they answered. The only
+          // signal that catches word of mouth and "saw you at an event",
+          // which no amount of click tracking can see.
+          heard_about: String(data.get('heard_about') || '') || undefined,
         })
 
         form.reset()

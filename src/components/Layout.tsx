@@ -5,6 +5,7 @@ import Nav from './Nav'
 import Footer from './Footer'
 import { WHATSAPP_URL } from '../data/site'
 import { trackOutboundContactClicks } from '../lib/analytics'
+import { captureAttribution } from '../lib/attribution'
 
 /**
  * Counts taps on phone and WhatsApp links anywhere on the site.
@@ -14,7 +15,13 @@ import { trackOutboundContactClicks } from '../lib/analytics'
  * covering any link added later.
  */
 const ContactClickTracking: React.FC = () => {
-  useEffect(() => trackOutboundContactClicks(), [])
+  useEffect(() => {
+    // Runs before any client-side navigation, while the UTM tags are still on
+    // the URL and the referrer still points outside the site. Both are gone by
+    // the second page, which is why this cannot live on the contact page.
+    captureAttribution()
+    return trackOutboundContactClicks()
+  }, [])
   return null
 }
 

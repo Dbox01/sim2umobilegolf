@@ -171,6 +171,33 @@ const ContactForm: React.FC = () => {
           </select>
         </Field>
 
+        {/* Deliberately optional and deliberately last, after everything we
+            actually need. It is the only thing on the site that can see a
+            recommendation or someone who played at another event — no
+            tracking can. Asking for it costs a moment; not asking costs the
+            answer entirely. */}
+        <Field
+          label="How did you hear about us?"
+          name="heard_about"
+          hint="Optional — but it genuinely helps us know what's working."
+        >
+          <select
+            id="heard_about"
+            name="heard_about"
+            className={inputClass}
+            defaultValue=""
+          >
+            <option value="">Rather not say</option>
+            <option>Google search</option>
+            <option>Instagram</option>
+            <option>Facebook</option>
+            <option>Saw Sim2U at an event</option>
+            <option>Recommended by someone</option>
+            <option>We&apos;ve booked before</option>
+            <option>Somewhere else</option>
+          </select>
+        </Field>
+
         <Field label="Anything else?" name="message">
           <textarea
             id="message"
