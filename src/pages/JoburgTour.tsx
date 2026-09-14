@@ -32,7 +32,89 @@ const TOUR = {
   dates: 'Dates announced soon',
   signup: 'Free to sign up',
   areas: ['Sandton', 'Rosebank', 'Midrand', 'Pretoria East', 'Fourways', 'Centurion'],
+
+  /**
+   * ===================================================================
+   *  THE TOUR DATES — the only lines to change when they are confirmed.
+   * ===================================================================
+   *
+   * Format: 'YYYY-MM-DD'. Set both, save, push.
+   *
+   *   startDate: '2027-03-01',
+   *   endDate: '2027-03-31',
+   *
+   * While these are null the page publishes NO Event markup to Google.
+   * That is deliberate. Google requires a startDate on anything calling
+   * itself an Event, and an Event without one is rejected outright — which
+   * is exactly the error Search Console reported. There is no honest
+   * startDate to give until the tour is actually scheduled, and inventing
+   * one to satisfy a validator is how a site earns a structured-data
+   * manual action. So until then the page describes itself as a service,
+   * which is what it currently is: an announcement and a sign-up list.
+   *
+   * The moment you fill these in, the full Event markup appears and the
+   * tour becomes eligible for Google's event listings.
+   */
+  startDate: null as string | null,
+  endDate: null as string | null,
 }
+
+/**
+ * Event markup only when there is a real date to put in it; otherwise the
+ * page is a Service like the other offering pages.
+ *
+ * Fields here follow Google's Event spec: name, location and startDate are
+ * required, and endDate, eventStatus, image and an organizer carrying a url
+ * are recommended. `offers` and `performer` are deliberately absent — there
+ * are no tickets to sell and no performer to name, and padding markup with
+ * properties that do not describe the thing is worse than omitting them.
+ */
+const tourSchema = TOUR.startDate
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'Event',
+      name: 'Sim2U Joburg Tour',
+      description:
+        'Annual one-month mobile golf simulator pop-up tour across Johannesburg and Pretoria.',
+      startDate: TOUR.startDate,
+      ...(TOUR.endDate ? { endDate: TOUR.endDate } : {}),
+      eventStatus: 'https://schema.org/EventScheduled',
+      eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+      image: [IMAGES.joburgHero],
+      location: {
+        '@type': 'Place',
+        name: 'Gauteng, South Africa',
+        address: {
+          '@type': 'PostalAddress',
+          addressRegion: 'Gauteng',
+          addressCountry: 'ZA',
+        },
+      },
+      organizer: {
+        '@type': 'Organization',
+        name: 'Sim2U Mobile Golf',
+        url: SITE_URL,
+      },
+      url: `${SITE_URL}/joburg-tour`,
+    }
+  : {
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      serviceType: 'Mobile golf simulator hire',
+      name: 'Sim2U Joburg Tour',
+      description:
+        'Sim2U brings its mobile golf simulator to Gauteng for one month a year. Dates are announced to the sign-up list first.',
+      provider: {
+        '@type': 'Organization',
+        name: 'Sim2U Mobile Golf',
+        url: SITE_URL,
+      },
+      areaServed: {
+        '@type': 'AdministrativeArea',
+        name: 'Gauteng, South Africa',
+      },
+      url: `${SITE_URL}/joburg-tour`,
+    }
 
 const JoburgTour: React.FC = () => (
   <>
@@ -40,25 +122,7 @@ const JoburgTour: React.FC = () => (
       title="Golf Simulator Hire Johannesburg | Sim2U Joburg Tour"
       description="Sim2U brings its mobile golf simulator to Gauteng for one month a year. Sign up free and get the Johannesburg and Pretoria dates by email before anyone else."
       path="/joburg-tour"
-      schema={{
-        '@context': 'https://schema.org',
-        '@type': 'Event',
-        name: 'Sim2U Joburg Tour',
-        description:
-          'Annual one-month mobile golf simulator pop-up tour across Johannesburg and Pretoria.',
-        eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
-        location: {
-          '@type': 'Place',
-          name: 'Gauteng, South Africa',
-          address: {
-            '@type': 'PostalAddress',
-            addressRegion: 'Gauteng',
-            addressCountry: 'ZA',
-          },
-        },
-        organizer: { '@type': 'Organization', name: 'Sim2U Mobile Golf' },
-        url: `${SITE_URL}/joburg-tour`,
-      }}
+      schema={tourSchema}
     />
 
     {/* --------------------------------- Hero -------------------------------- */}
