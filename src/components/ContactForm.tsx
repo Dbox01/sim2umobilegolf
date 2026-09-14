@@ -51,7 +51,9 @@ const Field: React.FC<{
 )
 
 const ContactForm: React.FC = () => {
-  const { status, errorMessage, handleSubmit } = useFormspree()
+  const { status, errorMessage, handleSubmit } = useFormspree({
+    formName: 'quote_request',
+  })
 
   return (
     <form

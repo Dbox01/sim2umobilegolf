@@ -4,6 +4,19 @@ import { MessageCircle } from 'lucide-react'
 import Nav from './Nav'
 import Footer from './Footer'
 import { WHATSAPP_URL } from '../data/site'
+import { trackOutboundContactClicks } from '../lib/analytics'
+
+/**
+ * Counts taps on phone and WhatsApp links anywhere on the site.
+ *
+ * Mounted here rather than on each link: one listener covers the nav, the
+ * mobile menu, the footer, the floating button and the contact page, and keeps
+ * covering any link added later.
+ */
+const ContactClickTracking: React.FC = () => {
+  useEffect(() => trackOutboundContactClicks(), [])
+  return null
+}
 
 /**
  * SPA navigation doesn't reset scroll position on its own.
@@ -44,6 +57,7 @@ const ScrollToTop: React.FC = () => {
 const Layout: React.FC = () => (
   <div className="bg-cream selection:bg-gold selection:text-mountainGreen overflow-x-clip min-h-screen flex flex-col">
     <ScrollToTop />
+    <ContactClickTracking />
     <Nav />
 
     <main className="flex-1">

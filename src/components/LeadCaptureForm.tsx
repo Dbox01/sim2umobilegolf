@@ -18,7 +18,9 @@ const labelClass =
  * only the first instance claims the #sign-up anchor.
  */
 const LeadCaptureForm: React.FC<{ anchorId?: string }> = ({ anchorId }) => {
-  const { status, errorMessage, handleSubmit } = useFormspree()
+  const { status, errorMessage, handleSubmit } = useFormspree({
+    formName: 'joburg_signup',
+  })
   const uid = useId()
   const fid = (name: string) => `${uid}-${name}`
 
