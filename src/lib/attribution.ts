@@ -72,6 +72,34 @@ function writeStore(value: Stored): void {
 }
 
 /**
+ * Collapse the many spellings of the same place into one name.
+ *
+ * The same visitor can arrive as "ig", "instagram", "l.instagram.com" or
+ * "instagram.com" depending on which link they used and which app opened it.
+ * Left alone, that is four rows in a report and four different-looking lines
+ * in the enquiry inbox for one channel.
+ *
+ * This only ever renames — it never reclassifies. "ig" becomes "instagram"
+ * because they are the same place; nothing here turns one source into another.
+ */
+const SOURCE_ALIASES: [RegExp, string][] = [
+  [/^(ig|instagram|l\.instagram\.com|instagram\.com)$/i, 'instagram'],
+  [/^(fb|facebook|l\.facebook\.com|m\.facebook\.com|lm\.facebook\.com|facebook\.com|web\.facebook\.com)$/i, 'facebook'],
+  [/^(wa|whatsapp|api\.whatsapp\.com|web\.whatsapp\.com|chat\.whatsapp\.com)$/i, 'whatsapp'],
+  [/^(google|google\.com|google\.co\.za|www\.google\.com)$/i, 'google'],
+  [/^(bing|bing\.com)$/i, 'bing'],
+  [/^(linkedin|lnkd\.in|linkedin\.com)$/i, 'linkedin'],
+  [/^(youtube|youtu\.be|youtube\.com|m\.youtube\.com)$/i, 'youtube'],
+  [/^(tiktok|tiktok\.com|vm\.tiktok\.com)$/i, 'tiktok'],
+]
+
+function normaliseSource(raw: string): string {
+  const s = raw.trim().toLowerCase()
+  for (const [pattern, name] of SOURCE_ALIASES) if (pattern.test(s)) return name
+  return s
+}
+
+/**
  * Work out where this particular visit came from.
  *
  * UTM tags win when present, because they are what we chose to put on our own
@@ -97,14 +125,16 @@ function currentTouch(): Touch {
   let medium = 'none'
 
   if (utmSource) {
-    source = utmSource
+    source = normaliseSource(utmSource)
     medium = params.get('utm_medium') || 'unknown'
   } else if (external) {
-    source = host
-    // Named rather than guessed: these are the referrers that actually matter
-    // for this business, and anything else is honestly labelled a referral.
-    if (/instagram|facebook|fb\.|l\.facebook|lm\.facebook/.test(host)) medium = 'social'
-    else if (/google|bing|duckduckgo|yahoo|ecosia/.test(host)) medium = 'organic'
+    source = normaliseSource(host)
+    // Classified off the normalised name, so every Facebook and Instagram
+    // spelling lands in the same bucket. Anything unrecognised is honestly
+    // called a referral rather than guessed at.
+    if (/^(instagram|facebook|whatsapp|linkedin|youtube|tiktok)$/.test(source)) medium = 'social'
+    else if (/^(google|bing)$/.test(source) || /duckduckgo|yahoo|ecosia/.test(host))
+      medium = 'organic'
     else medium = 'referral'
   }
 
@@ -166,7 +196,11 @@ export function captureAttribution(): void {
 
 function describe(t: Touch): string {
   const bits = [t.source, t.medium]
-  if (t.campaign) bits.push(t.campaign)
+  // campaign if it's there, otherwise content — a link tagged only with
+  // utm_content (which is how the Instagram bio link is tagged) should still
+  // say which link it was, not drop the detail silently.
+  const label = t.campaign || t.content
+  if (label) bits.push(label)
   return bits.filter(Boolean).join(' / ')
 }
 
