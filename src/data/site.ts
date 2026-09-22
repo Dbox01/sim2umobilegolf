@@ -41,13 +41,82 @@ export const LOGO_URL = '/logo.webp'
 /** Build-time flag. Only the production build is indexable. */
 export const IS_PRODUCTION = import.meta.env.VITE_SITE_ENV === 'production'
 
-export const NAV_LINKS = [
-  { name: 'Corporate', to: '/corporate-events' },
-  { name: 'Social Events', to: '/social-events' },
-  { name: 'Packages', to: '/packages' },
-  { name: 'How It Works', to: '/how-it-works' },
-  { name: 'Gallery', to: '/gallery' },
+export interface NavChild {
+  name: string
+  to: string
+  /** One line under the name in the dropdown. Say what the page answers. */
+  blurb: string
+}
+
+export type NavEntry =
+  | { kind: 'link'; name: string; to: string }
+  | { kind: 'group'; name: string; items: NavChild[] }
+
+/**
+ * The top bar.
+ *
+ * Grouped rather than flat because six links plus a tour pill, a phone number
+ * and a quote button had the bar running to the edge of a laptop screen. Two
+ * dropdowns and one flat link leave room to breathe — and room to add pages
+ * without starting this argument again.
+ *
+ * Split by question rather than by audience: "what do you do" and "what does
+ * it cost" are the two things a first-time visitor wants, and a person who
+ * doesn't yet know whether we suit them cannot pick between "Corporate" and
+ * "Social" on their own.
+ */
+export const NAV: NavEntry[] = [
+  {
+    kind: 'group',
+    name: 'What We Do',
+    items: [
+      {
+        name: 'Corporate Events',
+        to: '/corporate-events',
+        blurb: 'Team building, conferences and brand activations',
+      },
+      {
+        name: 'Social Events',
+        to: '/social-events',
+        blurb: 'Birthdays, weddings, braais and private functions',
+      },
+      {
+        name: 'Equipment Hire',
+        to: '/equipment-hire',
+        blurb: 'Launch monitor and operator for golf days',
+      },
+    ],
+  },
+  {
+    kind: 'group',
+    name: 'Pricing',
+    items: [
+      {
+        name: 'Packages & Rates',
+        to: '/packages',
+        blurb: 'Three enclosures, hourly pricing, what is included',
+      },
+      {
+        name: 'How It Works',
+        to: '/how-it-works',
+        blurb: 'Space, ceiling height, power and setup times',
+      },
+    ],
+  },
+  { kind: 'link', name: 'Gallery', to: '/gallery' },
 ]
+
+/**
+ * Every page in NAV, flattened — the footer and the 404 page list them all.
+ *
+ * Derived rather than written out a second time, so a page added to a
+ * dropdown can never go missing from the footer.
+ */
+export const NAV_LINKS: { name: string; to: string }[] = NAV.flatMap((entry) =>
+  entry.kind === 'group'
+    ? entry.items.map(({ name, to }) => ({ name, to }))
+    : [{ name: entry.name, to: entry.to }],
+)
 
 /** Shown as a highlighted pill, separate from the main nav run. */
 export const FEATURED_LINK = { name: 'Joburg Tour', to: '/joburg-tour' }
@@ -69,6 +138,9 @@ export const SITEMAP_ROUTES: { path: string; priority: string }[] = [
   { path: '/social-events', priority: '0.9' },
   { path: '/packages', priority: '0.9' },
   { path: '/how-it-works', priority: '0.7' },
+  // Its own search term ("launch monitor hire", "mevo hire") that no other
+  // page competes for, so it earns a higher priority than the gallery.
+  { path: '/equipment-hire', priority: '0.7' },
   { path: '/gallery', priority: '0.6' },
   { path: '/joburg-tour', priority: '0.8' },
   { path: '/contact', priority: '0.8' },

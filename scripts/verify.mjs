@@ -3,12 +3,39 @@
  * failed requests and horizontal overflow. Run against `npm run preview`.
  */
 import { chromium } from 'playwright'
+import { existsSync, readFileSync } from 'node:fs'
+import { dirname, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 const BASE = process.env.BASE || 'http://localhost:4173'
-const ROUTES = [
-  '/', '/corporate-events', '/social-events', '/packages', '/how-it-works',
-  '/gallery', '/joburg-tour', '/contact', '/terms', '/privacy', '/404',
-]
+
+/**
+ * Every route, read out of the sitemap the build just wrote.
+ *
+ * This used to be a hand-written list, which meant adding a page and
+ * forgetting to add it here — so the one page most likely to be broken was
+ * the only one never checked. The sitemap is generated from SITEMAP_ROUTES,
+ * so reading it keeps the sweep honest automatically.
+ *
+ * /404 is appended by hand because it is deliberately excluded from the
+ * sitemap (it is noindex) but still needs to render without errors.
+ */
+function discoverRoutes() {
+  const sitemap = resolve(dirname(fileURLToPath(import.meta.url)), '../dist/sitemap.xml')
+  if (!existsSync(sitemap)) {
+    console.error(
+      '\nNo dist/sitemap.xml — run "npm run build" before "npm run verify".\n',
+    )
+    process.exit(1)
+  }
+  const xml = readFileSync(sitemap, 'utf8')
+  const paths = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)]
+    .map((m) => new URL(m[1]).pathname)
+    .map((p) => (p !== '/' && p.endsWith('/') ? p.slice(0, -1) : p))
+  return [...new Set([...paths, '/404'])]
+}
+
+const ROUTES = discoverRoutes()
 const VIEWPORTS = [
   { name: 'desktop', width: 1440, height: 900 },
   { name: 'mobile', width: 390, height: 844 },

@@ -34,6 +34,11 @@ export const routes: RouteRecord[] = [
         entry: 'src/pages/HowItWorks.tsx',
       },
       {
+        path: 'equipment-hire',
+        Component: React.lazy(() => import('./pages/EquipmentHire')),
+        entry: 'src/pages/EquipmentHire.tsx',
+      },
+      {
         path: 'gallery',
         Component: React.lazy(() => import('./pages/Gallery')),
         entry: 'src/pages/Gallery.tsx',
