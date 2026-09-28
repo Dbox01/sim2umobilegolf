@@ -80,20 +80,48 @@ export const CORPORATE_TESTIMONIALS = TESTIMONIALS.filter(
   (t) => t.location === 'Corporate Event',
 )
 
+export interface EventWorked {
+  /** The event or venue. This is the line people read. */
+  name: string
+  /** Who it was for, when that is a different thing from the event. */
+  detail?: string
+}
+
 /**
- * The "Trusted By" strip on the home page.
+ * Events we have set up at, scrolled across the home page.
  *
- * Only add a name here once you have actually worked with them — naming a
- * client you haven't is a real legal risk, not just an SEO one.
+ * ---------------------------------------------------------------------------
+ *  READ THIS BEFORE CHANGING THE WORDING AROUND IT
+ * ---------------------------------------------------------------------------
+ * This replaced a "Trusted By" strip, and the change was legal, not visual.
  *
- * Brand names are spelled the way the brand spells them, because that is what
- * people search for and what the brand will expect to see: "BMW", "MINI" and
- * "Mercedes-Benz" are all trademarks with a fixed form.
+ * "Trusted By" over a list of companies asserts a RELATIONSHIP — it reads as
+ * those brands vouching for us, which is an endorsement none of them has
+ * given. A factual statement that we worked at a named event is a different
+ * kind of claim and a far more defensible one: it is either true or it isn't,
+ * and ours are true.
+ *
+ * So the framing has to stay factual wherever this list is rendered. Safe:
+ * "Events We've Worked", "Where We've Set Up". NOT safe: "Trusted By", "Our
+ * Clients", "Partners", "As Used By" — all of those re-assert the endorsement
+ * this section exists to avoid. Logos are out entirely for the same reason:
+ * a logo is a trademark, and reproducing one needs permission that a factual
+ * mention does not.
+ *
+ * Two further rules:
+ *   · Only add an event that actually happened. The whole defence rests on
+ *     every line being true.
+ *   · Spell brand names the way the brand spells them — "BMW", "MINI",
+ *     "Mercedes-Benz" all have a fixed form, and getting it wrong looks
+ *     careless to exactly the client you are trying to impress.
+ *
+ * If any of these clients later gives written permission to use their logo,
+ * that is a different and stronger section — worth asking for.
  */
-export const CLIENT_LOGOS = [
-  'Medipost Pharmacy',
-  'BMW & MINI Tygervalley',
-  'Rola Motors Mercedes-Benz',
-  'Qurtuba Online Academy',
-  'Private Functions',
+export const EVENTS_WORKED: EventWorked[] = [
+  { name: 'BHF Conference', detail: 'Medipost Pharmacy' },
+  { name: 'EduExpo', detail: 'Qurtuba Online Academy' },
+  { name: 'BMW & MINI Tygervalley' },
+  { name: 'Rola Motors Mercedes-Benz' },
+  { name: 'E-Piphany' },
 ]

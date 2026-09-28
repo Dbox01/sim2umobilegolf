@@ -14,10 +14,10 @@ import {
 import Seo from '../components/Seo'
 import VideoReel from '../components/VideoReel'
 import Testimonials from '../components/Testimonials'
+import EventMarquee from '../components/EventMarquee'
 import { CTABand, Eyebrow, PageHero, SectionHeading } from '../components/Primitives'
 import { IMAGES } from '../data/images'
 import { INCLUDED_IN_EVERY_PACKAGE, TIERS, priceFor } from '../data/packages'
-import { CLIENT_LOGOS } from '../data/testimonials'
 import { SITE_URL } from '../data/site'
 
 
@@ -111,8 +111,36 @@ const Home: React.FC = () => (
       }
       intro="We bring a full golf simulator — the tech, the courses and the competition — directly to your corporate event, wedding or private party. You host. We run it."
       image={IMAGES.homeHero}
+      /* ------------------------------------------------------------------
+       *  TO PUT THE HERO VIDEO LIVE
+       * ------------------------------------------------------------------
+       *  1. Drop the encoded files in public/  (see the spec below).
+       *  2. Uncomment this block.
+       *  3. Build and look at it on a phone as well as a laptop.
+       *
+       *  video={{
+       *    desktop: '/hero-desktop.mp4',
+       *    // Only add `mobile` if there is a cut framed PORTRAIT. The hero is
+       *    // full-height, so a phone shows roughly the middle quarter of a
+       *    // 16:9 frame. With no mobile cut, phones keep the still image —
+       *    // which is the better result and saves the visitor the download.
+       *    // mobile: '/hero-mobile.mp4',
+       *  }}
+       *
+       *  Encode to: H.264 High, yuv420p, 30fps, no audio track, +faststart.
+       *  1920x1080 at 2.5MB or less for desktop; 1080x1620 at 1.2MB or less
+       *  for the portrait cut. yuv420p and +faststart are the two that get
+       *  skipped and both fail quietly — the wrong pixel format simply will
+       *  not play in Safari, and without faststart the hero sits on the
+       *  poster until the whole file has downloaded.
+       *
+       *  Nothing else has to change. The still image below stays exactly where
+       *  it is and becomes the poster frame automatically.
+       * ------------------------------------------------------------------ */
       primary={{ label: 'View Packages', to: '/packages' }}
-      secondary={{ label: 'Check Availability', to: '/contact' }}
+      secondary={{ label: 'Book Your Event', to: '/contact' }}
+      tertiary={{ label: 'How It Works', to: '/how-it-works' }}
+      badge="Powered by FlightScope"
     />
 
     {/* --------------------- Why Sim2U + the reel, together ------------------ */}
@@ -295,25 +323,24 @@ const Home: React.FC = () => (
       </div>
     </section>
 
-    {/* ------------------------ Clients + testimonials ----------------------- */}
-    <section className="py-24 md:py-32 px-6 bg-cream">
-      <div className="container mx-auto max-w-7xl">
-        <div className="text-center mb-16">
-          <div className="flex justify-center mb-6">
-            <Eyebrow>Trusted By</Eyebrow>
-          </div>
-          <div className="flex flex-wrap justify-center items-center gap-x-12 gap-y-6">
-            {CLIENT_LOGOS.map((client, i) => (
-              <span
-                key={i}
-                className="text-mountainGreen/30 font-serif text-xl md:text-2xl italic tracking-tight"
-              >
-                {client}
-              </span>
-            ))}
-          </div>
+    {/* ------------------------ Events + testimonials ------------------------ */}
+    {/* This was a "Trusted By" strip. The wording changed for legal reasons,
+        not visual ones: "Trusted By" over a list of companies claims an
+        endorsement none of them has given, whereas naming an event we worked
+        is a plain fact. Read the note above EVENTS_WORKED in
+        data/testimonials.ts before rewording the heading. */}
+    <section className="py-24 md:py-32 bg-cream overflow-hidden">
+      <div className="container mx-auto max-w-7xl px-6">
+        <div className="flex justify-center mb-10">
+          <Eyebrow>Events We've Worked</Eyebrow>
         </div>
+      </div>
 
+      {/* Full-bleed on purpose — the row runs off both edges of the screen,
+          which is what makes it read as a longer list than it is. */}
+      <EventMarquee />
+
+      <div className="container mx-auto max-w-7xl px-6 mt-20">
         <Testimonials limit={6} />
       </div>
     </section>
