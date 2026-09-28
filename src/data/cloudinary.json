@@ -1,140 +1,225 @@
 {
-  "generatedAt": "2026-09-22T11:29:30Z",
-  "source": "previous",
+  "generatedAt": "2026-09-28T05:45:04Z",
+  "source": "cloudinary",
   "gallery": [
     {
-      "publicId": "IMG_7758_vlrusn",
-      "version": 1785222588,
-      "format": "jpg"
-    },
-    {
-      "publicId": "20260516_134338_z0tkiu",
-      "version": 1785222584,
-      "format": "jpg"
-    },
-    {
-      "publicId": "20260725_134627_kce6ve",
-      "version": 1785222587,
-      "format": "jpg"
-    },
-    {
-      "publicId": "IMG_7660_ghaaja",
-      "version": 1785222588,
-      "format": "jpg"
-    },
-    {
-      "publicId": "04d620e0-bfa9-4eda-b973-6be047204a2a_bfm54u",
-      "version": 1785222590,
-      "format": "jpg"
-    },
-    {
-      "publicId": "StandDuringEvent_4_drdmsy",
-      "version": 1785222593,
-      "format": "jpg"
+      "publicId": "Medipost_Stand_Ladies._1_fwwzwr",
+      "version": 1785231127,
+      "format": "jpg",
+      "width": 3000,
+      "height": 4000,
+      "createdAt": "2026-07-28T09:32:07Z"
     },
     {
       "publicId": "GolfSwing_5_elkcim",
       "version": 1785222598,
-      "format": "jpg"
+      "format": "jpg",
+      "width": 3000,
+      "height": 4000,
+      "createdAt": "2026-07-28T07:09:58Z"
     },
     {
-      "publicId": "IMG_7735_nt2s0x",
-      "version": 1785222589,
-      "format": "heic"
-    },
-    {
-      "publicId": "IMG-20260420-WA0006_rf4bnz",
-      "version": 1785222588,
-      "format": "jpg"
-    },
-    {
-      "publicId": "20260516_134653_fgqave",
-      "version": 1785222586,
-      "format": "jpg"
-    },
-    {
-      "publicId": "99c19f3d-cfe6-4642-8c51-c0d674d6c1a9_hnby1c",
-      "version": 1785222582,
-      "format": "jpg"
-    },
-    {
-      "publicId": "IMG_0174_ieuzas",
-      "version": 1785222584,
-      "format": "jpg"
-    },
-    {
-      "publicId": "IMG_7757_hnz0nx",
-      "version": 1785222588,
-      "format": "jpg"
-    },
-    {
-      "publicId": "IMG_7581_hyo7n4",
-      "version": 1785222586,
-      "format": "jpg"
-    },
-    {
-      "publicId": "Stand_9_aozx7t",
-      "version": 1785222589,
-      "format": "jpg"
+      "publicId": "StandDuringEvent_4_drdmsy",
+      "version": 1785222593,
+      "format": "jpg",
+      "width": 3000,
+      "height": 4000,
+      "createdAt": "2026-07-28T07:09:53Z"
     },
     {
       "publicId": "14bc34d1-eb70-4c95-8f87-3ea98b35621c_thwydl",
       "version": 1785222591,
-      "format": "jpg"
-    },
-    {
-      "publicId": "IMG_7648_mzejac",
-      "version": 1785222587,
-      "format": "jpg"
+      "format": "jpg",
+      "width": 2340,
+      "height": 4160,
+      "createdAt": "2026-07-28T07:09:51Z"
     },
     {
       "publicId": "Stand_8_vel0b3",
       "version": 1785222591,
-      "format": "jpg"
+      "format": "jpg",
+      "width": 3000,
+      "height": 4000,
+      "createdAt": "2026-07-28T07:09:51Z"
     },
     {
-      "publicId": "57302338-eb85-467d-af77-6f2a99d3d9a4_e6dqro",
-      "version": 1785222583,
-      "format": "jpg"
-    }
-  ],
-  "corporate": [
+      "publicId": "04d620e0-bfa9-4eda-b973-6be047204a2a_bfm54u",
+      "version": 1785222590,
+      "format": "jpg",
+      "width": 2340,
+      "height": 4160,
+      "createdAt": "2026-07-28T07:09:50Z"
+    },
     {
-      "publicId": "StandDuringEvent_4_drdmsy",
-      "version": 1785222593,
-      "format": "jpg"
+      "publicId": "IMG_7735_nt2s0x",
+      "version": 1785222589,
+      "format": "heic",
+      "width": 3213,
+      "height": 5712,
+      "createdAt": "2026-07-28T07:09:49Z"
     },
     {
       "publicId": "Stand_9_aozx7t",
       "version": 1785222589,
-      "format": "jpg"
-    },
-    {
-      "publicId": "Stand_8_vel0b3",
-      "version": 1785222591,
-      "format": "jpg"
+      "format": "jpg",
+      "width": 3000,
+      "height": 4000,
+      "createdAt": "2026-07-28T07:09:49Z"
     },
     {
       "publicId": "IMG_7758_vlrusn",
       "version": 1785222588,
-      "format": "jpg"
+      "format": "jpg",
+      "width": 1536,
+      "height": 2048,
+      "createdAt": "2026-07-28T07:09:48Z"
+    },
+    {
+      "publicId": "IMG_7660_ghaaja",
+      "version": 1785222588,
+      "format": "jpg",
+      "width": 1330,
+      "height": 2364,
+      "createdAt": "2026-07-28T07:09:48Z"
+    },
+    {
+      "publicId": "IMG_7757_hnz0nx",
+      "version": 1785222588,
+      "format": "jpg",
+      "width": 1536,
+      "height": 2048,
+      "createdAt": "2026-07-28T07:09:48Z"
+    },
+    {
+      "publicId": "IMG-20260420-WA0006_rf4bnz",
+      "version": 1785222588,
+      "format": "jpg",
+      "width": 960,
+      "height": 1280,
+      "createdAt": "2026-07-28T07:09:48Z"
     },
     {
       "publicId": "20260725_134627_kce6ve",
       "version": 1785222587,
-      "format": "jpg"
-    },
-    {
-      "publicId": "IMG_0174_ieuzas",
-      "version": 1785222584,
-      "format": "jpg"
+      "format": "jpg",
+      "width": 3000,
+      "height": 4000,
+      "createdAt": "2026-07-28T07:09:47Z"
     },
     {
       "publicId": "IMG_7648_mzejac",
       "version": 1785222587,
-      "format": "jpg"
+      "format": "jpg",
+      "width": 1330,
+      "height": 2364,
+      "createdAt": "2026-07-28T07:09:47Z"
+    },
+    {
+      "publicId": "IMG_7581_hyo7n4",
+      "version": 1785222586,
+      "format": "jpg",
+      "width": 3762,
+      "height": 6688,
+      "createdAt": "2026-07-28T07:09:46Z"
+    },
+    {
+      "publicId": "20260516_134653_fgqave",
+      "version": 1785222586,
+      "format": "jpg",
+      "width": 4000,
+      "height": 3000,
+      "createdAt": "2026-07-28T07:09:46Z"
+    },
+    {
+      "publicId": "20260516_134338_z0tkiu",
+      "version": 1785222584,
+      "format": "jpg",
+      "width": 4000,
+      "height": 3000,
+      "createdAt": "2026-07-28T07:09:44Z"
+    },
+    {
+      "publicId": "IMG_0174_ieuzas",
+      "version": 1785222584,
+      "format": "jpg",
+      "width": 1536,
+      "height": 2048,
+      "createdAt": "2026-07-28T07:09:44Z"
+    },
+    {
+      "publicId": "57302338-eb85-467d-af77-6f2a99d3d9a4_e6dqro",
+      "version": 1785222583,
+      "format": "jpg",
+      "width": 2340,
+      "height": 4160,
+      "createdAt": "2026-07-28T07:09:43Z"
+    },
+    {
+      "publicId": "99c19f3d-cfe6-4642-8c51-c0d674d6c1a9_hnby1c",
+      "version": 1785222582,
+      "format": "jpg",
+      "width": 2160,
+      "height": 3840,
+      "createdAt": "2026-07-28T07:09:42Z"
     }
   ],
-  "videos": [],
-  "note": "Some tags could not be read; the previous list was kept for those. sim2u-gallery: the request never reached Cloudinary — something on this network returned 403. This is a firewall/proxy/egress issue, not a Cloudinary setting. Response was: Host not in allowlist: res.cloudinary.com. Add this host to your network egress settings to allow access. | sim2u-corporate: the request never reached Cloudinary — something on this network returned 403. This is a firewall/proxy/egress issue, not a Cloudinary setting. Response was: Host not in allowlist: res.cloudinary.com. Add this host to your network egress settings to allow access. | sim2u-video: the request never reached Cloudinary — something on this network returned 403. This is a firewall/proxy/egress issue, not a Cloudinary setting. Response was: Host not in allowlist: res.cloudinary.com. Add this host to your network egress settings to allow access."
+  "corporate": [
+    {
+      "publicId": "Stand_8_vel0b3",
+      "version": 1785222591,
+      "format": "jpg",
+      "width": 3000,
+      "height": 4000,
+      "createdAt": "2026-07-28T07:09:51Z"
+    },
+    {
+      "publicId": "Stand_9_aozx7t",
+      "version": 1785222589,
+      "format": "jpg",
+      "width": 3000,
+      "height": 4000,
+      "createdAt": "2026-07-28T07:09:49Z"
+    },
+    {
+      "publicId": "IMG_7758_vlrusn",
+      "version": 1785222588,
+      "format": "jpg",
+      "width": 1536,
+      "height": 2048,
+      "createdAt": "2026-07-28T07:09:48Z"
+    },
+    {
+      "publicId": "IMG_7660_ghaaja",
+      "version": 1785222588,
+      "format": "jpg",
+      "width": 1330,
+      "height": 2364,
+      "createdAt": "2026-07-28T07:09:48Z"
+    },
+    {
+      "publicId": "IMG_7757_hnz0nx",
+      "version": 1785222588,
+      "format": "jpg",
+      "width": 1536,
+      "height": 2048,
+      "createdAt": "2026-07-28T07:09:48Z"
+    },
+    {
+      "publicId": "IMG_7648_mzejac",
+      "version": 1785222587,
+      "format": "jpg",
+      "width": 1330,
+      "height": 2364,
+      "createdAt": "2026-07-28T07:09:47Z"
+    },
+    {
+      "publicId": "IMG_0174_ieuzas",
+      "version": 1785222584,
+      "format": "jpg",
+      "width": 1536,
+      "height": 2048,
+      "createdAt": "2026-07-28T07:09:44Z"
+    }
+  ],
+  "videos": []
 }
