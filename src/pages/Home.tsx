@@ -143,6 +143,30 @@ const Home: React.FC = () => (
       badge="Powered by FlightScope"
     />
 
+    {/* --------------------------- Events we've worked ----------------------- */}
+    {/* Directly under the hero on purpose: the hero makes a claim, and this is
+        the first thing that backs it up. Someone who scrolls once should hit
+        proof, not more of our own copy.
+
+        Tighter padding than a normal section (py-14/py-20 rather than
+        py-24/py-32) so it reads as a strip attached to the hero rather than a
+        chapter of its own.
+
+        The heading must stay factual — "Events We've Worked", "Where We've Set
+        Up". "Trusted By" over a list of companies claims an endorsement none of
+        them has given. See src/data/events.ts. */}
+    <section className="py-14 md:py-20 bg-cream overflow-hidden">
+      <div className="container mx-auto max-w-7xl px-6">
+        <div className="flex justify-center mb-8">
+          <Eyebrow>Events We've Worked</Eyebrow>
+        </div>
+      </div>
+
+      {/* Full-bleed — the row runs off both edges, which is what sells it as a
+          continuing list rather than a fixed set. */}
+      <EventShowcase />
+    </section>
+
     {/* --------------------- Why Sim2U + the reel, together ------------------ */}
     {/* These were two stacked sections making the same argument — four reasons
         to book, then ninety seconds of footage proving them. Side by side, the
@@ -323,25 +347,13 @@ const Home: React.FC = () => (
       </div>
     </section>
 
-    {/* ------------------------ Events + testimonials ------------------------ */}
-    {/* This was a "Trusted By" strip, and the heading still matters for legal
-        reasons rather than visual ones: "Trusted By" over a list of companies
-        claims an endorsement none of them has given, whereas naming an event
-        we worked is a plain fact. Keep the wording factual — "Events We've
-        Worked", "Where We've Set Up" — and see src/data/events.ts before
-        changing what the cards show. */}
-    <section className="py-24 md:py-32 bg-cream overflow-hidden">
-      <div className="container mx-auto max-w-7xl px-6">
-        <div className="flex justify-center mb-10">
-          <Eyebrow>Events We've Worked</Eyebrow>
-        </div>
-      </div>
-
-      {/* Full-bleed on purpose — the row runs off both edges of the screen,
-          which is what sells it as a continuing list rather than a fixed set. */}
-      <EventShowcase />
-
-      <div className="container mx-auto max-w-7xl px-6 mt-20">
+    {/* ------------------------------ Testimonials --------------------------- */}
+    {/* The events strip used to sit on top of this. It moved up under the hero,
+        which leaves the reviews here doing their own job further down the page —
+        the named events are the first proof a visitor meets, and these are the
+        longer read for someone who has scrolled this far. */}
+    <section className="py-24 md:py-32 px-6 bg-cream">
+      <div className="container mx-auto max-w-7xl">
         <Testimonials limit={6} />
       </div>
     </section>
