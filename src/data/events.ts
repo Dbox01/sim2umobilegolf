@@ -113,6 +113,6 @@ export const EVENTS: EventEntry[] = [
   },
   {
     name: 'E-Piphany',
-    photo: 'IMG_8896_x7rkoj',
+    photo: 'IMG_9046_uzyvep',
   },
 ]
