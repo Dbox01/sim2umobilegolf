@@ -101,11 +101,11 @@ export const EVENTS: EventEntry[] = [
   {
     name: 'EduExpo',
     client: 'Qurtuba Online Academy',
-    photo: '',
+    photo: 'IMG_9724_yzooil',
   },
   {
     name: 'BMW & MINI Tygervalley',
-    photo: 'IMG_7648_mzejac',
+    photo: 'IMG_7758_vlrusn',
   },
   {
     name: 'Rola Motors Mercedes-Benz',
@@ -113,6 +113,6 @@ export const EVENTS: EventEntry[] = [
   },
   {
     name: 'E-Piphany',
-    photo: '',
+    photo: 'IMG_8896_x7rkoj',
   },
 ]
