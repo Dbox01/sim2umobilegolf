@@ -101,7 +101,7 @@ export const EVENTS: EventEntry[] = [
   {
     name: 'EduExpo',
     client: 'Qurtuba Online Academy',
-    photo: 'IMG_9724_yzooil',
+    photo: 'IMG_9724_e_bv0ghi',
   },
   {
     name: 'BMW & MINI Tygervalley',
