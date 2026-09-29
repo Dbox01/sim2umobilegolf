@@ -1,0 +1,30 @@
+# How git handles line endings in this repo.
+#
+# WHY THIS FILE EXISTS
+# --------------------
+# This project gets edited in two places: on Windows, where editors write
+# CRLF line endings, and in GitHub's web editor, which writes LF. Without
+# this file git stores whatever it is given, so the same file saved in each
+# place looks like a total rewrite -- "197 insertions, 197 deletions" on a
+# file where nothing actually changed.
+#
+# That is not just noise. A real one-line fix hidden inside a 197-line
+# phantom diff is a fix nobody reviews, and `git add -A` sweeps the whole
+# rewrite into a commit as though it were deliberate.
+#
+# `text=auto` tells git to store every text file with LF internally and hand
+# Windows back CRLF on checkout. Both editors carry on behaving normally and
+# the diffs show only what changed.
+#
+# The binary lines below are belt and braces. Git detects binaries on its own,
+# but saying so outright guarantees no image, PDF or archive is ever put
+# through line-ending conversion, which would corrupt it.
+
+* text=auto
+
+*.png  binary
+*.webp binary
+*.svg  text
+*.pdf  binary
+*.zip  binary
+*.b64  binary
