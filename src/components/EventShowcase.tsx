@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Camera, Star } from 'lucide-react'
 import { EVENTS, eventPhoto, type EventEntry } from '../data/events'
 
@@ -132,9 +132,6 @@ const EventCard: React.FC<{ item: EventEntry }> = ({ item }) => {
 }
 
 const EventShowcase: React.FC = () => {
-  const [paused, setPaused] = useState(false)
-
-
   /* Repeat until the row comfortably overfills a wide screen before it is
      doubled for the loop. A track narrower than the viewport leaves a visible
      gap sweeping across. ~360px a card, so 8 gets past a 2560px monitor. */
@@ -146,15 +143,11 @@ const EventShowcase: React.FC = () => {
   const duration = `${Math.round(pass.length * 11)}s`
 
   return (
-    <div
-      className="relative marquee-track overflow-hidden py-4"
-      /* The phone's stand-in for hover: hold the strip to stop it and read.
-         Pointer events cover mouse, touch and pen in one path. */
-      onPointerDown={() => setPaused(true)}
-      onPointerUp={() => setPaused(false)}
-      onPointerCancel={() => setPaused(false)}
-      onPointerLeave={() => setPaused(false)}
-    >
+    /* NOTHING STOPS THIS STRIP. No pause on hover, on focus, or on touch —
+       it runs continuously whatever the visitor does. There were pointer
+       handlers here and a hover rule in index.css; both were removed on
+       purpose. Do not add them back. */
+    <div className="relative marquee-track overflow-hidden py-4">
       <div
         className="absolute inset-y-0 left-0 w-8 md:w-32 z-10 bg-gradient-to-r from-cream to-transparent pointer-events-none"
         aria-hidden="true"
@@ -164,13 +157,7 @@ const EventShowcase: React.FC = () => {
         aria-hidden="true"
       />
 
-      <div
-        className="flex animate-marquee"
-        style={{
-          animationDuration: duration,
-          animationPlayState: paused ? 'paused' : undefined,
-        }}
-      >
+      <div className="flex animate-marquee" style={{ animationDuration: duration }}>
         {[0, 1].map((copy) => (
           <div
             key={copy}

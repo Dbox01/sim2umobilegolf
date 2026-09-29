@@ -84,11 +84,16 @@ body {
   width: max-content;
 }
 
-/* Let someone stop it to actually read a name. */
-.marquee-track:hover .animate-marquee,
-.marquee-track:focus-within .animate-marquee {
-  animation-play-state: paused;
-}
+/* NO PAUSE ON HOVER OR FOCUS — deliberate.
+ *
+ * There used to be a rule here stopping the marquee on hover and focus, and a
+ * matching touch-to-pause in EventShowcase.tsx. Both are gone on purpose: the
+ * strip runs continuously whatever the visitor does to it. If you are adding
+ * an interaction here, do not reintroduce a pause.
+ *
+ * The reduced-motion stop below is a different thing and stays — see the note
+ * on it.
+ */
 
 /* --- Reduced motion ------------------------------------------------------
  *
