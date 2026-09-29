@@ -2,53 +2,55 @@ import { GALLERY_ASSETS, imageUrl } from './gallery'
 
 /**
  * ============================================================
- *  THE EVENTS STRIP ON THE HOME PAGE.
+ *  THE EVENTS STRIP UNDER THE HERO.
  * ============================================================
  *
- * One card per event: a photo from the day, the client, and their Google
- * review. This is the only file you need to touch to change that strip.
+ * One card per event: a photo from the day with the event and client named
+ * over it. This is the only file you need to touch to change that strip.
+ *
+ * ------------------------------------------------------------
+ *  THERE ARE NO REVIEWS HERE, ON PURPOSE
+ * ------------------------------------------------------------
+ * The cards carried a Google review each for a while. That came out because
+ * what was going into it was mostly OUR OWN description of the event —
+ * "Gentlemans Evening at BMW & Mini Tygervalley", and so on — rendered in
+ * quote marks under five gold stars and the words "via Google". Sim2U's copy
+ * presented as a customer's review is a fabricated testimonial, however
+ * harmless the intent, and a named dealership noticing it would be a real
+ * problem.
+ *
+ * So: photos here, reviews in the testimonials section further down the page,
+ * where every quote is genuinely something a customer wrote. Keep it that way.
+ * If you want a line of description under a photo, ask for a `caption` field —
+ * plain text, no stars, no quote marks, nothing implying it came from anyone
+ * but us.
  *
  * ------------------------------------------------------------
  *  HOW TO FILL IN A CARD
  * ------------------------------------------------------------
- *  1. Run:  npm run photos
- *  2. Open photo-index.html (double-click it). Every photo in your Cloudinary
- *     is shown with its name printed underneath.
- *  3. Find the photo from that event, copy its name into `photo` (it starts
- *     out empty).
- *  4. Copy the review off your Google listing into `review`.
- *  5. Save. That is the whole job — nothing else in the codebase changes.
+ *  1. Tag the photo `sim2u-gallery` in Cloudinary.
+ *  2. Run:  npm run photos
+ *     (this re-reads Cloudinary — a photo you tagged after the last run will
+ *     not be found until you do this)
+ *  3. Open photo-index.html. Every photo is shown with its name underneath.
+ *  4. Copy the name into `photo`. Names are exact — StandDuringEvent_4_drdmsy
+ *     is not the same as StandDuringEvent_q0iw4y.
+ *  5. Save, then `npm run build` to see it.
  *
- *  Not in Cloudinary? Drop the image file into public/ and write its path
- *  instead, e.g. photo: '/bmw-tygervalley.jpg'. Both work.
+ *  Not in Cloudinary? Drop the file in public/ and write its path instead,
+ *  e.g. photo: '/bmw-tygervalley.jpg'. Both work.
  *
- *  To ADD an event, copy a whole block and change the values. To remove one,
- *  delete its block. The strip adapts to however many there are.
+ *  To ADD an event, copy a block and change the values. To remove one, delete
+ *  its block. The strip adapts to however many there are.
  *
  * ------------------------------------------------------------
- *  RULES THAT MATTER
+ *  ABOUT THE PHOTOS
  * ------------------------------------------------------------
- *  · QUOTE REVIEWS VERBATIM. Shortening is fine — trim to the sentence that
- *    carries and put … where you cut. Rewording someone's review, even to
- *    improve it, means publishing words they did not write under their name.
- *  · KEEP IT SHORT. Around 30 words. The card clamps longer text, so a long
- *    review gets cut off mid-sentence rather than shrinking to fit.
- *  · NAME THE REVIEWER AS GOOGLE SHOWS THEM. If Google says "Rentia M.",
- *    write "Rentia M." — not their full name from your own records.
- *  · RATING MUST BE THE REAL ONE. It defaults to 5. If a review was four
- *    stars, write 4. Showing five stars over a four-star review is the kind
- *    of small dishonesty that is very hard to explain afterwards.
- *  · PHOTOS: your own pictures of your own setup, from that event. Think
- *    about guests who are recognisable in shot — a wide shot of the bay is
- *    always safer than a close-up of someone's face, and under POPIA a
+ *  · Your own pictures of your own setup, from that event.
+ *  · Landscape works best — the card crops to 16:10.
+ *  · Think about guests who are recognisable in shot. A wide shot of the bay
+ *    is always safer than a close-up of a face, and under POPIA a
  *    recognisable person in a marketing photo is their call, not yours.
- *
- * ------------------------------------------------------------
- *  IF A REVIEW IS NOT IN YET
- * ------------------------------------------------------------
- *  Set `review: null`. The card still shows the photo and the event name and
- *  simply leaves the quote out — it does not look broken. Never fill the gap
- *  with a review from a different event.
  */
 
 export interface EventEntry {
@@ -56,15 +58,8 @@ export interface EventEntry {
   name: string
   /** The client, when that differs from the event name. Optional. */
   client?: string
-  /** Cloudinary photo NAME (not a URL) — see step 3 above. */
+  /** Cloudinary photo NAME (not a URL), or a /path to a file in public/. */
   photo: string
-  /** Their Google review, or null until it arrives. */
-  review: {
-    text: string
-    author: string
-    /** Real star count. Defaults to 5. */
-    rating?: number
-  } | null
 }
 
 /**
@@ -78,9 +73,6 @@ export interface EventEntry {
  */
 export function eventPhoto(publicId: string): string | null {
   // Anything starting with "/" is a file you dropped in public/, used as-is.
-  // Cloudinary is the easier route for most photos, but if you already have
-  // the picture as a file it is one less step: put it in public/ and write
-  // "/my-photo.jpg" here.
   if (publicId.startsWith('/')) return publicId
 
   const hit = GALLERY_ASSETS.find((a) => a.publicId === publicId)
@@ -102,32 +94,25 @@ export const EVENTS: EventEntry[] = [
   {
     name: 'BHF Conference',
     client: 'Medipost Pharmacy',
-    photo: '', // ← Cloudinary name goes here
-    review: {
-      // Already on file from your Google reviews — trimmed to fit the card.
-      text: 'If you want to add a truly fun adventure at your event, Sim2U is the answer. Medipost Pharmacy will secure your services again.',
-      author: 'Rentia M.',
-    },
+    // Was StandDuringEvent_q0iw4y, which is not in Cloudinary. This is the
+    // closest real name — swap it if you meant a different picture.
+    photo: 'StandDuringEvent_4_drdmsy',
   },
   {
     name: 'EduExpo',
     client: 'Qurtuba Online Academy',
-    photo: '', // ← Cloudinary name goes here
-    review: null,
+    photo: '',
   },
   {
     name: 'BMW & MINI Tygervalley',
-    photo: '', // ← Cloudinary name goes here
-    review: null,
+    photo: 'IMG_7648_mzejac',
   },
   {
     name: 'Rola Motors Mercedes-Benz',
-    photo: '', // ← Cloudinary name goes here
-    review: null,
+    photo: '',
   },
   {
     name: 'E-Piphany',
-    photo: '', // ← Cloudinary name goes here
-    review: null,
+    photo: '',
   },
 ]
