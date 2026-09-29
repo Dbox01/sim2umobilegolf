@@ -14,7 +14,7 @@ import {
 import Seo from '../components/Seo'
 import VideoReel from '../components/VideoReel'
 import Testimonials from '../components/Testimonials'
-import EventMarquee from '../components/EventMarquee'
+import EventShowcase from '../components/EventShowcase'
 import { CTABand, Eyebrow, PageHero, SectionHeading } from '../components/Primitives'
 import { IMAGES } from '../data/images'
 import { INCLUDED_IN_EVERY_PACKAGE, TIERS, priceFor } from '../data/packages'
@@ -324,11 +324,12 @@ const Home: React.FC = () => (
     </section>
 
     {/* ------------------------ Events + testimonials ------------------------ */}
-    {/* This was a "Trusted By" strip. The wording changed for legal reasons,
-        not visual ones: "Trusted By" over a list of companies claims an
-        endorsement none of them has given, whereas naming an event we worked
-        is a plain fact. Read the note above EVENTS_WORKED in
-        data/testimonials.ts before rewording the heading. */}
+    {/* This was a "Trusted By" strip, and the heading still matters for legal
+        reasons rather than visual ones: "Trusted By" over a list of companies
+        claims an endorsement none of them has given, whereas naming an event
+        we worked is a plain fact. Keep the wording factual — "Events We've
+        Worked", "Where We've Set Up" — and see src/data/events.ts before
+        changing what the cards show. */}
     <section className="py-24 md:py-32 bg-cream overflow-hidden">
       <div className="container mx-auto max-w-7xl px-6">
         <div className="flex justify-center mb-10">
@@ -337,8 +338,8 @@ const Home: React.FC = () => (
       </div>
 
       {/* Full-bleed on purpose — the row runs off both edges of the screen,
-          which is what makes it read as a longer list than it is. */}
-      <EventMarquee />
+          which is what sells it as a continuing list rather than a fixed set. */}
+      <EventShowcase />
 
       <div className="container mx-auto max-w-7xl px-6 mt-20">
         <Testimonials limit={6} />
