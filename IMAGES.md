@@ -36,13 +36,15 @@ folder. Double-click it. Every photo and video on one page, and under each one:
 1. Its **Cloudinary name** — like `IMG_7758_vlrusn`. This is the handle for
    everything. Copy it from here.
 2. Its **tags** — which grids it is currently appearing in.
+   The sheet is laid out in the order the site renders them, featured first,
+   so the top row is what a visitor actually sees first.
 3. Any **hero slot** using it — so you can see which photo is the banner on
    which page.
 
 The name never changes. Adding or deleting other photos in Cloudinary will never
 shuffle these around, so a name you paste into the code stays correct forever.
 
-### The four tags
+### The five tags
 
 | Tag in Cloudinary | Where it appears |
 |---|---|
@@ -50,6 +52,7 @@ shuffle these around, so a name you paste into the code stays correct forever.
 | `sim2u-corporate` | The photo mosaic on Corporate Events |
 | `sim2u-video` | The reel on the Home page and the Gallery |
 | `sim2u-site` | **Nowhere on its own.** See below |
+| `sim2u-featured` | **First** in whichever grid it is already in. See below |
 
 ### The library, and why `sim2u-site` exists
 
@@ -87,6 +90,58 @@ None of this touches the code.
 paste its name into `src/data/events.ts` or `src/data/images.ts` and it works.
 This is the right tag for event photos, alternative banners, and anything you
 want available without publishing it.
+
+**Put your best photos first** — tag them `sim2u-featured`. They move to the
+front of whichever grid they are already in; everything else follows behind,
+newest first.
+
+`sim2u-featured` is a **modifier, not a set**. On its own it puts a photo
+nowhere, because it means "first among these" and on its own there is no
+"these". Pair it:
+
+| Tags on the photo | Result |
+|---|---|
+| `sim2u-featured` + `sim2u-gallery` | Leads the Gallery page |
+| `sim2u-featured` + `sim2u-corporate` | Leads the corporate mosaic |
+| `sim2u-featured` + both | Leads both |
+| `sim2u-featured` alone | Nothing. It is in no grid to be first in |
+
+Within the featured photos the order is newest-first, so this controls *which*
+photos lead, not their exact sequence. If you tag six photos featured you get
+those six first — you cannot say which of the six is first.
+
+### Everything behind the featured photos is shuffled
+
+The rest of the Gallery and the rest of the mosaic come out in a **random
+order**, reshuffled on every build. Nothing gets permanently stranded at the
+bottom where nobody scrolls, and the site looks a little different each time
+someone comes back.
+
+Two things to know about it:
+
+**It changes once per build, not once per visitor.** Every push reshuffles,
+and so does the 05:00 rebuild each morning. Someone who reloads the page sees
+the same order; someone returning tomorrow sees a new one. That is deliberate
+— a grid that rearranges itself while you are scrolling it is disorienting
+rather than fresh, and the site is built once and served as fixed files, so
+shuffling per visitor would make the page visibly jump a moment after it
+loads.
+
+**A new photo no longer lands at the top.** It used to; now it lands
+*somewhere*. If you upload something and want to check it is live, do not
+scroll the Gallery looking for it at the top — run `npm run photos` and look
+at the contact sheet, or tag it `sim2u-featured` to put it up front.
+
+The video reel is **not** shuffled. It always plays your newest video,
+because that is the one you would want playing.
+
+> **Why not an exact first-second-third?** Cloudinary's public feed gives the
+> site only `public_id`, `version`, `format`, `width`, `height`, `type`,
+> `created_at` and `asset_folder`. There is no custom field to hang a sequence
+> on, and renaming photos to sort them would break every page banner and event
+> card that refers to a photo by name. An exact order is possible, but it has
+> to be a list in the code, edited and pushed each time you reshuffle. Ask if
+> you want that — it is a small change.
 
 **Put a photo in the Corporate mosaic** — tag it `sim2u-corporate`. Tag it
 `sim2u-gallery` too if you also want it on the Gallery page; the tags are

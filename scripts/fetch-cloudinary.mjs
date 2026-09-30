@@ -17,6 +17,15 @@
  *       sim2u-site       → appears in NO grid
  *
  *     A photo can carry more than one if it belongs in more than one grid.
+ *
+ *     And one more, which is about ORDER rather than place:
+ *
+ *       sim2u-featured   → goes to the FRONT of whichever grid it is in
+ *
+ *     sim2u-featured on its own does nothing. It is a modifier: pair it with
+ *     sim2u-gallery to lead the Gallery, or with sim2u-corporate to lead the
+ *     mosaic, or with both. Everything not featured follows behind it,
+ *     newest first.
  *  3. To remove it from the site, remove the tag. The photo stays in
  *     your Cloudinary account either way.
  *
@@ -78,10 +87,16 @@ const CLOUD_NAME = 'bo8j9vxt'
  *         false → library only; usable by name, shown in no grid
  */
 const TAGS = {
-  gallery: { tag: 'sim2u-gallery', kind: 'image', grid: true },
-  corporate: { tag: 'sim2u-corporate', kind: 'image', grid: true },
+  gallery: { tag: 'sim2u-gallery', kind: 'image', grid: true, shuffle: true },
+  corporate: { tag: 'sim2u-corporate', kind: 'image', grid: true, shuffle: true },
+  /* NOT shuffled. VideoReel treats VIDEO_ASSETS[0] as "the newest video" and
+     shows it — shuffling this list would make the home page reel show a
+     random old video instead of the current one. */
   videos: { tag: 'sim2u-video', kind: 'video', grid: true },
   site: { tag: 'sim2u-site', kind: 'image', grid: false },
+  /* Not a set of its own — an ordering hint. Anything carrying this tag is
+     moved to the front of whichever grid it is already in. See gallery.ts. */
+  featured: { tag: 'sim2u-featured', kind: 'image', grid: false },
 }
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
@@ -128,7 +143,10 @@ async function fetchTag(tag, kind) {
       ...(r.height ? { height: r.height } : {}),
       ...(r.created_at ? { createdAt: r.created_at } : {}),
     }))
-    // Newest first, so a photo you upload today lands at the top of the gallery.
+    /* Newest first. The grids are shuffled further down, so this is no longer
+       what the Gallery ends up looking like — but it still decides which
+       video the reel treats as current, and it makes the featured photos sit
+       in a predictable order rather than an arbitrary one. */
     .sort((a, b) => String(b.createdAt ?? '').localeCompare(String(a.createdAt ?? '')))
 }
 
@@ -190,6 +208,54 @@ if (problems.length) {
 /* The corporate mosaic borrows from the gallery when it has nothing of its
    own, so that page is never blank before those photos get tagged. */
 if (!result.corporate.length) result.corporate = result.gallery.slice(0, 7)
+
+/* -------------------------------------------------------------------------
+ *  SHUFFLE — and why it has to happen HERE, in the build, not in the site
+ * -------------------------------------------------------------------------
+ * Featured photos hold the front. Everything behind them is shuffled, so the
+ * grids do not settle into one fixed order where the same photos are always
+ * buried at the bottom where nobody scrolls.
+ *
+ * The obvious place to do this is in the component that renders the grid.
+ * That place is wrong, and quietly so. This site is pre-rendered: the HTML is
+ * built once here and the same JavaScript then runs again in the visitor's
+ * browser to take over the page. A Math.random() in shared code runs twice —
+ * once at build, once in the browser — and produces two different orders. The
+ * browser then finds markup that does not match what it expected and React
+ * either warns and repaints or visibly reshuffles the grid a moment after the
+ * page appears. A shuffle here is baked into the data, so both runs read the
+ * identical list and agree.
+ *
+ * The consequence to know about: the order changes once per BUILD, not once
+ * per visitor. That means every push, and the 05:00 rebuild each morning. A
+ * visitor who reloads sees the same order; someone coming back tomorrow sees
+ * a different one. That is the better behaviour anyway — a grid that
+ * rearranges itself under someone mid-scroll is disorienting, not fresh.
+ *
+ * Fisher-Yates, because the tempting one-liner `sort(() => Math.random() - 0.5)`
+ * is not a shuffle: comparison sorts assume a consistent comparator, and with
+ * a random one the result is measurably biased towards the original order.
+ */
+function shuffled(list) {
+  const out = [...list]
+  for (let i = out.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[out[i], out[j]] = [out[j], out[i]]
+  }
+  return out
+}
+
+const featuredIds = new Set(result.featured.map((a) => a.publicId))
+
+for (const [key, { shuffle }] of Object.entries(TAGS)) {
+  if (!shuffle || !result[key].length) continue
+  /* Featured keep their own order — newest first — and only the tail is
+     shuffled. Otherwise "these are my best three" would silently become
+     "these are my best three, in an order I do not control". */
+  const featured = result[key].filter((a) => featuredIds.has(a.publicId))
+  const rest = result[key].filter((a) => !featuredIds.has(a.publicId))
+  result[key] = [...featured, ...shuffled(rest)]
+}
 
 await writeFile(target, JSON.stringify(result, null, 2) + '\n')
 

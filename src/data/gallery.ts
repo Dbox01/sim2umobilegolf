@@ -18,6 +18,7 @@ export interface CloudinaryAsset {
  *   sim2u-corporate  → the mosaic on the Corporate page
  *   sim2u-video      → video reels
  *   sim2u-site       → no grid; usable by name anywhere
+ *   sim2u-featured   → first in whichever grid it is in (a modifier, not a set)
  *
  * Tag an asset in Cloudinary to add it, untag it to remove it. The list in
  * src/data/cloudinary.json is refreshed automatically before every build by
@@ -55,6 +56,7 @@ export function videoPoster(asset: CloudinaryAsset, width = 1280): string {
  *    sim2u-corporate  -> the mosaic on the Corporate Events page
  *    sim2u-video      -> the reel on the Home and Gallery pages
  *    sim2u-site       -> no grid at all; see PHOTO_LIBRARY below
+ *    sim2u-featured   -> first in whichever grid it is in; see featuredFirst
  *
  *  `npm run photos` refetches those tags, writes src/data/cloudinary.json and
  *  builds photo-index.html — a contact sheet showing every photo with its
@@ -86,12 +88,47 @@ export const EXCLUDE_FROM_CORPORATE: string[] = ['20260725_134627_kce6ve']
 const without = (assets: CloudinaryAsset[], names: string[]) =>
   assets.filter((a) => !names.includes(a.publicId))
 
-export const GALLERY_ASSETS = without(manifest.gallery as CloudinaryAsset[], HIDDEN_PHOTOS)
+/* ------------------------------------------------------------------------ *
+ *  ORDER: sim2u-featured
+ *
+ *  Photos arrive newest-first, which is a decent default and a poor way to
+ *  decide what a visitor sees in the first screenful. Newest is not best, and
+ *  the shot that sells the business is not necessarily the one taken most
+ *  recently.
+ *
+ *  So: tag a photo sim2u-featured in Cloudinary and it moves to the front of
+ *  whichever grid it is already in. It is a modifier, not a set of its own —
+ *  sim2u-featured alone puts a photo nowhere, because it says "first among
+ *  these", and on its own there is no "these". Pair it with sim2u-gallery to
+ *  lead the Gallery, with sim2u-corporate to lead the mosaic, or with both.
+ *
+ *  Within the featured photos the order is still newest-first. Cloudinary's
+ *  public feed gives us public_id, version, format, width, height, type,
+ *  created_at and asset_folder, and nothing else — there is no per-photo
+ *  field we could hang an explicit sequence on, and renaming photos to sort
+ *  them would break every by-name reference on the site. If you ever need an
+ *  exact first-second-third, that has to be a list in this file.
+ * ------------------------------------------------------------------------ */
+const FEATURED_IDS = new Set(
+  ((manifest as { featured?: CloudinaryAsset[] }).featured ?? []).map((a) => a.publicId),
+)
+
+/** Featured photos to the front; everything else keeps its existing order. */
+const featuredFirst = (assets: CloudinaryAsset[]): CloudinaryAsset[] => [
+  ...assets.filter((a) => FEATURED_IDS.has(a.publicId)),
+  ...assets.filter((a) => !FEATURED_IDS.has(a.publicId)),
+]
+
+export const GALLERY_ASSETS = featuredFirst(
+  without(manifest.gallery as CloudinaryAsset[], HIDDEN_PHOTOS),
+)
 export const VIDEO_ASSETS = without(manifest.videos as CloudinaryAsset[], HIDDEN_PHOTOS)
-export const CORPORATE_ASSETS = without(manifest.corporate as CloudinaryAsset[], [
-  ...HIDDEN_PHOTOS,
-  ...EXCLUDE_FROM_CORPORATE,
-])
+export const CORPORATE_ASSETS = featuredFirst(
+  without(manifest.corporate as CloudinaryAsset[], [
+    ...HIDDEN_PHOTOS,
+    ...EXCLUDE_FROM_CORPORATE,
+  ]),
+)
 
 /** Tagged sim2u-site: usable by name, shown in no grid of its own. */
 export const SITE_ASSETS = without(
@@ -145,6 +182,7 @@ export const PHOTO_LIBRARY = dedupeById(
       ...(manifest.gallery as CloudinaryAsset[]),
       ...(manifest.corporate as CloudinaryAsset[]),
       ...((manifest as { site?: CloudinaryAsset[] }).site ?? []),
+      ...((manifest as { featured?: CloudinaryAsset[] }).featured ?? []),
     ],
     HIDDEN_PHOTOS,
   ),

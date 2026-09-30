@@ -34,6 +34,7 @@ const namesIn = (key) => new Set((manifest[key] ?? []).map((a) => a.publicId))
 const galleryNames = namesIn('gallery')
 const corporateNames = namesIn('corporate')
 const siteNames = namesIn('site')
+const featuredNames = namesIn('featured')
 
 /* The library is every photo you can point at by name, whichever tag put it
    there — that is the list worth showing, because "can I use this on the home
@@ -41,11 +42,24 @@ const siteNames = namesIn('site')
    a photo carrying two tags is one photo. */
 const library = []
 const seen = new Set()
-for (const a of [...(manifest.gallery ?? []), ...(manifest.corporate ?? []), ...(manifest.site ?? [])]) {
+for (const a of [
+  ...(manifest.gallery ?? []),
+  ...(manifest.corporate ?? []),
+  ...(manifest.site ?? []),
+  ...(manifest.featured ?? []),
+]) {
   if (seen.has(a.publicId)) continue
   seen.add(a.publicId)
   library.push(a)
 }
+
+/* Featured first, exactly as gallery.ts orders the grids — this sheet is for
+   answering "what will people see first", and a sheet in a different order
+   from the site would answer it wrongly. */
+const inRenderOrder = (list) => [
+  ...list.filter((a) => featuredNames.has(a.publicId)),
+  ...list.filter((a) => !featuredNames.has(a.publicId)),
+]
 
 const card = (a, { isVideo = false } = {}) => `
   <figure>
@@ -55,6 +69,7 @@ const card = (a, { isVideo = false } = {}) => `
       <code>${a.publicId}</code>
       <div class="tags">
         ${isVideo ? '<span class="tag t-vid">sim2u-video</span>' : ''}
+        ${!isVideo && featuredNames.has(a.publicId) ? '<span class="tag t-feat">★ sim2u-featured</span>' : ''}
         ${!isVideo && galleryNames.has(a.publicId) ? '<span class="tag t-gal">sim2u-gallery</span>' : ''}
         ${!isVideo && corporateNames.has(a.publicId) ? '<span class="tag t-corp">sim2u-corporate</span>' : ''}
         ${!isVideo && siteNames.has(a.publicId) ? '<span class="tag t-site">sim2u-site</span>' : ''}
@@ -92,6 +107,7 @@ const html = `<!DOCTYPE html>
   .t-corp{background:var(--gold);color:var(--green)}
   .t-vid{background:#4D232F;color:#fff}
   .t-site{background:#dce7e2;color:#2c4a42}
+  .t-feat{background:#213631;color:#C5A059;border:1px solid #C5A059}
   .t-hero{background:var(--green);color:#fff}
   .empty{background:#fff;border:1px dashed #cfc8b8;border-radius:12px;padding:26px;
          color:#8a8578;max-width:80ch}
@@ -110,6 +126,9 @@ The chips under each one show which tags it carries.</p>
     <li><code>sim2u-video</code> — a video reel.</li>
     <li><code>sim2u-site</code> — <strong>shown in no grid.</strong> Use this for a photo you
         want on the home page events strip, or as a page banner, but not in the public Gallery.</li>
+    <li><code>sim2u-featured</code> — <strong>first in whichever grid it is already in.</strong>
+        A modifier, not a set: pair it with <code>sim2u-gallery</code> to lead the Gallery, or with
+        <code>sim2u-corporate</code> to lead the mosaic. On its own it puts a photo nowhere.</li>
   </ol>
   <p style="margin:10px 0 0">Any photo carrying <em>any</em> of those tags can be pointed at by name
      from anywhere on the site. A photo already tagged <code>sim2u-gallery</code> does
@@ -126,7 +145,10 @@ The chips under each one show which tags it carries.</p>
 <h2>The library &nbsp;<span style="font-weight:400;color:#9a958a">${library.length} photos you can use by name${
   siteNames.size ? ` · ${galleryNames.size} of them published to the Gallery` : ''
 }</span></h2>
-<div class="grid">${library.map((a) => card(a)).join('')}</div>
+<p class="lede" style="margin:-6px 0 16px">Shown with <code>sim2u-featured</code> first, as the site
+   shows them. Everything after the featured ones is <strong>shuffled on the live site</strong> and
+   reshuffled on every build, so their order here is not the order visitors get.</p>
+<div class="grid">${inRenderOrder(library).map((a) => card(a)).join('')}</div>
 
 <h2>Videos &nbsp;<span style="font-weight:400;color:#9a958a">${manifest.videos.length} tagged <code>sim2u-video</code></span></h2>
 ${
@@ -145,6 +167,6 @@ ${
 await writeFile(resolve(root, 'photo-index.html'), html)
 console.log(
   `[photos] photo-index.html written — ${library.length} photos in the library ` +
-    `(${galleryNames.size} on the Gallery page, ${siteNames.size} tagged sim2u-site), ` +
+    `(${galleryNames.size} on the Gallery page, ${siteNames.size} tagged sim2u-site, ${featuredNames.size} featured), ` +
     `${manifest.videos.length} video(s). Open it in your browser.`,
 )
