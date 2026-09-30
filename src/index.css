@@ -84,16 +84,45 @@ body {
   width: max-content;
 }
 
-/* NO PAUSE ON HOVER OR FOCUS — deliberate.
+/* .animate-marquee NEVER PAUSES ON HOVER OR FOCUS — deliberate.
  *
  * There used to be a rule here stopping the marquee on hover and focus, and a
  * matching touch-to-pause in EventShowcase.tsx. Both are gone on purpose: the
- * strip runs continuously whatever the visitor does to it. If you are adding
- * an interaction here, do not reintroduce a pause.
+ * events strip runs continuously whatever the visitor does to it. If you are
+ * adding an interaction there, do not reintroduce a pause.
  *
  * The reduced-motion stop below is a different thing and stays — see the note
  * on it.
  */
+
+/* --- The reviews marquee, which DOES pause -------------------------------
+ *
+ * A second animation rather than a modifier on the first, because the two
+ * strips genuinely want opposite behaviour and sharing a class would make one
+ * of them wrong the next time someone edits it.
+ *
+ * The events strip carries photographs: you take one in at a glance, and if
+ * it slides past there is another along shortly. A review is forty words. If
+ * it drifts off mid-sentence the reader has lost the thread and will not
+ * chase it, so the one that carries text stops when someone looks at it and
+ * the one that carries pictures does not.
+ *
+ * Only :hover lives here. Holding a finger on it and pausing it from the
+ * keyboard are both handled in Testimonials.tsx, for a reason worth knowing:
+ * this rule was briefly :hover AND :focus-within, and :focus-within was wrong.
+ * The container is focusable, so TAPPING it on a phone focused it, and the
+ * strip then stayed frozen for good — the visitor gets a dead strip and no
+ * hint as to why. Focus only means "pause" when it came from the keyboard,
+ * and CSS alone cannot tell the difference.
+ */
+.animate-marquee-reviews {
+  animation: marquee 90s linear infinite;
+  width: max-content;
+}
+
+.marquee-pausable:hover .animate-marquee-reviews {
+  animation-play-state: paused;
+}
 
 /* --- Reduced motion ------------------------------------------------------
  *
@@ -108,7 +137,8 @@ body {
   .animate-shimmer,
   .animate-slowZoom,
   .animate-bounce-slow,
-  .animate-marquee {
+  .animate-marquee,
+  .animate-marquee-reviews {
     animation: none !important;
   }
 
