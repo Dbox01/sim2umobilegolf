@@ -1,5 +1,6 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { Camera, ExternalLink, Image as ImageIcon, Plus, Trophy, X } from 'lucide-react'
+import React, { useCallback, useRef, useState } from 'react'
+import { Camera, ExternalLink, Image as ImageIcon, Plus, Trophy } from 'lucide-react'
+import Modal, { modalHeadingId } from './Modal'
 import { ADD_ONS, type AddOn } from '../data/packages'
 import { photoByName } from '../data/gallery'
 import { LOGO_URL, SITE_NAME } from '../data/site'
@@ -20,14 +21,16 @@ import { LOGO_URL, SITE_NAME } from '../data/site'
  * `detail` in src/data/packages.ts; the one-liner is `blurb`.
  *
  * ---------------------------------------------------------------------------
- *  THE DIALOG IS HAND-BUILT, SO THE ACCESSIBILITY IS TOO
+ *  THE POPUP ITSELF LIVES IN Modal.tsx
  * ---------------------------------------------------------------------------
- * A div that merely looks like a dialog is a trap for anyone not using a
- * mouse. This one does the five things that make it behave like one:
- * Escape closes it, the backdrop closes it, focus moves inside on open and
- * returns to the card that opened it on close, Tab cycles within it rather
- * than wandering off into the page behind, and the page behind cannot scroll
- * while it is up. Removing any of those breaks it for somebody — keep them.
+ * It used to be built here. The corporate pillars now open the same kind of
+ * popup, and two copies of a focus trap is how a site ends up with one dialog
+ * that behaves and one that does not. All this component supplies is the
+ * contents and the id its heading answers to; Modal handles Escape, the
+ * backdrop, the focus trap and the scroll lock.
+ *
+ * Returning focus to the card that opened it stays here, because only this
+ * component knows which card that was.
  */
 
 const ADDON_ICONS: Record<AddOn['icon'], React.ReactNode> = {
@@ -44,160 +47,87 @@ const AddOnDialog: React.FC<{ addon: AddOn; onClose: () => void }> = ({
   addon,
   onClose,
 }) => {
-  const panelRef = useRef<HTMLDivElement>(null)
-  const closeRef = useRef<HTMLButtonElement>(null)
-
   /* Only photos that actually resolved. A caption promising the branded
      panels over a picture of something else is worse than no picture. */
   const photos = (addon.images ?? [])
     .map((name) => ({ name, src: photoByName(name) }))
     .filter((p): p is { name: string; src: string } => p.src !== null)
 
-  useEffect(() => {
-    closeRef.current?.focus()
-
-    /* Lock the page behind. Restoring the previous value rather than setting
-       '' matters — another component may have set it for its own reasons. */
-    const previousOverflow = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        onClose()
-        return
-      }
-      if (e.key !== 'Tab') return
-
-      // Keep Tab inside the dialog.
-      const focusable = panelRef.current?.querySelectorAll<HTMLElement>(
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
-      )
-      if (!focusable || focusable.length === 0) return
-      const first = focusable[0]
-      const last = focusable[focusable.length - 1]
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault()
-        last.focus()
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault()
-        first.focus()
-      }
-    }
-
-    document.addEventListener('keydown', onKeyDown)
-    return () => {
-      document.removeEventListener('keydown', onKeyDown)
-      document.body.style.overflow = previousOverflow
-    }
-  }, [onClose])
-
-  const headingId = `addon-${addon.name.replace(/\W+/g, '-').toLowerCase()}`
+  const headingId = modalHeadingId(addon.name)
 
   return (
-    <div
-      className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8"
-      role="presentation"
-    >
-      {/* Backdrop. aria-hidden because the close button below is the real
-          control — this is a convenience for mouse users. */}
-      <div
-        className="absolute inset-0 bg-mountainGreen/70 backdrop-blur-sm animate-fadeIn"
-        onClick={onClose}
-        aria-hidden="true"
-      />
-
-      <div
-        ref={panelRef}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby={headingId}
-        className="relative w-full max-w-2xl max-h-[88vh] overflow-y-auto bg-white rounded-[32px] shadow-[0_40px_90px_-30px_rgba(33,54,49,0.7)] animate-slideUp"
-      >
-        <button
-          ref={closeRef}
-          type="button"
-          onClick={onClose}
-          aria-label="Close"
-          className="absolute top-5 right-5 z-10 w-11 h-11 rounded-full bg-white/90 backdrop-blur text-mountainGreen flex items-center justify-center shadow-lg hover:bg-mountainGreen hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2"
+    <Modal labelledBy={headingId} onClose={onClose}>
+      {photos.length > 0 && (
+        <div
+          className={`grid gap-1 ${photos.length > 1 ? 'grid-cols-2' : 'grid-cols-1'}`}
         >
-          <X size={20} aria-hidden="true" />
-        </button>
+          {photos.map((photo, i) => (
+            <img
+              key={photo.name}
+              src={photo.src}
+              alt={`${addon.name} — example ${i + 1}`}
+              /* One photo keeps its own proportions; several are squared off
+                 so the grid stays even. A single fixed ratio would crop the
+                 top off a tall leaderboard or the sides off a wide enclosure
+                 shot. */
+              className={
+                photos.length > 1 ? 'w-full aspect-square object-cover' : 'w-full h-auto'
+              }
+              loading="lazy"
+            />
+          ))}
+        </div>
+      )}
 
-        {photos.length > 0 && (
-          <div
-            className={`grid gap-1 ${photos.length > 1 ? 'grid-cols-2' : 'grid-cols-1'}`}
+      <div className="p-8 md:p-10">
+        {addon.partner && (
+          <p
+            className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[10px] font-black uppercase tracking-[0.22em] mb-4"
+            style={{ color: addon.partner.theme.band }}
           >
-            {photos.map((photo, i) => (
-              <img
-                key={photo.name}
-                src={photo.src}
-                alt={`${addon.name} — example ${i + 1}`}
-                /* One photo keeps its own proportions; several are squared
-                   off so the grid stays even. A single fixed ratio would crop
-                   the top off a tall leaderboard or the sides off a wide
-                   enclosure shot. */
-                className={
-                  photos.length > 1 ? 'w-full aspect-square object-cover' : 'w-full h-auto'
-                }
-                loading="lazy"
-              />
-            ))}
-          </div>
+            <span>In partnership with {addon.partner.name}</span>
+            {addon.partner.url && (
+              /* The one link on this site that sends someone away, so it opens
+                 in a new tab and carries rel="noopener noreferrer" — without
+                 noopener the new tab can reach back and redirect this one. */
+              <a
+                href={addon.partner.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 underline decoration-2 underline-offset-4 decoration-current/40 hover:decoration-current transition-colors focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 rounded-sm"
+              >
+                {/* Shown as the bare domain: a person can see where the link
+                    goes before they follow it. */}
+                {addon.partner.url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')}
+                <ExternalLink size={11} aria-hidden="true" />
+                <span className="sr-only">(opens in a new tab)</span>
+              </a>
+            )}
+          </p>
         )}
 
-        <div className="p-8 md:p-10">
-          {addon.partner && (
-            <p
-              className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[10px] font-black uppercase tracking-[0.22em] mb-4"
-              style={{ color: addon.partner.theme.band }}
-            >
-              <span>In partnership with {addon.partner.name}</span>
-              {addon.partner.url && (
-                /* The one link on this site that sends someone away, so it
-                   opens in a new tab and carries rel="noopener noreferrer" —
-                   without noopener the new tab can reach back and redirect
-                   this one. */
-                <a
-                  href={addon.partner.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 underline decoration-2 underline-offset-4 decoration-current/40 hover:decoration-current transition-colors focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 rounded-sm"
-                >
-                  {/* Shown as the bare domain: a person can see where the link
-                      goes before they follow it. */}
-                  {addon.partner.url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')}
-                  <ExternalLink size={11} aria-hidden="true" />
-                  <span className="sr-only">(opens in a new tab)</span>
-                </a>
-              )}
-            </p>
-          )}
-
-          <div className="flex flex-wrap items-baseline gap-x-5 gap-y-2 mb-5">
-            <h2
-              id={headingId}
-              className="text-3xl md:text-4xl font-serif text-mountainGreen"
-            >
-              {addon.name}
-            </h2>
-            <span
-              className="font-black text-xs uppercase tracking-[0.2em]"
-              style={
-                addon.partner ? { color: addon.partner.theme.accent } : undefined
-              }
-            >
-              <span className={addon.partner ? '' : 'text-gold'}>{addon.price}</span>
-            </span>
-          </div>
-
-          <p className="text-gray-600 leading-relaxed md:text-lg">{addon.detail}</p>
-
-          <p className="mt-8 pt-6 border-t border-mountainGreen/10 text-sm text-gray-500">
-            Quoted alongside your package — mention it when you ask for a price.
-          </p>
+        <div className="flex flex-wrap items-baseline gap-x-5 gap-y-2 mb-5">
+          <h2
+            id={headingId}
+            className="text-3xl md:text-4xl font-serif text-mountainGreen"
+          >
+            {addon.name}
+          </h2>
+          <span
+            className="font-black text-xs uppercase tracking-[0.2em]"
+            style={addon.partner ? { color: addon.partner.theme.accent } : undefined}
+          >
+            <span className={addon.partner ? '' : 'text-gold'}>{addon.price}</span>
+          </span>
         </div>
+
+        <p className="text-gray-600 leading-relaxed md:text-lg">{addon.detail}</p>
+
+        <p className="mt-8 pt-6 border-t border-mountainGreen/10 text-sm text-gray-500">
+          Quoted alongside your package — mention it when you ask for a price.
+        </p>
       </div>
-    </div>
+    </Modal>
   )
 }
 

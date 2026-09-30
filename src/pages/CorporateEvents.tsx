@@ -1,16 +1,9 @@
 import React from 'react'
-import {
-  BarChart3,
-  Building2,
-  CalendarCheck,
-  Palette,
-  Presentation,
-  Trophy,
-  Users,
-} from 'lucide-react'
+import { Building2, Presentation, Trophy, Users } from 'lucide-react'
 import Seo from '../components/Seo'
+import CorporatePillars from '../components/CorporatePillars'
 import ProofGrid from '../components/ProofGrid'
-import { CTABand, FeatureCard, PageHero, SectionHeading } from '../components/Primitives'
+import { CTABand, PageHero, SectionHeading } from '../components/Primitives'
 import { CORPORATE_IMAGES } from '../data/gallery'
 import { IMAGES } from '../data/images'
 import { CORPORATE_TESTIMONIALS } from '../data/testimonials'
@@ -80,27 +73,11 @@ const CorporateEvents: React.FC = () => (
         <SectionHeading
           dark
           eyebrow="What Sets It Apart"
-          title="Three things that make it work in a business setting."
-          subtitle="A simulator on its own is a novelty. These are what turn it into an event people talk about on Monday."
+          title="What turns it into a business event."
+          subtitle="A simulator on its own is a novelty. Open any card for the detail."
         />
 
-        <div className="grid md:grid-cols-3 gap-8">
-          <FeatureCard
-            icon={<BarChart3 size={44} />}
-            title="Live Leaderboards"
-            body="Scoring runs live on the bay screen for the whole session, and the format that lands best is closest-to-the-pin on a world-famous par 3 — one shot, instant ranking, bragging rights settled. Add our live leaderboard and the standings follow your guests onto their own phones or a second screen anywhere at the venue, so the competition stays alive across the room."
-          />
-          <FeatureCard
-            icon={<Palette size={44} />}
-            title="Branded Enclosure Prints"
-            body="Custom printed panels fitted to the outdoor enclosure — your logo, event branding or campaign artwork, sized and mounted by us. It turns the bay into the backdrop guests photograph. Artwork needs to reach us at least 10 business days out; we handle print and fitting."
-          />
-          <FeatureCard
-            icon={<CalendarCheck size={44} />}
-            title="Seamless Logistics"
-            body="We arrive ahead of your start time, build the bay, calibrate it and test every mode before your first guest walks in. Our technician runs the session end to end. Pack-down happens once your guests have gone. Your team never touches a cable."
-          />
-        </div>
+        <CorporatePillars />
       </div>
     </section>
 
