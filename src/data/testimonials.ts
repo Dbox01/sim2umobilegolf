@@ -98,14 +98,21 @@ export const TESTIMONIALS: Testimonial[] = [
       "What an amazing team! I can definitely vouch for them - if you want to add a truely fun adventure at your event, @Sim2U is the answer! @Medipost Pharmacy will secure your services again⛳️",
     author: 'Rentia M.',
     role: 'Medipost',
-    location: 'Corporate Event',
+    location: 'BHF Conference CTICC',
   },
   {
     quote:
       'Fabulous team ensuring our event ran seamlessly and smoothly! Definite recommendation!!',
     author: 'Donovan M.',
     role: 'Medipost',
-    location: 'Corporate Event',
+    location: 'BHF Conference CTICC',
+  },
+  {
+    quote:
+      'Amazing service and experience from Dylan and his team.',
+    author: 'Mohammed D.',
+    role: 'Qurtuba Online Academy',
+    location: 'EduExpo Newlands',
   },
   {
     quote:
@@ -130,31 +137,15 @@ export const TESTIMONIALS: Testimonial[] = [
   },
   {
     quote:
+      'Amazing experience. Great fun',
+    author: 'Eugene T.',
+    role: 'Mercedes-Benz',
+    location: 'Rola Motors Somerset West Heritage Day',
+  },
+  {
+    quote:
       'Amazing service and very friendly team! Really enjoyed what they did for us. 100% recommend.',
     author: 'Shain N.',
-    role: 'Event Guest',
-  },
-  {
-    quote:
-      'Great service , they kept it professional and fun. Setup was neat and precise had no problem with any technology would definitely recommend.',
-    author: 'Arno L.',
-    role: 'Event Guest',
-  },
-  {
-    quote:
-      'Service was fantastic, had a blast. These guys were very professional and had a great impact on the vibe of the event. I would recommend them for any function.',
-    author: 'Andre van N.',
-    role: 'Event Guest',
-  },
-  {
-    quote:
-      'Great product with amazing service would recommend 10/10 any day great for parties and services!',
-    author: 'Riaan E.',
-    role: 'Event Guest',
-  },
-  {
-    quote: 'Great experience. Definitely will recommend for all types of events.',
-    author: 'Keano H.',
     role: 'Event Guest',
   },
 ]
