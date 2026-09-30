@@ -16,10 +16,11 @@ import VideoReel from '../components/VideoReel'
 import Testimonials from '../components/Testimonials'
 import EventShowcase from '../components/EventShowcase'
 import AddOnCards from '../components/AddOnCards'
-import { CTABand, Eyebrow, PageHero, SectionHeading } from '../components/Primitives'
+import ContactForm from '../components/ContactForm'
+import { Eyebrow, PageHero, SectionHeading } from '../components/Primitives'
 import { IMAGES } from '../data/images'
 import { INCLUDED_IN_EVERY_PACKAGE, TIERS, priceFor } from '../data/packages'
-import { SITE_URL } from '../data/site'
+import { CONTACT_PHONE, SITE_URL, TEL_HREF, WHATSAPP_URL } from '../data/site'
 
 
 /**
@@ -401,10 +402,50 @@ const Home: React.FC = () => (
       </div>
     </section>
 
-    <CTABand
-      title="Let's get your date in the book."
-      body="Tell us where you are, when it is and roughly how many guests. We'll come back with an exact price — usually the same day."
-    />
+    {/* ------------------------------ Get a quote ---------------------------- */}
+    {/* This replaced the CTA band that used to close the page. That band's only
+        job was to send people to /contact to fill in this very form, so with
+        the form here it was a detour — a button asking you to go somewhere else
+        to do the thing already in front of you.
+
+        Dark green so the page still ends on a full stop rather than trailing
+        off, and so the white form card has something to sit on. The form
+        carries its own heading and intro, which is why there is no
+        SectionHeading above it.
+
+        It is the same <ContactForm /> as the Contact page, reporting the same
+        `generate_lead` event. The two are told apart in Analytics by
+        `page_path`, which the form already sends — so "how many enquiries came
+        off the home page" is answerable without adding anything. */}
+    <section className="pt-24 md:pt-32 pb-12 md:pb-16 px-6 bg-mountainGreen relative overflow-hidden">
+      <div
+        className="absolute top-0 right-0 w-96 h-96 bg-gold/10 rounded-full -mr-48 -mt-48 blur-3xl"
+        aria-hidden="true"
+      />
+      <div className="container mx-auto max-w-3xl relative z-10">
+        <ContactForm />
+
+        <p className="text-center mt-8 text-sm text-white/60">
+          Prefer to talk?{' '}
+          <a
+            href={TEL_HREF}
+            className="text-gold underline decoration-gold/40 underline-offset-4 hover:decoration-gold transition-colors"
+          >
+            {CONTACT_PHONE}
+          </a>{' '}
+          or{' '}
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gold underline decoration-gold/40 underline-offset-4 hover:decoration-gold transition-colors"
+          >
+            message us on WhatsApp
+          </a>
+          .
+        </p>
+      </div>
+    </section>
   </>
 )
 
