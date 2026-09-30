@@ -105,7 +105,7 @@ export const EVENTS: EventEntry[] = [
   },
   {
     name: 'Rola Motors Mercedes-Benz',
-    photo: '',
+    photo: 'IMG_3896_tndpxr',
   },
   {
     name: 'E-Piphany',
