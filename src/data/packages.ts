@@ -100,8 +100,25 @@ export const INCLUDED_IN_EVERY_PACKAGE = [
 export interface AddOn {
   name: string
   price: string
+  /**
+   * The ONE line on the card. Keep it under about twelve words.
+   *
+   * The cards used to carry the whole `detail` paragraph each, and three
+   * paragraphs side by side is a wall of text nobody reads — the card stops
+   * selling and starts explaining. The card's job is to make someone curious
+   * enough to open it; `detail` does the explaining once they have.
+   */
+  blurb: string
+  /** The full description. Shown only inside the popup. */
   detail: string
-  /** Which icon the Packages page draws. See ADDON_ICONS there. */
+  /**
+   * Photos for the popup. Cloudinary names, or a /path to a file in public/.
+   *
+   * Leave it off and the popup is text only, which is fine — better than a
+   * picture that does not show the thing being described.
+   */
+  images?: string[]
+  /** Which icon the card draws. See ADDON_ICONS in AddOnCards.tsx. */
   icon: 'print' | 'leaderboard' | 'camera'
   /**
    * Set when the add-on is delivered by a partner rather than by us.
@@ -189,12 +206,12 @@ export const ADD_ONS: AddOn[] = [
        Not "From R900" — the rate itself is fixed at R900, and "From" would
        suggest the hourly figure can climb. What varies is the hours. */
     price: 'R900 / hour',
-    /* Shorter than the other two on purpose: this card carries a logo band
-       above it and needs the room. "Nothing extra per photo" is the line
-       worth keeping — an hourly rate invites the reader to assume image
-       packages and print fees are coming, and this one genuinely has none. */
+    blurb: 'A photographer on site. Every image edited and delivered.',
+    /* "Nothing extra per photo" is the line worth keeping — an hourly rate
+       invites the reader to assume image packages and print fees are coming,
+       and this one genuinely has none. */
     detail:
-      'A professional photographer on site while the simulator runs. Every image edited and delivered afterwards, with nothing extra per photo. We agree the hours when we quote your event.',
+      'A professional photographer on site while the simulator runs, capturing your guests playing rather than posing. Every image is edited afterwards and delivered to you, with nothing extra charged per photo. We agree the hours when we quote your event, so you pay for the stretch of the day that matters rather than the whole booking.',
     partner: {
       name: 'RuNic Studios',
       /* Their own colours, read off runicstudios.co.za: the blush-to-
@@ -237,15 +254,39 @@ export const ADD_ONS: AddOn[] = [
     name: 'Branded Enclosure Prints',
     icon: 'print',
     price: 'From R1,300',
+    blurb: 'Your branding printed onto the enclosure panels.',
     detail:
-      'Custom printed panels fitted to the outdoor enclosure — your logo, event branding or campaign artwork, sized and mounted by us. It turns the bay into the backdrop everyone photographs. Artwork needs to reach us at least 10 business days before your date.',
+      'Custom printed panels fitted to the outdoor enclosure — your logo, event branding or campaign artwork, sized and mounted by us. It turns the bay into the backdrop everyone photographs, which is what puts your brand in the pictures your guests post rather than only on the banner nobody looks at. Artwork needs to reach us at least 10 business days before your date.',
+    /* The outdoor enclosure carrying the Sim2U logo panel. It is the whole
+       argument for this add-on in one picture: a client sees their own logo
+       in that position without anyone having to describe it.
+
+       Add more examples by pasting Cloudinary names alongside it — the popup
+       lays two or more out in a grid. Only shots that actually show printed
+       panels; a photo of a plain enclosure under this heading teaches the
+       reader the opposite of what we are selling. */
+    images: ['/addon-branded-prints.webp'],
   },
   {
     name: 'Live Leaderboard',
     icon: 'leaderboard',
     price: 'R2,000',
+    blurb: 'Live standings on every guest’s phone as shots land.',
     detail:
-      'A live standings page your guests can follow on their own phones, or put up on a second screen anywhere at the venue. Scores update as each shot lands, so the competition stays visible to people who are nowhere near the bay.',
+      'A live standings page your guests follow on their own phones, or put up on a second screen anywhere at the venue. Three contests run at once — closest to the pin, longest drive and targets — each with its own board, and every score appears the moment the shot lands. Players can add a line of their own next to their name. It is the difference between a few people having a hit and everybody in the room watching a contest.',
+    /* The board we built for the Medipost conference, captured from the live
+       page.
+
+       THE PLAYER NAMES ARE SAMPLE DATA, AND THAT IS DELIBERATE. The real
+       board carries 80 named guests, several with a personal message beside
+       their name. Those people entered a competition at a conference; they
+       did not agree to appear on a marketing site, and under POPIA that is
+       their call rather than ours. The names were replaced before the capture
+       — the design, the three contests, the live indicator and the scores are
+       all exactly as the real thing.
+
+       If this is ever recaptured, replace the names again. */
+    images: ['/addon-leaderboard.webp'],
   },
 ]
 

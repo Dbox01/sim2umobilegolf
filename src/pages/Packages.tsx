@@ -4,30 +4,19 @@ import {
   CalendarX2,
   CheckCircle2,
   ChevronRight,
-  Camera,
   Hand,
-  Image as ImageIcon,
   PackageOpen,
   PlayCircle,
   Plug,
   ShieldCheck,
-  Trophy,
   Truck,
   Wind,
 } from 'lucide-react'
 
-/**
- * One icon per add-on, so three cards don't all wear the same badge.
- * Keyed by AddOn['icon'] — add a key here when you add an add-on.
- */
-const ADDON_ICONS: Record<string, React.ReactNode> = {
-  print: <ImageIcon size={30} />,
-  leaderboard: <Trophy size={30} />,
-  camera: <Camera size={30} />,
-}
 import { Link } from 'react-router-dom'
 import Seo from '../components/Seo'
 import PricingTiers from '../components/PricingTiers'
+import AddOnCards from '../components/AddOnCards'
 import SmallerSpacesNote from '../components/SmallerSpacesNote'
 import { CTABand, PageHero, SectionHeading, StatCard } from '../components/Primitives'
 import { IMAGES } from '../data/images'
@@ -249,131 +238,7 @@ const Packages: React.FC = () => (
           subtitle="Ways to make the day land harder — and to leave you with something after everyone has gone home. All quoted alongside your package."
         />
 
-        {/* Columns follow the count, so adding a fourth add-on later doesn't
-            leave a lone card stranded on its own row. */}
-        <div
-          className={`grid gap-6 mx-auto ${
-            ADD_ONS.length >= 3 ? 'md:grid-cols-3 max-w-6xl' : 'md:grid-cols-2 max-w-5xl'
-          }`}
-        >
-          {ADD_ONS.map((addon) => (
-            <div
-              key={addon.name}
-              className="bg-white rounded-[36px] border border-gold/25 shadow-[0_30px_70px_-40px_rgba(33,54,49,0.5)] flex flex-col overflow-hidden"
-            >
-              {/* Partner band. Their colour, our card — a card repainted
-                  entirely in a partner's palette reads as an advert pasted
-                  into the page rather than as a service we stand behind. */}
-              {addon.partner && (
-                <div
-                  className="relative px-9 py-5 flex items-center gap-4 overflow-hidden"
-                  style={{ background: addon.partner.theme.band }}
-                >
-                  {/* The partner's wave motif. Decorative only, so it is
-                      hidden from screen readers and kept faint enough that the
-                      text above it never drops below its measured contrast. */}
-                  <svg
-                    className="absolute inset-x-0 bottom-0 w-full h-14 pointer-events-none"
-                    viewBox="0 0 400 56"
-                    preserveAspectRatio="none"
-                    aria-hidden="true"
-                  >
-                    {[0, 7, 14, 21, 28].map((offset, i) => (
-                      <path
-                        key={offset}
-                        d={`M-20 ${30 + offset} C 60 ${14 + offset}, 120 ${46 + offset}, 200 ${30 + offset} S 340 ${14 + offset}, 420 ${30 + offset}`}
-                        fill="none"
-                        stroke={addon.partner!.theme.bandInk}
-                        strokeWidth="1"
-                        opacity={0.3 - i * 0.04}
-                      />
-                    ))}
-                  </svg>
-
-                  {addon.partner.logo ? (
-                    /* A pale logo goes straight onto the band — the white chip
-                       a dark logo needs would swallow it whole. */
-                    <img
-                      src={addon.partner.logo}
-                      alt={addon.partner.name}
-                      width={48}
-                      height={48}
-                      className={`relative w-12 h-12 object-contain shrink-0 ${
-                        addon.partner.logoInk === 'light'
-                          ? ''
-                          : 'rounded-xl bg-white/80 p-1.5'
-                      }`}
-                    />
-                  ) : (
-                    <span
-                      className="relative w-12 h-12 rounded-xl border-2 border-dashed text-[8px] font-bold uppercase tracking-wider flex items-center justify-center shrink-0"
-                      style={{
-                        borderColor: `${addon.partner.theme.bandInk}66`,
-                        color: `${addon.partner.theme.bandInk}aa`,
-                      }}
-                    >
-                      logo
-                    </span>
-                  )}
-
-                  <span className="relative leading-tight">
-                    <span
-                      className="block text-[9px] font-black uppercase tracking-[0.22em] opacity-60"
-                      style={{ color: addon.partner.theme.bandInk }}
-                    >
-                      In partnership with
-                    </span>
-                    <span
-                      className="block font-bold text-[15px] mt-0.5"
-                      style={{ color: addon.partner.theme.bandInk }}
-                    >
-                      {addon.partner.name}
-                    </span>
-                  </span>
-                </div>
-              )}
-
-              <div
-                className="p-9 md:p-10 flex flex-col gap-6 flex-1"
-                style={
-                  addon.partner
-                    ? {
-                        background: `linear-gradient(140deg, ${addon.partner.theme.from} 0%, ${addon.partner.theme.via} 52%, ${addon.partner.theme.to} 100%)`,
-                      }
-                    : undefined
-                }
-              >
-              <div
-                className={`w-16 h-16 rounded-3xl flex items-center justify-center flex-shrink-0 ${
-                  addon.partner ? 'bg-white/70' : 'bg-gold/15 text-gold'
-                }`}
-                style={addon.partner ? { color: addon.partner.theme.band } : undefined}
-              >
-                {ADDON_ICONS[addon.icon]}
-              </div>
-              <div>
-                <div className="flex flex-wrap items-baseline gap-x-5 gap-y-1 mb-4">
-                  <h3 className="text-2xl md:text-3xl font-serif text-mountainGreen">
-                    {addon.name}
-                  </h3>
-                  <span
-                    className="font-black text-xs uppercase tracking-[0.2em]"
-                    style={addon.partner ? { color: addon.partner.theme.accent } : undefined}
-                  >
-                    <span className={addon.partner ? '' : 'text-gold'}>{addon.price}</span>
-                  </span>
-                </div>
-                <p
-                  className={addon.partner ? 'leading-relaxed' : 'text-gray-500 leading-relaxed'}
-                  style={addon.partner ? { color: addon.partner.theme.body } : undefined}
-                >
-                  {addon.detail}
-                </p>
-              </div>
-              </div>
-            </div>
-          ))}
-        </div>
+        <AddOnCards />
       </div>
     </section>
 

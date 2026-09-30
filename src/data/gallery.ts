@@ -114,6 +114,41 @@ export function byName(publicId: string, transform?: string): string {
 }
 
 /**
+ * Look a photo up by name, but return null when it is not there.
+ *
+ * The difference from `byName` above is the failure case, and it matters.
+ * `byName` substitutes the first photo in the library, which is right for a
+ * decorative hero — a wrong photo is survivable, a blank one is not.
+ *
+ * Here the picture IS the point: a photo captioned as branded enclosure
+ * panels, or as the leaderboard we built for a named client, has to be that
+ * thing. Quietly showing an unrelated photo under that caption is worse than
+ * showing none, so a bad name returns null and the caller leaves it out.
+ *
+ * A value starting with "/" is a file in public/ and is used as-is.
+ *
+ * (events.ts carries its own copy of this for the same reason. If a third
+ * caller appears, collapse them into this one.)
+ */
+export function photoByName(
+  publicId: string,
+  transform = 'f_auto,q_auto,c_fill,g_auto,w_1200',
+): string | null {
+  if (publicId.startsWith('/')) return publicId
+  const hit = GALLERY_ASSETS.find((a) => a.publicId === publicId)
+  if (!hit) {
+    if (import.meta.env.DEV) {
+      console.warn(
+        `[images] No Cloudinary photo named "${publicId}". Run "npm run photos" ` +
+          `and check the name against photo-index.html.`,
+      )
+    }
+    return null
+  }
+  return imageUrl(hit, transform)
+}
+
+/**
  * The one stock photo left on the site (homepage hero background).
  * Replace it in src/data/images.ts as soon as you have a wide shot of a
  * real setup — your own photography always outperforms stock here.
