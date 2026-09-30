@@ -15,6 +15,7 @@ import Seo from '../components/Seo'
 import VideoReel from '../components/VideoReel'
 import Testimonials from '../components/Testimonials'
 import EventShowcase from '../components/EventShowcase'
+import AddOnCards from '../components/AddOnCards'
 import { CTABand, Eyebrow, PageHero, SectionHeading } from '../components/Primitives'
 import { IMAGES } from '../data/images'
 import { INCLUDED_IN_EVERY_PACKAGE, TIERS, priceFor } from '../data/packages'
@@ -307,7 +308,49 @@ const Home: React.FC = () => (
       </div>
     </section>
 
+    {/* ------------------------------- Add-ons ------------------------------- */}
+    {/* Straight after the three enclosures, because that is the moment someone
+        has just decided which package suits them and is most open to adding to
+        it. The same <AddOnCards /> as the Packages page — one component, one
+        set of copy in src/data/packages.ts, so the two can never drift.
+
+        White rather than cream: the section above it is cream, and two cream
+        blocks running together read as one. */}
+    <section className="py-24 md:py-32 px-6 bg-white">
+      <div className="container mx-auto max-w-6xl">
+        <SectionHeading
+          /* No eyebrow either. It said "Optional Extras" over a headline
+             now saying "Optional Add-Ons" — the same words twice, which is
+             the opposite of short. One line does it. */
+          title="Optional Add-Ons"
+          /* No subtitle. The cards carry a price and a line each, and the
+             popup behind them carries the rest — a paragraph here is a third
+             thing to read before anyone reaches the thing worth reading.
+             "All quoted alongside your package" used to live here; it is in
+             every popup instead, where someone asking the price will see it. */
+        />
+
+        <AddOnCards />
+
+        <div className="text-center mt-14">
+          <Link
+            to="/packages"
+            className="group inline-flex items-center gap-3 text-mountainGreen font-black uppercase tracking-[0.15em] text-[11px] hover:text-gold transition-colors"
+          >
+            See the full pricing
+            <ChevronRight
+              size={16}
+              className="group-hover:translate-x-1.5 transition-transform"
+            />
+          </Link>
+        </div>
+      </div>
+    </section>
+
     {/* -------------------------- What's included ---------------------------- */}
+    {/* Stays white: the panel inside it is cream, and a cream panel on a cream
+        section is an invisible panel. It still reads as distinct from the white
+        add-ons section above because that panel fills most of it. */}
     <section className="py-24 md:py-32 px-6 bg-white">
       <div className="container mx-auto max-w-7xl">
         <div className="bg-cream rounded-[40px] p-10 md:p-14 border border-mountainGreen/5">

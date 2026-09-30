@@ -233,9 +233,15 @@ const Packages: React.FC = () => (
     <section className="py-24 md:py-32 px-6 bg-cream">
       <div className="container mx-auto max-w-6xl">
         <SectionHeading
-          eyebrow="Optional Extras"
-          title="Raise the stakes."
-          subtitle="Ways to make the day land harder — and to leave you with something after everyone has gone home. All quoted alongside your package."
+          /* No eyebrow either. It said "Optional Extras" over a headline
+             now saying "Optional Add-Ons" — the same words twice, which is
+             the opposite of short. One line does it. */
+          title="Optional Add-Ons"
+          /* No subtitle. The cards carry a price and a line each, and the
+             popup behind them carries the rest — a paragraph here is a third
+             thing to read before anyone reaches the thing worth reading.
+             "All quoted alongside your package" used to live here; it is in
+             every popup instead, where someone asking the price will see it. */
         />
 
         <AddOnCards />

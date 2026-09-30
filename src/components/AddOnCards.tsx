@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { Camera, Image as ImageIcon, Plus, Trophy, X } from 'lucide-react'
+import { Camera, ExternalLink, Image as ImageIcon, Plus, Trophy, X } from 'lucide-react'
 import { ADD_ONS, type AddOn } from '../data/packages'
 import { photoByName } from '../data/gallery'
+import { LOGO_URL, SITE_NAME } from '../data/site'
 
 /**
  * The optional extras on the Packages page: three cards, each opening a popup.
@@ -147,10 +148,28 @@ const AddOnDialog: React.FC<{ addon: AddOn; onClose: () => void }> = ({
         <div className="p-8 md:p-10">
           {addon.partner && (
             <p
-              className="text-[10px] font-black uppercase tracking-[0.22em] mb-4"
+              className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[10px] font-black uppercase tracking-[0.22em] mb-4"
               style={{ color: addon.partner.theme.band }}
             >
-              In partnership with {addon.partner.name}
+              <span>In partnership with {addon.partner.name}</span>
+              {addon.partner.url && (
+                /* The one link on this site that sends someone away, so it
+                   opens in a new tab and carries rel="noopener noreferrer" —
+                   without noopener the new tab can reach back and redirect
+                   this one. */
+                <a
+                  href={addon.partner.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 underline decoration-2 underline-offset-4 decoration-current/40 hover:decoration-current transition-colors focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 rounded-sm"
+                >
+                  {/* Shown as the bare domain: a person can see where the link
+                      goes before they follow it. */}
+                  {addon.partner.url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')}
+                  <ExternalLink size={11} aria-hidden="true" />
+                  <span className="sr-only">(opens in a new tab)</span>
+                </a>
+              )}
             </p>
           )}
 
@@ -186,6 +205,102 @@ const AddOnDialog: React.FC<{ addon: AddOn; onClose: () => void }> = ({
 /*                                    Card                                    */
 /* -------------------------------------------------------------------------- */
 
+/* -------------------------------------------------------------------------- */
+/*                                Heading band                                */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * The band across the top of every card, naming who actually delivers it.
+ *
+ * All three cards carry one so the row reads as a set rather than one
+ * decorated card beside two plain ones — but they are not the same band, and
+ * the difference is the point. Two of these we do ourselves; one is bought in
+ * from a partner. Someone booking deserves to see which is which at a glance
+ * rather than discovering it at the quote.
+ *
+ * Ours is Sim2U's mountain green. Theirs is their own colour, and only theirs
+ * carries their wave motif — a brand device belongs to the brand that owns it.
+ * A card repainted end to end in a partner's palette would read as an advert
+ * pasted into the page, so the partner's colour stops at the band and the
+ * gradient beneath it.
+ */
+const CardBand: React.FC<{ addon: AddOn }> = ({ addon }) => {
+  const partner = addon.partner
+
+  const background = partner ? partner.theme.band : '#213631' // mountainGreen
+  const ink = partner ? partner.theme.bandInk : '#FFFFFF'
+  const logo = partner ? partner.logo : LOGO_URL
+  // Our own logo is a dark badge with its own background, so it needs no chip;
+  // RuNic's pale monogram would vanish behind one. Both go on bare.
+  const logoOnBare = partner ? partner.logoInk === 'light' : true
+  const eyebrow = partner ? 'In partnership with' : 'Delivered by'
+  const who = partner ? partner.name : SITE_NAME
+
+  return (
+    <div
+      className="relative px-9 py-5 flex items-center gap-4 overflow-hidden"
+      style={{ background }}
+    >
+      {/* RuNic's wave motif, theirs alone. */}
+      {partner && (
+        <svg
+          className="absolute inset-x-0 bottom-0 w-full h-14 pointer-events-none"
+          viewBox="0 0 400 56"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          {[0, 7, 14, 21, 28].map((offset, i) => (
+            <path
+              key={offset}
+              d={`M-20 ${30 + offset} C 60 ${14 + offset}, 120 ${46 + offset}, 200 ${30 + offset} S 340 ${14 + offset}, 420 ${30 + offset}`}
+              fill="none"
+              stroke={ink}
+              strokeWidth="1"
+              opacity={0.3 - i * 0.04}
+            />
+          ))}
+        </svg>
+      )}
+
+      {logo ? (
+        <img
+          src={logo}
+          alt=""
+          aria-hidden="true"
+          width={48}
+          height={48}
+          className={`relative w-12 h-12 object-contain shrink-0 ${
+            logoOnBare ? 'rounded-xl' : 'rounded-xl bg-white/80 p-1.5'
+          }`}
+        />
+      ) : (
+        <span
+          className="relative w-12 h-12 rounded-xl border-2 border-dashed text-[8px] font-bold uppercase tracking-wider flex items-center justify-center shrink-0"
+          style={{ borderColor: `${ink}66`, color: `${ink}aa` }}
+        >
+          logo
+        </span>
+      )}
+
+      <span className="relative leading-tight">
+        <span
+          className="block text-[9px] font-black uppercase tracking-[0.22em] opacity-60"
+          style={{ color: ink }}
+        >
+          {eyebrow}
+        </span>
+        <span className="block font-bold text-[15px] mt-0.5" style={{ color: ink }}>
+          {who}
+        </span>
+      </span>
+    </div>
+  )
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                    Card                                    */
+/* -------------------------------------------------------------------------- */
+
 const AddOnCard: React.FC<{ addon: AddOn; onOpen: () => void }> = ({
   addon,
   onOpen,
@@ -198,71 +313,7 @@ const AddOnCard: React.FC<{ addon: AddOn; onOpen: () => void }> = ({
     aria-label={`${addon.name} — read more`}
     className="group text-left bg-white rounded-[36px] border border-gold/25 shadow-[0_30px_70px_-40px_rgba(33,54,49,0.5)] flex flex-col overflow-hidden transition-all hover:-translate-y-1 hover:shadow-[0_40px_80px_-40px_rgba(33,54,49,0.6)] focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-4 focus:ring-offset-cream"
   >
-    {/* Partner band. Their colour, our card — a card repainted entirely in a
-        partner's palette reads as an advert pasted into the page. */}
-    {addon.partner && (
-      <div
-        className="relative px-9 py-5 flex items-center gap-4 overflow-hidden"
-        style={{ background: addon.partner.theme.band }}
-      >
-        <svg
-          className="absolute inset-x-0 bottom-0 w-full h-14 pointer-events-none"
-          viewBox="0 0 400 56"
-          preserveAspectRatio="none"
-          aria-hidden="true"
-        >
-          {[0, 7, 14, 21, 28].map((offset, i) => (
-            <path
-              key={offset}
-              d={`M-20 ${30 + offset} C 60 ${14 + offset}, 120 ${46 + offset}, 200 ${30 + offset} S 340 ${14 + offset}, 420 ${30 + offset}`}
-              fill="none"
-              stroke={addon.partner!.theme.bandInk}
-              strokeWidth="1"
-              opacity={0.3 - i * 0.04}
-            />
-          ))}
-        </svg>
-
-        {addon.partner.logo ? (
-          /* A pale logo goes straight onto the band — the white chip a dark
-             logo needs would swallow it whole. */
-          <img
-            src={addon.partner.logo}
-            alt={addon.partner.name}
-            width={48}
-            height={48}
-            className={`relative w-12 h-12 object-contain shrink-0 ${
-              addon.partner.logoInk === 'light' ? '' : 'rounded-xl bg-white/80 p-1.5'
-            }`}
-          />
-        ) : (
-          <span
-            className="relative w-12 h-12 rounded-xl border-2 border-dashed text-[8px] font-bold uppercase tracking-wider flex items-center justify-center shrink-0"
-            style={{
-              borderColor: `${addon.partner.theme.bandInk}66`,
-              color: `${addon.partner.theme.bandInk}aa`,
-            }}
-          >
-            logo
-          </span>
-        )}
-
-        <span className="relative leading-tight">
-          <span
-            className="block text-[9px] font-black uppercase tracking-[0.22em] opacity-60"
-            style={{ color: addon.partner.theme.bandInk }}
-          >
-            In partnership with
-          </span>
-          <span
-            className="block font-bold text-[15px] mt-0.5"
-            style={{ color: addon.partner.theme.bandInk }}
-          >
-            {addon.partner.name}
-          </span>
-        </span>
-      </div>
-    )}
+    <CardBand addon={addon} />
 
     <div
       className="p-8 md:p-9 flex flex-col gap-5 flex-1"

@@ -13,6 +13,15 @@ export interface Tier {
   /** Build time on site before your start. Happens outside your booked hours. */
   setupTime: string
   bestFor: string[]
+  /**
+   * Draws the badge — "Most Booked" on the home page cards, "POPULAR" on the
+   * pricing selector.
+   *
+   * SET IT ON ONE TIER ONLY. Two badges is no badge: the whole point is to
+   * point at a single default for someone who has not decided yet, and the
+   * claim has to stay true — it says most booked, so it should be the one
+   * that actually is.
+   */
   popular?: boolean
 }
 
@@ -49,7 +58,6 @@ export const TIERS: Tier[] = [
     durations: [4, 5, 6, 7, 8],
     setupTime: '2 hours',
     bestFor: ['Weddings', 'Estate events', 'Golf days', 'Large guest lists'],
-    popular: true,
   },
   {
     id: 'corporate',
@@ -64,6 +72,7 @@ export const TIERS: Tier[] = [
     durations: [4, 8],
     setupTime: '3 hours',
     bestFor: ['Conferences', 'Trade shows', 'Team building', 'Brand activations'],
+    popular: true,
   },
 ]
 
@@ -135,6 +144,14 @@ export interface AddOn {
   partner?: {
     name: string
     logo?: string
+    /**
+     * Their website, linked from the popup.
+     *
+     * Opens in a new tab with rel="noopener noreferrer" — a partner link is
+     * the one place on this site that sends someone away, so it should not
+     * take the page with it.
+     */
+    url?: string
     /**
      * Which way round the supplied logo file is drawn.
      *
@@ -248,6 +265,7 @@ export const ADD_ONS: AddOn[] = [
          dark-on-light file, switch this to 'dark' and the chip comes back. */
       logo: '/partners/runic-studios.png',
       logoInk: 'light',
+      url: 'https://www.runicstudios.co.za/',
     },
   },
   {
