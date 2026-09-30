@@ -60,7 +60,7 @@ export type NavEntry =
  * dropdowns and one flat link leave room to breathe — and room to add pages
  * without starting this argument again.
  *
- * Split by question rather than by audience: "what do you do" and "what does
+ * Split by question rather than by audience: "what do you offer" and "what does
  * it cost" are the two things a first-time visitor wants, and a person who
  * doesn't yet know whether we suit them cannot pick between "Corporate" and
  * "Social" on their own.
@@ -68,7 +68,7 @@ export type NavEntry =
 export const NAV: NavEntry[] = [
   {
     kind: 'group',
-    name: 'What We Do',
+    name: 'What We Offer',
     items: [
       {
         name: 'Corporate Events',
