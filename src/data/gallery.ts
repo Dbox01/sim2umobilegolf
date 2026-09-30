@@ -17,10 +17,14 @@ export interface CloudinaryAsset {
  *   sim2u-gallery    → the Gallery page
  *   sim2u-corporate  → the mosaic on the Corporate page
  *   sim2u-video      → video reels
+ *   sim2u-site       → no grid; usable by name anywhere
  *
  * Tag an asset in Cloudinary to add it, untag it to remove it. The list in
  * src/data/cloudinary.json is refreshed automatically before every build by
  * scripts/fetch-cloudinary.mjs — don't edit that file by hand.
+ *
+ * THE LIBRARY AND THE GRIDS ARE TWO DIFFERENT THINGS. See PHOTO_LIBRARY
+ * below; it is the whole point of the sim2u-site tag.
  */
 
 /** Full-size delivery URL. f_auto/q_auto lets Cloudinary pick format and quality. */
@@ -50,6 +54,7 @@ export function videoPoster(asset: CloudinaryAsset, width = 1280): string {
  *    sim2u-gallery    -> the Gallery page
  *    sim2u-corporate  -> the mosaic on the Corporate Events page
  *    sim2u-video      -> the reel on the Home and Gallery pages
+ *    sim2u-site       -> no grid at all; see PHOTO_LIBRARY below
  *
  *  `npm run photos` refetches those tags, writes src/data/cloudinary.json and
  *  builds photo-index.html — a contact sheet showing every photo with its
@@ -88,6 +93,63 @@ export const CORPORATE_ASSETS = without(manifest.corporate as CloudinaryAsset[],
   ...EXCLUDE_FROM_CORPORATE,
 ])
 
+/** Tagged sim2u-site: usable by name, shown in no grid of its own. */
+export const SITE_ASSETS = without(
+  (manifest as { site?: CloudinaryAsset[] }).site ?? [],
+  HIDDEN_PHOTOS,
+)
+
+/* ------------------------------------------------------------------------ *
+ *  THE LIBRARY
+ *
+ *  Every photo the site is allowed to point at by name, whichever tag put it
+ *  there. This exists because a tag used to mean two things at once:
+ *  sim2u-gallery meant "show this in the Gallery grid" AND "make this photo
+ *  findable by name", since the by-name lookup searched the gallery list. So
+ *  a photo wanted on the home page events strip, or as a page banner, had to
+ *  be published in the Gallery whether it belonged there or not.
+ *
+ *  Now:  which tag it carries  ->  which GRID it appears in
+ *        any sim2u- tag at all ->  it is in the LIBRARY
+ *
+ *  Tag a photo sim2u-site and it is reachable by name from anywhere while
+ *  appearing in no grid. A photo already tagged sim2u-gallery needs no second
+ *  tag to be used as a hero — it is in the library already.
+ *
+ *  Order matters only for the fallback in `byName`, so gallery leads.
+ *  Duplicates are expected (a photo can carry several tags) and the first
+ *  occurrence wins — they resolve to the same URL either way.
+ * ------------------------------------------------------------------------ */
+function dedupeById(assets: CloudinaryAsset[]): CloudinaryAsset[] {
+  const seen = new Set<string>()
+  const out: CloudinaryAsset[] = []
+  for (const asset of assets) {
+    if (seen.has(asset.publicId)) continue
+    seen.add(asset.publicId)
+    out.push(asset)
+  }
+  return out
+}
+
+/*
+ * Built from the raw tag lists, minus HIDDEN_PHOTOS only.
+ *
+ * EXCLUDE_FROM_CORPORATE deliberately does NOT apply here: it means "not
+ * proof of corporate work", which is a statement about one grid, not about
+ * whether the photo exists. HIDDEN_PHOTOS means gone from the site entirely,
+ * so that one does apply.
+ */
+export const PHOTO_LIBRARY = dedupeById(
+  without(
+    [
+      ...(manifest.gallery as CloudinaryAsset[]),
+      ...(manifest.corporate as CloudinaryAsset[]),
+      ...((manifest as { site?: CloudinaryAsset[] }).site ?? []),
+    ],
+    HIDDEN_PHOTOS,
+  ),
+)
+
 export const GALLERY_IMAGES = GALLERY_ASSETS.map((a) => imageUrl(a))
 export const CORPORATE_IMAGES = CORPORATE_ASSETS.map((a) => imageThumb(a, 900))
 
@@ -100,15 +162,16 @@ export const CORPORATE_IMAGES = CORPORATE_ASSETS.map((a) => imageThumb(a, 900))
  * the wrong photo is survivable, a blank hero is not.
  */
 export function byName(publicId: string, transform?: string): string {
-  const hit = GALLERY_ASSETS.find((a) => a.publicId === publicId)
+  const hit = PHOTO_LIBRARY.find((a) => a.publicId === publicId)
   if (!hit) {
     if (import.meta.env.DEV) {
       console.warn(
-        `[images] No Cloudinary photo named "${publicId}". Run "npm run photos" ` +
-          `and check the name against the contact sheet.`,
+        `[images] No Cloudinary photo named "${publicId}" in the library. Give it ` +
+          `any sim2u- tag (sim2u-site if it should not appear in a grid), run ` +
+          `"npm run photos", and check the name against the contact sheet.`,
       )
     }
-    return GALLERY_ASSETS.length ? imageUrl(GALLERY_ASSETS[0], transform) : ''
+    return PHOTO_LIBRARY.length ? imageUrl(PHOTO_LIBRARY[0], transform) : ''
   }
   return imageUrl(hit, transform)
 }
@@ -127,20 +190,22 @@ export function byName(publicId: string, transform?: string): string {
  *
  * A value starting with "/" is a file in public/ and is used as-is.
  *
- * (events.ts carries its own copy of this for the same reason. If a third
- * caller appears, collapse them into this one.)
+ * This is the single by-name lookup for every "one specific picture" slot on
+ * the site — event cards, add-on popups, corporate pillars. events.ts used to
+ * keep its own copy; it now calls this one.
  */
 export function photoByName(
   publicId: string,
   transform = 'f_auto,q_auto,c_fill,g_auto,w_1200',
 ): string | null {
   if (publicId.startsWith('/')) return publicId
-  const hit = GALLERY_ASSETS.find((a) => a.publicId === publicId)
+  const hit = PHOTO_LIBRARY.find((a) => a.publicId === publicId)
   if (!hit) {
     if (import.meta.env.DEV) {
       console.warn(
-        `[images] No Cloudinary photo named "${publicId}". Run "npm run photos" ` +
-          `and check the name against photo-index.html.`,
+        `[images] No Cloudinary photo named "${publicId}" in the library. Give it ` +
+          `any sim2u- tag (sim2u-site if it should not appear in a grid), run ` +
+          `"npm run photos", and check the name against photo-index.html.`,
       )
     }
     return null

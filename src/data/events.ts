@@ -1,4 +1,4 @@
-import { GALLERY_ASSETS, imageUrl } from './gallery'
+import { photoByName } from './gallery'
 
 /**
  * ============================================================
@@ -28,7 +28,11 @@ import { GALLERY_ASSETS, imageUrl } from './gallery'
  * ------------------------------------------------------------
  *  HOW TO FILL IN A CARD
  * ------------------------------------------------------------
- *  1. Tag the photo `sim2u-gallery` in Cloudinary.
+ *  1. Tag the photo in Cloudinary. If you do NOT want it on the public
+ *     Gallery page, tag it `sim2u-site` — that makes it usable here and
+ *     nowhere else. `sim2u-gallery` also works and additionally publishes it
+ *     to the Gallery. Either tag puts it in the library, which is what this
+ *     strip reads.
  *  2. Run:  npm run photos
  *     (this re-reads Cloudinary — a photo you tagged after the last run will
  *     not be found until you do this)
@@ -65,29 +69,21 @@ export interface EventEntry {
 /**
  * Resolves a Cloudinary name to a card-sized image URL.
  *
- * Returns null rather than a fallback when the name is wrong. `byName()` in
- * gallery.ts quietly substitutes the first photo in the library, which is the
- * right call for a decorative slot and the WRONG one here: a mistyped name
- * would put some other client's event photo under "BMW & MINI Tygervalley".
- * A missing photo is obvious and fixable; a plausible wrong one is neither.
+ * This was its own copy of the lookup until the photo library was split out
+ * of the gallery; it is now `photoByName` with a card-sized transform.
+ *
+ * That function returns null rather than a fallback when the name is wrong,
+ * which is what this slot needs. `byName()` quietly substitutes the first
+ * photo in the library — right for a decorative hero, wrong here, where a
+ * mistyped name would put some other client's event photo under "BMW & MINI
+ * Tygervalley". A missing photo is obvious and fixable; a plausible wrong one
+ * is neither.
+ *
+ * 800px: the cards are ~360px wide on screen, so this covers retina without
+ * shipping the full-resolution original.
  */
 export function eventPhoto(publicId: string): string | null {
-  // Anything starting with "/" is a file you dropped in public/, used as-is.
-  if (publicId.startsWith('/')) return publicId
-
-  const hit = GALLERY_ASSETS.find((a) => a.publicId === publicId)
-  if (!hit) {
-    if (import.meta.env.DEV) {
-      console.warn(
-        `[events] No Cloudinary photo named "${publicId}". Run "npm run photos" ` +
-          `and check the name against photo-index.html.`,
-      )
-    }
-    return null
-  }
-  // Card-sized and smart-cropped. These are ~360px wide on screen, so 800px
-  // covers retina without shipping the full-resolution original.
-  return imageUrl(hit, 'f_auto,q_auto,c_fill,g_auto,w_800')
+  return photoByName(publicId, 'f_auto,q_auto,c_fill,g_auto,w_800')
 }
 
 export const EVENTS: EventEntry[] = [
@@ -101,11 +97,11 @@ export const EVENTS: EventEntry[] = [
   {
     name: 'EduExpo',
     client: 'Qurtuba Online Academy',
-    photo: 'IMG_9724_e_bv0ghi',
+    photo: '',
   },
   {
     name: 'BMW & MINI Tygervalley',
-    photo: 'IMG_7758_vlrusn',
+    photo: 'IMG_7648_mzejac',
   },
   {
     name: 'Rola Motors Mercedes-Benz',
@@ -113,6 +109,6 @@ export const EVENTS: EventEntry[] = [
   },
   {
     name: 'E-Piphany',
-    photo: 'IMG_9046_uzyvep',
+    photo: '',
   },
 ]

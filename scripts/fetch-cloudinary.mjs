@@ -9,18 +9,51 @@
  *  HOW YOU ADD OR REMOVE A PHOTO OR VIDEO
  * ------------------------------------------------------------------
  *  1. Upload it to Cloudinary as normal.
- *  2. Give it one of these tags:
+ *  2. Give it ONE of these tags — whichever grid you want it in:
  *
  *       sim2u-gallery    → appears on the Gallery page
  *       sim2u-corporate  → appears in the mosaic on the Corporate page
  *       sim2u-video      → appears as a video reel
+ *       sim2u-site       → appears in NO grid
  *
- *     A photo can carry both sim2u-gallery and sim2u-corporate.
+ *     A photo can carry more than one if it belongs in more than one grid.
  *  3. To remove it from the site, remove the tag. The photo stays in
  *     your Cloudinary account either way.
  *
  *  The live site picks the change up on its next rebuild — automatic once a
  *  day, or immediately if you trigger the deploy workflow in GitHub.
+ *
+ * ------------------------------------------------------------------
+ *  WHAT sim2u-site IS FOR, AND WHY IT EXISTS
+ * ------------------------------------------------------------------
+ *  A tag used to mean two things at once, and that was the problem.
+ *  sim2u-gallery meant "put this in the Gallery grid" AND "make this photo
+ *  findable by name" — because the by-name lookup searched the gallery list.
+ *  So a photo you wanted on the home page events strip, or as a page banner,
+ *  had to go in the public Gallery whether it belonged there or not.
+ *
+ *  Those are now two separate ideas:
+ *
+ *    THE LIBRARY   every photo carrying ANY sim2u- tag. Anything in the
+ *                  library can be pointed at by name from anywhere on the
+ *                  site — heroes, event cards, add-on popups.
+ *
+ *    THE GRIDS     which tag it carries decides which grid it turns up in.
+ *
+ *  sim2u-site is the library without a grid: "the site may use this photo,
+ *  but do not put it in any grid on its own." That is the tag for an events
+ *  strip photo, a banner, or anything you reference by name and nowhere else.
+ *
+ *  A photo already in the Gallery needs NO second tag to be used as a hero —
+ *  sim2u-gallery already puts it in the library.
+ *
+ * ------------------------------------------------------------------
+ *  ADDING A NEW SET LATER
+ * ------------------------------------------------------------------
+ *  Add a line to TAGS below. `grid: true` means a page renders that set as a
+ *  grid (and a page has to be told to read it); `grid: false` means library
+ *  only. Everything downstream — the manifest, the library, the contact
+ *  sheet — picks it up from that one line.
  *
  * ------------------------------------------------------------------
  *  ONE-TIME CLOUDINARY SETTING
@@ -35,10 +68,20 @@ import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const CLOUD_NAME = 'bo8j9vxt'
+
+/**
+ * Every tag the site knows about. One line per set — see the header.
+ *
+ *   tag   the Cloudinary tag you type in the Media Library
+ *   kind  'image' or 'video' (Cloudinary lists them from different endpoints)
+ *   grid  true  → a page renders this set as a grid
+ *         false → library only; usable by name, shown in no grid
+ */
 const TAGS = {
-  gallery: { tag: 'sim2u-gallery', kind: 'image' },
-  corporate: { tag: 'sim2u-corporate', kind: 'image' },
-  videos: { tag: 'sim2u-video', kind: 'video' },
+  gallery: { tag: 'sim2u-gallery', kind: 'image', grid: true },
+  corporate: { tag: 'sim2u-corporate', kind: 'image', grid: true },
+  videos: { tag: 'sim2u-video', kind: 'video', grid: true },
+  site: { tag: 'sim2u-site', kind: 'image', grid: false },
 }
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
@@ -89,19 +132,20 @@ async function fetchTag(tag, kind) {
     .sort((a, b) => String(b.createdAt ?? '').localeCompare(String(a.createdAt ?? '')))
 }
 
+/* Keys come from TAGS, so adding a set up there is genuinely the only edit. */
 const result = {
   generatedAt: new Date().toISOString().replace(/\.\d+Z$/, 'Z'),
   source: 'cloudinary',
-  gallery: [],
-  corporate: [],
-  videos: [],
+  ...Object.fromEntries(Object.keys(TAGS).map((key) => [key, []])),
 }
 
 const problems = []
-for (const [key, { tag, kind }] of Object.entries(TAGS)) {
+for (const [key, { tag, kind, grid }] of Object.entries(TAGS)) {
   try {
     result[key] = await fetchTag(tag, kind)
-    console.log(`[cloudinary] ${tag}: ${result[key].length} ${kind}(s)`)
+    console.log(
+      `[cloudinary] ${tag}: ${result[key].length} ${kind}(s)${grid ? '' : ' (library only)'}`,
+    )
   } catch (err) {
     problems.push(err.message)
     result[key] = previous[key] ?? []
@@ -118,23 +162,47 @@ if (problems.length) {
   console.warn('\n[cloudinary] Kept the previous list for some tags:')
   for (const p of problems) console.warn(`  - ${p}`)
   console.warn('')
-} else if (result.gallery.length === 0) {
-  // Every tag read cleanly but nothing is tagged yet — keep the seeded list
-  // rather than publishing a site with no photographs on it.
+} else if (Object.keys(TAGS).every((key) => result[key].length === 0)) {
+  // Every tag read cleanly but nothing anywhere is tagged — keep the seeded
+  // list rather than publishing a site with no photographs on it.
   console.warn(
-    '\n[cloudinary] No assets carry the sim2u-gallery tag yet — keeping the existing list.\n' +
+    '\n[cloudinary] Nothing carries a sim2u- tag yet — keeping the existing lists.\n' +
       '            Tag your photos in Cloudinary and they will appear on the next build.\n',
   )
-  result.gallery = previous.gallery ?? []
-  result.corporate = previous.corporate?.length ? previous.corporate : result.gallery.slice(0, 7)
+  for (const key of Object.keys(TAGS)) result[key] = previous[key] ?? []
   result.source = 'previous'
   result.note = 'No assets tagged yet; using the seeded list.'
+} else if (result.gallery.length === 0) {
+  /* The gallery tag alone is empty while other sets are not. That is almost
+     certainly a mistake — a tag typo, or photos moved to sim2u-site by
+     accident — but it is also a thing you are allowed to do on purpose, so
+     say so loudly and publish what was asked for rather than quietly putting
+     yesterday's photos back. A build that overrules you is worse than an
+     empty grid you can see and fix. */
+  console.warn(
+    '\n[cloudinary] Nothing carries sim2u-gallery, but other tags have assets.\n' +
+      '            The Gallery page will be EMPTY on this build. If that is not what\n' +
+      '            you meant, check the tag spelling in Cloudinary.\n',
+  )
+  result.note = 'sim2u-gallery is empty; the Gallery page has no photos.'
 }
 
+/* The corporate mosaic borrows from the gallery when it has nothing of its
+   own, so that page is never blank before those photos get tagged. */
 if (!result.corporate.length) result.corporate = result.gallery.slice(0, 7)
 
 await writeFile(target, JSON.stringify(result, null, 2) + '\n')
+
+/* The library is what you can point at by name, so it is the number worth
+   printing — "19 in the gallery" says nothing about whether the photo you
+   want on the home page is reachable. */
+const library = new Set(
+  Object.entries(TAGS)
+    .filter(([, t]) => t.kind === 'image')
+    .flatMap(([key]) => result[key].map((a) => a.publicId)),
+)
 console.log(
-  `[cloudinary] src/data/cloudinary.json written — ${result.gallery.length} photos, ` +
-    `${result.videos.length} video(s), source: ${result.source}`,
+  `[cloudinary] src/data/cloudinary.json written — ${library.size} photos in the library ` +
+    `(${result.gallery.length} in the gallery), ${result.videos.length} video(s), ` +
+    `source: ${result.source}`,
 )

@@ -42,13 +42,37 @@ folder. Double-click it. Every photo and video on one page, and under each one:
 The name never changes. Adding or deleting other photos in Cloudinary will never
 shuffle these around, so a name you paste into the code stays correct forever.
 
-### The three tags
+### The four tags
 
 | Tag in Cloudinary | Where it appears |
 |---|---|
 | `sim2u-gallery` | The Gallery page |
 | `sim2u-corporate` | The photo mosaic on Corporate Events |
 | `sim2u-video` | The reel on the Home page and the Gallery |
+| `sim2u-site` | **Nowhere on its own.** See below |
+
+### The library, and why `sim2u-site` exists
+
+Two different questions, and they used to have the same answer:
+
+- **May the site use this photo at all?** → is it in the **library**
+- **Which grid does it turn up in?** → which **tag** it carries
+
+Anything carrying *any* `sim2u-` tag is in the library, and anything in the
+library can be pointed at by name from anywhere on the site — a page banner, a
+card on the home page events strip, a picture inside an add-on popup.
+
+`sim2u-site` is the library *without* a grid: **"the site may use this photo,
+but do not publish it anywhere on its own."** That is the tag for a photo you
+want on the home page events strip but not in your public Gallery.
+
+> Before this existed, `sim2u-gallery` did both jobs, so the only way to use a
+> photo anywhere was to publish it to the Gallery. That is what `sim2u-site`
+> fixes.
+
+A photo already tagged `sim2u-gallery` **does not need a second tag** to be
+used as a banner — it is in the library already. One tag per photo is the
+normal case; add a second only when it genuinely belongs in two grids.
 
 ---
 
@@ -57,6 +81,12 @@ shuffle these around, so a name you paste into the code stays correct forever.
 None of this touches the code.
 
 **Add photos to the Gallery** — upload them, tag them `sim2u-gallery`. Done.
+
+**Use a photo on the site but keep it OUT of the Gallery** — tag it
+`sim2u-site` and nothing else. It will not appear in any grid, but you can now
+paste its name into `src/data/events.ts` or `src/data/images.ts` and it works.
+This is the right tag for event photos, alternative banners, and anything you
+want available without publishing it.
 
 **Put a photo in the Corporate mosaic** — tag it `sim2u-corporate`. Tag it
 `sim2u-gallery` too if you also want it on the Gallery page; the tags are
@@ -82,6 +112,9 @@ but a tag is reversible and deleting is not.
 
 Some slots need one specific picture rather than whatever is newest. These are
 still Cloudinary photos; the code just names which one.
+
+The photo needs **any** `sim2u-` tag to be nameable — use `sim2u-site` if it
+should not also appear in a grid.
 
 1. Run `npm run photos` and open `photo-index.html`.
 2. Find the photo and copy the name underneath it.
@@ -186,6 +219,12 @@ Cloudinary photo, it was probably deleted or renamed there.
 **A new photo is not showing up** — almost always the tag. Check it in
 Cloudinary, then run `npm run photos`. If the photo is not in the contact sheet,
 the site cannot see it either. If it is there, you just need a rebuild.
+
+**You pasted a name into the code and got no photo** — it is not in the
+library. An untagged photo in Cloudinary is invisible to the site even though
+you can see it in the Media Library. Give it `sim2u-site` (or any other
+`sim2u-` tag), run `npm run photos`, and check it now appears on the contact
+sheet. Running `npm run dev` also prints the reason in the browser console.
 
 **"Resource lists are restricted" or a 403** — read the rest of the message
 first. If it says the request never reached Cloudinary, it is your network or a

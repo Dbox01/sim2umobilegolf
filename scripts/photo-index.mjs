@@ -30,7 +30,22 @@ for (const [, slot, name] of imagesTs.matchAll(/^\s{2}(\w+):\s*byName\('([^']+)'
 }
 const stockSlots = [...imagesTs.matchAll(/^\s{2}(\w+):\s*STOCK_GOLF_COURSE/gm)].map((m) => m[1])
 
-const corporateNames = new Set(manifest.corporate.map((a) => a.publicId))
+const namesIn = (key) => new Set((manifest[key] ?? []).map((a) => a.publicId))
+const galleryNames = namesIn('gallery')
+const corporateNames = namesIn('corporate')
+const siteNames = namesIn('site')
+
+/* The library is every photo you can point at by name, whichever tag put it
+   there — that is the list worth showing, because "can I use this on the home
+   page?" is the question this sheet exists to answer. First occurrence wins;
+   a photo carrying two tags is one photo. */
+const library = []
+const seen = new Set()
+for (const a of [...(manifest.gallery ?? []), ...(manifest.corporate ?? []), ...(manifest.site ?? [])]) {
+  if (seen.has(a.publicId)) continue
+  seen.add(a.publicId)
+  library.push(a)
+}
 
 const card = (a, { isVideo = false } = {}) => `
   <figure>
@@ -39,8 +54,10 @@ const card = (a, { isVideo = false } = {}) => `
     <figcaption>
       <code>${a.publicId}</code>
       <div class="tags">
-        ${isVideo ? '<span class="tag t-vid">sim2u-video</span>' : '<span class="tag t-gal">sim2u-gallery</span>'}
+        ${isVideo ? '<span class="tag t-vid">sim2u-video</span>' : ''}
+        ${!isVideo && galleryNames.has(a.publicId) ? '<span class="tag t-gal">sim2u-gallery</span>' : ''}
         ${!isVideo && corporateNames.has(a.publicId) ? '<span class="tag t-corp">sim2u-corporate</span>' : ''}
+        ${!isVideo && siteNames.has(a.publicId) ? '<span class="tag t-site">sim2u-site</span>' : ''}
         ${(heroFor[a.publicId] || []).map((s) => `<span class="tag t-hero">${s}</span>`).join('')}
       </div>
     </figcaption>
@@ -74,6 +91,7 @@ const html = `<!DOCTYPE html>
   .t-gal{background:#eef0ee;color:#4a5a55}
   .t-corp{background:var(--gold);color:var(--green)}
   .t-vid{background:#4D232F;color:#fff}
+  .t-site{background:#dce7e2;color:#2c4a42}
   .t-hero{background:var(--green);color:#fff}
   .empty{background:#fff;border:1px dashed #cfc8b8;border-radius:12px;padding:26px;
          color:#8a8578;max-width:80ch}
@@ -81,25 +99,34 @@ const html = `<!DOCTYPE html>
 </style></head><body>
 
 <h1>Sim2U photo &amp; video index</h1>
-<p class="lede">Everything the website is currently using, straight from your Cloudinary tags.</p>
+<p class="lede">Every photo the website can use, straight from your Cloudinary tags.
+The chips under each one show which tags it carries.</p>
 
 <div class="how">
-  <strong>To add or remove a photo or video</strong>
+  <strong>The tag decides where a photo shows. It does not decide whether you can use it.</strong>
   <ol>
-    <li>Upload it to Cloudinary.</li>
-    <li>Tag it <code>sim2u-gallery</code> (gallery page), <code>sim2u-corporate</code>
-        (corporate mosaic) or <code>sim2u-video</code> (video reel). A photo can have both image tags.</li>
-    <li>Remove the tag to take it off the site. The file stays in your Cloudinary account.</li>
+    <li><code>sim2u-gallery</code> — published on the Gallery page.</li>
+    <li><code>sim2u-corporate</code> — in the mosaic on the Corporate Events page.</li>
+    <li><code>sim2u-video</code> — a video reel.</li>
+    <li><code>sim2u-site</code> — <strong>shown in no grid.</strong> Use this for a photo you
+        want on the home page events strip, or as a page banner, but not in the public Gallery.</li>
   </ol>
-  <strong>To change a page banner</strong>
+  <p style="margin:10px 0 0">Any photo carrying <em>any</em> of those tags can be pointed at by name
+     from anywhere on the site. A photo already tagged <code>sim2u-gallery</code> does
+     <strong>not</strong> need a second tag to be used as a banner.</p>
+  <p style="margin:8px 0 0">Remove every tag to take it off the site. The file stays in your
+     Cloudinary account either way.</p>
+  <strong style="display:block;margin-top:14px">To change a page banner</strong>
   <ol>
     <li>Find the photo below and copy the name under it.</li>
     <li>Paste it into <code>src/data/images.ts</code>, e.g. <code>corporateHero: byName('THE_NAME')</code>.</li>
   </ol>
 </div>
 
-<h2>Gallery photos &nbsp;<span style="font-weight:400;color:#9a958a">${manifest.gallery.length} tagged <code>sim2u-gallery</code></span></h2>
-<div class="grid">${manifest.gallery.map((a) => card(a)).join('')}</div>
+<h2>The library &nbsp;<span style="font-weight:400;color:#9a958a">${library.length} photos you can use by name${
+  siteNames.size ? ` · ${galleryNames.size} of them published to the Gallery` : ''
+}</span></h2>
+<div class="grid">${library.map((a) => card(a)).join('')}</div>
 
 <h2>Videos &nbsp;<span style="font-weight:400;color:#9a958a">${manifest.videos.length} tagged <code>sim2u-video</code></span></h2>
 ${
@@ -117,5 +144,7 @@ ${
 
 await writeFile(resolve(root, 'photo-index.html'), html)
 console.log(
-  `[photos] photo-index.html written — ${manifest.gallery.length} photos, ${manifest.videos.length} video(s). Open it in your browser.`,
+  `[photos] photo-index.html written — ${library.length} photos in the library ` +
+    `(${galleryNames.size} on the Gallery page, ${siteNames.size} tagged sim2u-site), ` +
+    `${manifest.videos.length} video(s). Open it in your browser.`,
 )
