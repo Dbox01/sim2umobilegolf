@@ -101,7 +101,7 @@ export const EVENTS: EventEntry[] = [
   },
   {
     name: 'BMW & MINI Tygervalley',
-    photo: 'IMG_7758_vlrusn',
+    photo: 'IMG_7758_vlrusn_bfkqyq',
   },
   {
     name: 'Rola Motors Mercedes-Benz',
