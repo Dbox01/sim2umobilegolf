@@ -111,4 +111,8 @@ export const EVENTS: EventEntry[] = [
     name: 'E-Piphany',
     photo: 'IMG_9046_uzyvep',
   },
+  {
+    name: 'GrandWest Casino',
+    photo: 'IMG_0810_sszvdb',
+  },
 ]
