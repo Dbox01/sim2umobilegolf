@@ -73,7 +73,11 @@ const ReviewCard: React.FC<{ item: Testimonial }> = ({ item }) => (
         {/* No photo here, deliberately — see the note in testimonials.ts.
             Cards in this row all stretch to the tallest, so a picture on one
             of them pads that height into every other card as white space. */}
-        <p className="text-gray-600 italic text-[15px] leading-relaxed font-medium">
+        {/* whitespace-pre-line so a review written as separate lines keeps
+            them. Reviewers often leave a list rather than a paragraph, and
+            running those together needs punctuation they did not write.
+            Harmless for ordinary prose quotes, which carry no newlines. */}
+        <p className="text-gray-600 italic text-[15px] leading-relaxed font-medium whitespace-pre-line">
           {item.quote}
         </p>
       </div>

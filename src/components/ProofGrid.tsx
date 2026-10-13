@@ -24,7 +24,17 @@ const ProofGrid: React.FC<ProofGridProps> = ({ quotes, images, context }) => {
   const tiles: Array<
     { kind: 'quote'; data: Testimonial } | { kind: 'photo'; src: string }
   > = []
-  const quotePositions = new Set([1, 5])
+  /* Spread the quotes evenly across the grid rather than pinning them to two
+     fixed slots. The slots used to be positions 1 and 5, which worked while
+     there were exactly two corporate reviews; the third onwards had nowhere
+     to go and fell through to the end, so every extra quote stacked up in the
+     final row — the clumping this interleaving exists to prevent. Deriving
+     the positions from the counts means it keeps working as reviews come in. */
+  const quoteCount = quotes.length
+  const spacing = quoteCount > 0 ? (quoteCount + images.length) / quoteCount : 0
+  const quotePositions = new Set(
+    quotes.map((_, i) => Math.floor(i * spacing + spacing / 2)),
+  )
   let qi = 0
   let ii = 0
   const total = quotes.length + images.length
@@ -73,7 +83,11 @@ const ProofGrid: React.FC<ProofGridProps> = ({ quotes, images, context }) => {
                     </span>
                   ))}
                 </div>
-                <p className="text-gray-600 italic leading-relaxed font-medium">
+                {/* whitespace-pre-line, matching Testimonials.tsx. A review
+                    left as separate lines keeps them; without this the same
+                    quote reads as five clauses run together with no
+                    punctuation, because there is none to add that she wrote. */}
+                <p className="text-gray-600 italic leading-relaxed font-medium whitespace-pre-line">
                   {tile.data.quote}
                 </p>
               </div>

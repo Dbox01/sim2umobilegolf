@@ -71,8 +71,26 @@ export interface Testimonial {
   author: string
   /** Who they are: 'Event Guest', 'Private Host', or the company they named. */
   role: string
-  /** The kind of event. Optional — drives the corporate filter at the bottom. */
+  /**
+   * The event, in whatever words suit it — 'BHF Conference CTICC',
+   * '14th Birthday Party'. Optional, and purely what is printed on the card.
+   */
   location?: string
+  /**
+   * Show this review on the Corporate Events page.
+   *
+   * A flag of its own, because `location` used to do this job as well and
+   * the two uses pulled apart the moment the locations were made specific.
+   * The filter matched the exact string 'Corporate Event'; once the entries
+   * said 'BHF Conference CTICC' and 'Rola Motors Somerset West Heritage Day'
+   * — better words on the card, in every way an improvement — nothing
+   * matched, and the Corporate page quietly lost every review it had. No
+   * error, no blank space, just photographs where the proof used to be.
+   *
+   * So: `location` is what the card says, `corporate` is where it appears.
+   * Rename an event freely now; nothing disappears.
+   */
+  corporate?: boolean
 }
 
 /*
@@ -94,11 +112,28 @@ export interface Testimonial {
 
 export const TESTIMONIALS: Testimonial[] = [
   {
+    /* Written as five separate lines, which is how it was left on Google.
+       Kept that way rather than run together into a paragraph: joining them
+       needs punctuation she did not write, and this file's one rule is that
+       the words are hers. The card renders the line breaks. */
+    quote:
+      'Responds quickly\n' +
+      'Generated quote same day\n' +
+      'Easily available via WhatsApp\n' +
+      'Setup done way before set time\n' +
+      'Great personality, this helps a lot with the golfers',
+    author: 'Jamie-Lee J.',
+    role: 'Wichman and Co Event Planning',
+    location: 'GrandWest Casino',
+    corporate: true,
+  },
+  {
     quote:
       "What an amazing team! I can definitely vouch for them - if you want to add a truely fun adventure at your event, @Sim2U is the answer! @Medipost Pharmacy will secure your services again⛳️",
     author: 'Rentia M.',
     role: 'Medipost',
     location: 'BHF Conference CTICC',
+    corporate: true,
   },
   {
     quote:
@@ -106,6 +141,7 @@ export const TESTIMONIALS: Testimonial[] = [
     author: 'Donovan M.',
     role: 'Medipost',
     location: 'BHF Conference CTICC',
+    corporate: true,
   },
   {
     quote:
@@ -113,6 +149,7 @@ export const TESTIMONIALS: Testimonial[] = [
     author: 'Mohammed D.',
     role: 'Qurtuba Online Academy',
     location: 'EduExpo Newlands',
+    corporate: true,
   },
   {
     quote:
@@ -141,6 +178,7 @@ export const TESTIMONIALS: Testimonial[] = [
     author: 'Eugene T.',
     role: 'Mercedes-Benz',
     location: 'Rola Motors Somerset West Heritage Day',
+    corporate: true,
   },
   {
     quote:
@@ -153,9 +191,8 @@ export const TESTIMONIALS: Testimonial[] = [
 /**
  * The reviews that came from corporate bookings.
  *
- * Driven by `location`, so a new corporate review joins this automatically as
- * long as its location is exactly 'Corporate Event'.
+ * Set `corporate: true` on a review to include it. Marked on every review
+ * whose `role` is an organisation rather than 'Private Host' or 'Event
+ * Guest' — the people who booked us on behalf of a company.
  */
-export const CORPORATE_TESTIMONIALS = TESTIMONIALS.filter(
-  (t) => t.location === 'Corporate Event',
-)
+export const CORPORATE_TESTIMONIALS = TESTIMONIALS.filter((t) => t.corporate)
