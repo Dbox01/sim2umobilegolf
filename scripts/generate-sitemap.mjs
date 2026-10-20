@@ -24,6 +24,10 @@
  * the data files behind those. A page nobody has edited since July says July,
  * which is the truth and is worth more than a fresh date.
  *
+ * Site chrome is excluded from that walk — see IGNORED_DEPS. Those files are
+ * imported by every page, so counting them would bump all eleven dates every
+ * time the nav or the metadata changed.
+ *
  * ---------------------------------------------------------------------------
  *  IF THE DATE CANNOT BE ESTABLISHED, THE FIELD IS OMITTED
  * ---------------------------------------------------------------------------
@@ -57,7 +61,36 @@ const isProduction = process.env.VITE_SITE_ENV === 'production'
  * changed. Including it would reintroduce the exact noise this file exists to
  * remove.
  */
-const IGNORED_DEPS = new Set(['src/data/cloudinary.json'])
+const IGNORED_DEPS = new Set([
+  'src/data/cloudinary.json',
+
+  /* --- Site chrome -------------------------------------------------------
+   *
+   * Every page imports these, so any edit to one of them used to bump the
+   * lastmod on all eleven URLs at once — which is the "everything changed
+   * today" signal this file was written to remove, just arriving weekly
+   * instead of nightly. It happened immediately: a schema refactor touched
+   * Seo.tsx and the next sitemap claimed the terms page had new content.
+   *
+   * These files decide how a page is rendered, not what it says. A nav label,
+   * a button style or a JSON-LD block is not a reason to tell Google that the
+   * How It Works page changed. The page's own component and its data are, and
+   * those are still walked.
+   *
+   * The trade: a genuine site-wide content change — a new phone number in the
+   * footer, say — will not move any lastmod. That is the right way round. An
+   * under-reported change costs a slower recrawl; an over-reported one costs
+   * the credibility of the whole file.
+   */
+  'src/components/Seo.tsx',
+  'src/components/Layout.tsx',
+  'src/components/Nav.tsx',
+  'src/components/Footer.tsx',
+  'src/components/Primitives.tsx',
+  'src/components/SocialLinks.tsx',
+  'src/data/site.ts',
+  'src/data/schema.ts',
+])
 
 /* -------------------------------------------------------------------------- */
 /*                                   Routes                                   */
