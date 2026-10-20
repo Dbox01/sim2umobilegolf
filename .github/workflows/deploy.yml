@@ -28,6 +28,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          # Full history. generate-sitemap.mjs reads each page's real last
+          # commit date for <lastmod>; the default depth-1 clone has one
+          # commit, so every page would share one date and the sitemap would
+          # ship without lastmod rather than lie about it.
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v4
