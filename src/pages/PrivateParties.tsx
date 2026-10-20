@@ -14,6 +14,7 @@ import Testimonials from '../components/Testimonials'
 import { CTABand, FeatureCard, PageHero, SectionHeading } from '../components/Primitives'
 import { IMAGES } from '../data/images'
 import { SITE_URL } from '../data/site'
+import { PROVIDED_BY } from '../data/schema'
 
 const OCCASIONS = [
   {
@@ -65,7 +66,7 @@ const PrivateParties: React.FC = () => (
         '@type': 'Service',
         name: 'Golf simulator hire for private parties',
         serviceType: 'Party entertainment hire',
-        provider: { '@type': 'LocalBusiness', name: 'Sim2U Mobile Golf' },
+        provider: PROVIDED_BY,
         areaServed: {
           '@type': 'AdministrativeArea',
           name: 'Western Cape, South Africa',

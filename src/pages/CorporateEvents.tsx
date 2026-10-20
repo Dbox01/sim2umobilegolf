@@ -8,6 +8,7 @@ import { CORPORATE_IMAGES } from '../data/gallery'
 import { IMAGES } from '../data/images'
 import { CORPORATE_TESTIMONIALS } from '../data/testimonials'
 import { SITE_URL } from '../data/site'
+import { PROVIDED_BY } from '../data/schema'
 
 const USE_CASES = [
   {
@@ -43,7 +44,7 @@ const CorporateEvents: React.FC = () => (
         '@type': 'Service',
         name: 'Corporate golf simulator hire',
         serviceType: 'Corporate event entertainment',
-        provider: { '@type': 'LocalBusiness', name: 'Sim2U Mobile Golf' },
+        provider: PROVIDED_BY,
         areaServed: {
           '@type': 'AdministrativeArea',
           name: 'Western Cape, South Africa',

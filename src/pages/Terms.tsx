@@ -9,6 +9,7 @@ import {
   TERMS_LAST_UPDATED,
 } from '../data/terms'
 import { CONTACT_EMAIL, SITE_URL } from '../data/site'
+import { PROVIDED_BY } from '../data/schema'
 
 /** Same order as TERMS_HIGHLIGHTS: deposit, cancellations, weather. */
 const HIGHLIGHT_ICONS = [
@@ -35,7 +36,7 @@ const Terms: React.FC = () => (
         url: `${SITE_URL}/terms`,
         description:
           'Booking terms and conditions for Sim2U Mobile Golf simulator hire.',
-        publisher: { '@type': 'Organization', name: 'Sim2U Mobile Golf' },
+        publisher: PROVIDED_BY,
       }}
     />
 

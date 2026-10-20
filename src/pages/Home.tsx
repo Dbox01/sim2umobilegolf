@@ -21,6 +21,7 @@ import { Eyebrow, PageHero, SectionHeading } from '../components/Primitives'
 import { IMAGES } from '../data/images'
 import { INCLUDED_IN_EVERY_PACKAGE, TIERS, priceFor } from '../data/packages'
 import { CONTACT_PHONE, SITE_URL, TEL_HREF, WHATSAPP_URL } from '../data/site'
+import { PROVIDED_BY } from '../data/schema'
 
 
 /**
@@ -88,7 +89,7 @@ const Home: React.FC = () => (
         '@context': 'https://schema.org',
         '@type': 'Service',
         serviceType: 'Mobile golf simulator hire',
-        provider: { '@type': 'LocalBusiness', name: 'Sim2U Mobile Golf' },
+        provider: PROVIDED_BY,
         areaServed: {
           '@type': 'AdministrativeArea',
           name: 'Western Cape, South Africa',

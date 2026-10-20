@@ -21,6 +21,20 @@ export const FORMSPREE_URL = 'https://formspree.io/f/mwvoapnp'
  * stable, readable, and stronger as a search signal. Grab it from the address
  * bar when you are on your page and swap it in here.
  */
+/**
+ * The Google Business Profile, as the canonical ?cid= URL.
+ *
+ * Dylan sent a share.google link. Those are redirects tied to the session
+ * that generated them — fine for WhatsApp, wrong for a permanent machine-
+ * readable reference. The cid is the listing's stable identifier, resolved
+ * from the share link's place data (0x46a2c29520a16c65).
+ *
+ * This feeds sameAs in the business schema and is the single line connecting
+ * this website to the profile holding the reviews. If the listing is ever
+ * recreated, this number changes.
+ */
+export const GOOGLE_BUSINESS_URL = 'https://maps.google.com/?cid=5089844474635447397'
+
 export const INSTAGRAM_URL = 'https://www.instagram.com/sim2umobilegolf/'
 export const FACEBOOK_URL = 'https://www.facebook.com/share/1Bdf3PtjdY/'
 

@@ -4,6 +4,7 @@ import Seo from '../components/Seo'
 import LegalPage from '../components/LegalPage'
 import { PRIVACY_CLAUSES, PRIVACY_LAST_UPDATED } from '../data/terms'
 import { CONTACT_EMAIL, SITE_URL } from '../data/site'
+import { PROVIDED_BY } from '../data/schema'
 
 const Privacy: React.FC = () => (
   <>
@@ -17,7 +18,7 @@ const Privacy: React.FC = () => (
         name: 'Privacy Policy',
         url: `${SITE_URL}/privacy`,
         description: 'Privacy policy for Sim2U Mobile Golf.',
-        publisher: { '@type': 'Organization', name: 'Sim2U Mobile Golf' },
+        publisher: PROVIDED_BY,
       }}
     />
 

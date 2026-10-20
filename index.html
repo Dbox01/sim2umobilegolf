@@ -48,37 +48,11 @@
       "url": "https://sim2umobilegolf.co.za"
     }
     </script>
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "name": "Sim2U Mobile Golf",
-      "image": "https://sim2umobilegolf.co.za/social-preview.png",
-      "url": "https://sim2umobilegolf.co.za",
-      "telephone": "+27833182565",
-      "email": "info@sim2umobilegolf.co.za",
-      "sameAs": [
-        "https://www.instagram.com/sim2umobilegolf/",
-        "https://www.facebook.com/share/1Bdf3PtjdY/"
-      ],
-      "priceRange": "RRR",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Somerset West",
-        "addressRegion": "Western Cape",
-        "addressCountry": "ZA"
-      },
-      "areaServed": [
-        { "@type": "AdministrativeArea", "name": "Somerset West" },
-        { "@type": "AdministrativeArea", "name": "Stellenbosch" },
-        { "@type": "AdministrativeArea", "name": "Cape Town" },
-        { "@type": "AdministrativeArea", "name": "Cape Winelands" },
-        { "@type": "AdministrativeArea", "name": "Western Cape" }
-      ],
-      "description": "Premium mobile golf simulator hire and rental for corporate events, team building, weddings and private parties across the Western Cape."
-    }
-    </script>
+    <!-- The LocalBusiness block that used to sit here has moved to
+         src/data/schema.ts, where it is built from the same constants the
+         rest of the site uses and carries an @id that every page's Service
+         schema points at. Two LocalBusiness entities describing one business
+         is worse than one, so this copy is gone rather than duplicated. -->
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

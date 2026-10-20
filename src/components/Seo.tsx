@@ -1,6 +1,7 @@
 import React from 'react'
 import { Head } from 'vite-react-ssg'
 import { IS_PRODUCTION, SITE_NAME, SITE_URL, SOCIAL_IMAGE } from '../data/site'
+import { BUSINESS_SCHEMA } from '../data/schema'
 
 interface SeoProps {
   /** Page <title>. Keep under ~60 characters so Google doesn't truncate it. */
@@ -25,7 +26,11 @@ const Seo: React.FC<SeoProps> = ({
   noindex = false,
 }) => {
   const canonical = `${SITE_URL}${path === '/' ? '/' : path}`
-  const blocks = schema ? (Array.isArray(schema) ? schema : [schema]) : []
+  /* The business goes out on every page, ahead of anything page-specific.
+     Page schemas reference it by @id rather than redescribing it — see
+     src/data/schema.ts for why that matters. */
+  const pageBlocks = schema ? (Array.isArray(schema) ? schema : [schema]) : []
+  const blocks = [BUSINESS_SCHEMA, ...pageBlocks]
 
   return (
     <Head>
