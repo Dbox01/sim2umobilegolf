@@ -128,6 +128,18 @@ export const TESTIMONIALS: Testimonial[] = [
     corporate: true,
   },
   {
+    /* The spaces before the commas and full stops are his own and are left
+       alone, same as the typos elsewhere in this file. */
+    quote:
+      'Dylan was exceptional , he came out the week before to view the set up ' +
+      'arrangements and stayed for the duration of our function to ensure ' +
+      'everything ran smoothly . Highly recommend his company .',
+    author: 'Mark S.',
+    role: 'Life Church',
+    location: "Warrior Men's Conference",
+    corporate: true,
+  },
+  {
     quote:
       "What an amazing team! I can definitely vouch for them - if you want to add a truely fun adventure at your event, @Sim2U is the answer! @Medipost Pharmacy will secure your services again⛳️",
     author: 'Rentia M.',
