@@ -72,7 +72,7 @@ const GOOD_FOR = [
   },
   {
     title: 'Corporate golf days',
-    body: 'A branded hole that gives every fourball a reason to stop, and gives you something to hand out a prize for afterwards.',
+    body: 'A sponsor’s hole that gives every fourball a reason to stop, and gives you something to hand out a prize for afterwards.',
   },
   {
     title: 'Practice and fitting sessions',

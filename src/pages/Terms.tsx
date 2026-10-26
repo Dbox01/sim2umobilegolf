@@ -27,7 +27,7 @@ const Terms: React.FC = () => (
   <>
     <Seo
       title="Booking Terms & Conditions | Sim2U Mobile Golf"
-      description="The full booking terms for Sim2U Mobile Golf hire: deposits and payment, site requirements for each enclosure, cancellations, weather policy, liability and branding deadlines."
+      description="The full booking terms for Sim2U Mobile Golf hire: deposits and payment, site requirements for each enclosure, cancellations, weather policy, liability and visual display."
       path="/terms"
       schema={{
         '@context': 'https://schema.org',

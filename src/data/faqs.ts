@@ -49,7 +49,7 @@ export const FAQS: Faq[] = [
   },
   {
     q: 'Can you brand the setup for our company?',
-    a: 'Yes. We offer custom printed panels fitted to the outdoor enclosure, carrying your logo, event branding or campaign artwork. We handle the print and the fitting, and it is quoted per event. Artwork needs to be with us at least 10 business days before the event date.',
+    a: 'The outdoor enclosure takes printed panels carrying your logo or event artwork, and you are welcome to brand it. We do not print or fit the panels ourselves — ask us and we will send you the panel dimensions and the velcro requirements so your own printer can produce them. There is no charge for that and no deadline to work to. The indoor enclosure has no printable panels, so this applies to the outdoor setup only.',
   },
   {
     q: 'Can you set up indoors?',

@@ -217,7 +217,7 @@ export const ADD_ONS: AddOn[] = [
   {
     name: 'Event Photography',
     icon: 'camera',
-    /* Hand-written to match the other two ("From R1,300", "R2,000") rather
+    /* Hand-written to match the other two ("No charge", "R2,000") rather
        than formatRand, which puts a space after the R.
 
        Not "From R900" — the rate itself is fixed at R900, and "From" would
@@ -268,21 +268,37 @@ export const ADD_ONS: AddOn[] = [
       url: 'https://www.runicstudios.co.za/',
     },
   },
+  /*
+   * WE USED TO PRINT AND FIT THESE PANELS. WE DO NOT ANY MORE.
+   *
+   * This was "Branded Enclosure Prints, From R1,300" — we took the artwork,
+   * had the panels printed, and mounted them. The margin never justified the
+   * handling: chasing files, print turnaround, and carrying the risk when a
+   * supplied logo came back pixelated at two metres wide.
+   *
+   * The option itself is worth keeping on the page, because organisers do
+   * want it and some of them have a printer already. What changed is who
+   * does the work. We give them the measurements, they produce the panels.
+   *
+   * So: no price, no deadline, no artwork arriving in our inbox. If anyone
+   * reinstates a price here, the 10-day artwork clause has to come back into
+   * src/data/terms.ts with it — it was removed when this changed.
+   */
   {
-    name: 'Branded Enclosure Prints',
+    name: 'Your Own Branding',
     icon: 'print',
-    price: 'From R1,300',
-    blurb: 'Your branding printed onto the enclosure panels.',
+    price: 'No charge',
+    blurb: 'Brand the outdoor enclosure yourself — we send the spec.',
     detail:
-      'Custom printed panels fitted to the outdoor enclosure — your logo, event branding or campaign artwork, sized and mounted by us. It turns the bay into the backdrop everyone photographs, which is what puts your brand in the pictures your guests post rather than only on the banner nobody looks at. Artwork needs to reach us at least 10 business days before your date.',
-    /* The outdoor enclosure carrying the Sim2U logo panel. It is the whole
-       argument for this add-on in one picture: a client sees their own logo
-       in that position without anyone having to describe it.
+      'The outdoor enclosure takes printed panels, and a logo at that size turns the bay into the backdrop your guests photograph. We no longer print or fit the panels ourselves, but the option is open to you: ask us and we will send the panel dimensions and the velcro requirements, and your own printer can produce them to that spec. Outdoor enclosure only — the indoor setup has no printable panels.',
+    /* The outdoor enclosure carrying the Sim2U logo panel. It still earns its
+       place: a client sees their own logo in that position without anyone
+       having to describe it, and it proves the panels really do fit.
 
        Add more examples by pasting Cloudinary names alongside it — the popup
        lays two or more out in a grid. Only shots that actually show printed
        panels; a photo of a plain enclosure under this heading teaches the
-       reader the opposite of what we are selling. */
+       reader the opposite of the point. */
     images: ['/addon-branded-prints.webp'],
   },
   {

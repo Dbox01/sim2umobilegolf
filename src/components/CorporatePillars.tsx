@@ -22,10 +22,16 @@ import { photoByName } from '../data/gallery'
  * ---------------------------------------------------------------------------
  *  THE OUTDOOR-ONLY TAG IS NOT DECORATION
  * ---------------------------------------------------------------------------
- * Branded prints fit the outdoor enclosure and nothing else. Reading that
+ * Printed panels fit the outdoor enclosure and nothing else. Reading that
  * only after booking an indoor corporate package is a bad afternoon for
  * everyone, so it is stated twice: on the card, where it cannot be missed,
- * and again in the popup with what to do instead. `tag` exists for that.
+ * and again in the popup. `tag` exists for that.
+ *
+ * Note that the branding pillar no longer sells anything. We stopped printing
+ * and fitting panels; clients now arrange their own and we supply the
+ * measurements. The pillar stays because organisers ask, and an unanswered
+ * "can we brand it?" costs more than a card does. See src/data/packages.ts
+ * for the full reasoning.
  */
 
 interface Pillar {
@@ -53,14 +59,14 @@ const PILLARS: Pillar[] = [
   },
   {
     icon: <Palette size={40} />,
-    title: 'Branded Enclosure Prints',
-    blurb: 'Your artwork printed across the enclosure panels.',
+    title: 'Your Own Branding',
+    blurb: 'Your artwork across the enclosure panels — printed by you.',
     tag: 'Outdoor enclosure only',
     image: '/addon-branded-prints.webp',
     detail: [
-      'Custom printed panels fitted to the outdoor enclosure — your logo, event branding or campaign artwork, sized and mounted by us. It turns the bay into the backdrop guests photograph, which is usually where the event ends up on social media.',
-      'This one is outdoor-enclosure only. The indoor setup has no printable panels, so if your event is indoors the branding goes on the screen and the leaderboard instead, and we will show you what that looks like before you decide.',
-      'Artwork needs to reach us at least 10 business days before the event. We handle the print and the fitting.',
+      'The outdoor enclosure takes printed panels, and a logo at that size turns the bay into the backdrop guests photograph — which is usually how the event ends up on social media.',
+      'We do not print or fit the panels ourselves. Ask us and we will send you the panel dimensions and the velcro requirements, and your own printer can produce them to that spec. No deadline to work to and nothing to pay us for it.',
+      'Outdoor enclosure only. The indoor setup has no printable panels, so if your event is indoors this is not available — worth knowing before you choose between the two.',
     ],
   },
   {

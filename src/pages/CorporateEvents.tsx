@@ -29,7 +29,7 @@ const USE_CASES = [
   {
     icon: <Building2 size={32} />,
     title: 'Brand Activations',
-    body: 'Printed branding across the outdoor enclosure turns the bay into a stand people walk towards. The setup becomes the photo everyone posts.',
+    body: 'A simulator bay turns a stand into somewhere people walk towards rather than past. Brand the outdoor enclosure with your own printed panels and the setup becomes the photo everyone posts.',
   },
 ]
 
@@ -37,7 +37,7 @@ const CorporateEvents: React.FC = () => (
   <>
     <Seo
       title="Corporate Golf Simulator Hire | Team Building & Events | Sim2U"
-      description="Mobile golf simulator hire for corporate events in Cape Town and the Winelands. Live leaderboards, branded enclosure prints and team building people actually enjoy."
+      description="Mobile golf simulator hire for corporate events in Cape Town and the Winelands. Live leaderboards, conference stands and team building people actually enjoy."
       path="/corporate-events"
       schema={{
         '@context': 'https://schema.org',

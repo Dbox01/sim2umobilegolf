@@ -19,7 +19,7 @@ import { TIERS } from './packages'
  *    apart again.
  */
 
-export const TERMS_LAST_UPDATED = 'September 2026'
+export const TERMS_LAST_UPDATED = 'October 2026'
 
 /** Per-enclosure clear space, taken straight from the published tier specs. */
 export const SITE_CLEARANCES = TIERS.map((tier) => ({
@@ -207,26 +207,34 @@ export const TERMS_CLAUSES: TermsClause[] = [
     ],
   },
   {
+    /*
+     * 7.1 USED TO BE AN ARTWORK DEADLINE. IT WAS REMOVED ON PURPOSE.
+     *
+     * The old 7.1 required the Client to submit high-resolution assets —
+     * logos, hole signage, dynamic leaderboards — at least 10 business days
+     * before the event, and released Sim2U from liability for anything that
+     * arrived late or badly formatted.
+     *
+     * Sim2U no longer takes client artwork at all. We stopped printing and
+     * fitting enclosure panels, and we stopped putting client branding into
+     * the software. A deadline for files nobody sends is not a protection,
+     * it is a clause a Client can point at to argue we agreed to something.
+     *
+     * The old 7.2's closing sentence went with it for the same reason: it
+     * disclaimed responsibility for pixelation caused by low-resolution
+     * assets provided by the Client, and there are none.
+     *
+     * If branding services ever come back, both come back with them. The
+     * add-on in src/data/packages.ts carries the matching note.
+     */
     id: 'assets',
     number: '7',
-    title: 'Digital Assets & Visual Display',
+    title: 'Visual Display & Venue Conditions',
     subsections: [
       {
         number: '7.1',
-        title: 'Branding & content submission',
-        items: [
-          {
-            body: 'For activations requiring custom software branding — logos, hole signage, dynamic leaderboards — all high-resolution visual assets must be submitted to Sim2U at least 10 business days prior to the event.',
-          },
-          {
-            body: 'Sim2U is not liable for missing or improperly formatted graphics if assets are delivered after this deadline.',
-          },
-        ],
-      },
-      {
-        number: '7.2',
         title: 'Visual quality & venue limitations',
-        body: 'Sim2U uses high-lumen projectors and high-definition displays to provide the best possible visual experience. However, image clarity, contrast and overall graphic fidelity on the impact screen are heavily dependent on the venue’s ambient lighting. Sim2U is not liable for reduced visual quality, glare or washed-out graphics caused by intense overhead exhibition lighting, natural sunlight, or other environmental factors beyond our control. Sim2U also accepts no responsibility for pixelation or poor display quality resulting from low-resolution branding assets or media provided by the Client.',
+        body: 'Sim2U uses high-lumen projectors and high-definition displays to provide the best possible visual experience. However, image clarity, contrast and overall graphic fidelity on the impact screen are heavily dependent on the venue’s ambient lighting. Sim2U is not liable for reduced visual quality, glare or washed-out graphics caused by intense overhead exhibition lighting, natural sunlight, or other environmental factors beyond our control.',
       },
     ],
   },
