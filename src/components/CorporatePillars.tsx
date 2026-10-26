@@ -50,11 +50,14 @@ const PILLARS: Pillar[] = [
   {
     icon: <BarChart3 size={40} />,
     title: 'Live Leaderboards',
-    blurb: 'Standings on the bay screen — and on every guest’s phone.',
-    image: '/addon-leaderboard.webp',
+    blurb: 'Standings up on the bay screen the moment a shot lands.',
+    /* No image here on purpose. It used to show the phone standings page we
+       built for Medipost, and that was the paid add-on — now discontinued, so
+       the picture advertised something we no longer do. See the note at the
+       end of ADD_ONS in src/data/packages.ts. */
     detail: [
-      'Scoring runs live on the bay screen for the whole session. The format that lands best is closest-to-the-pin on a world-famous par 3: one shot each, an instant ranking, bragging rights settled before anyone sits down.',
-      'Add the live leaderboard and those standings follow your guests onto their own phones, or onto a second screen anywhere at the venue. The competition then carries on across the room instead of only at the bay — which is the difference between an activity people queue for once and one they come back to.',
+      'Scoring runs live on the bay screen for the whole session, included in every booking. The format that lands best is closest-to-the-pin on a world-famous par 3: one shot each, an instant ranking, bragging rights settled before anyone sits down.',
+      'Longest drive and target challenges run the same way, and our technician keeps the board current while the rotation moves — so the competition stays visible to the people waiting rather than only to whoever is holding the club.',
     ],
   },
   {

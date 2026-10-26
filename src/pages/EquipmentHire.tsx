@@ -151,9 +151,9 @@ const EquipmentHire: React.FC = () => (
             And the rest of what we own, if the day needs it.
           </h3>
           <p className="text-white/70 leading-relaxed max-w-3xl">
-            Mats, nets, screens, an enclosure, the live leaderboard — we run a
-            mobile simulator company, so most of what you might want already
-            exists in the trailer. Tell us what the day looks like and we will
+            Mats, nets, screens, an enclosure, projectors — we run a mobile
+            simulator company, so most of what you might want already exists
+            in the trailer. Tell us what the day looks like and we will
             tell you what is worth bringing. That conversation is quicker than
             any price list, which is why there isn&apos;t one on this page.
           </p>

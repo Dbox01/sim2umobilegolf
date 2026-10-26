@@ -123,8 +123,14 @@ const AddOnDialog: React.FC<{ addon: AddOn; onClose: () => void }> = ({
 
         <p className="text-gray-600 leading-relaxed md:text-lg">{addon.detail}</p>
 
+        {/* Only where there is actually something to quote. Printing your own
+            enclosure panels costs you nothing from us — we just send the
+            spec — and "mention it when you ask for a price" under a card
+            that says "No charge" reads as a fee we have not named yet. */}
         <p className="mt-8 pt-6 border-t border-mountainGreen/10 text-sm text-gray-500">
-          Quoted alongside your package — mention it when you ask for a price.
+          {addon.price.toLowerCase() === 'no charge'
+            ? 'Ask for it when you enquire and we will send what you need.'
+            : 'Quoted alongside your package — mention it when you ask for a price.'}
         </p>
       </div>
     </Modal>

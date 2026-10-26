@@ -301,27 +301,28 @@ export const ADD_ONS: AddOn[] = [
        reader the opposite of the point. */
     images: ['/addon-branded-prints.webp'],
   },
-  {
-    name: 'Live Leaderboard',
-    icon: 'leaderboard',
-    price: 'R2,000',
-    blurb: 'Live standings on every guest’s phone as shots land.',
-    detail:
-      'A live standings page your guests follow on their own phones, or put up on a second screen anywhere at the venue. Three contests run at once — closest to the pin, longest drive and targets — each with its own board, and every score appears the moment the shot lands. Players can add a line of their own next to their name. It is the difference between a few people having a hit and everybody in the room watching a contest.',
-    /* The board we built for the Medipost conference, captured from the live
-       page.
-
-       THE PLAYER NAMES ARE SAMPLE DATA, AND THAT IS DELIBERATE. The real
-       board carries 80 named guests, several with a personal message beside
-       their name. Those people entered a competition at a conference; they
-       did not agree to appear on a marketing site, and under POPIA that is
-       their call rather than ours. The names were replaced before the capture
-       — the design, the three contests, the live indicator and the scores are
-       all exactly as the real thing.
-
-       If this is ever recaptured, replace the names again. */
-    images: ['/addon-leaderboard.webp'],
-  },
+  /*
+   * THE LIVE LEADERBOARD ADD-ON WAS REMOVED. SCORING ON THE BAY SCREEN WAS NOT.
+   *
+   * What went: a R2,000 standalone standings page guests followed on their own
+   * phones, or shown on a second screen at the venue — three simultaneous
+   * contests, each with its own board, built for the Medipost conference.
+   *
+   * What stays, in every booking at no extra cost: scores on the bay screen
+   * itself. Closest-to-the-pin and longest drive are listed in
+   * INCLUDED_IN_EVERY_PACKAGE above and run off the simulator software, and
+   * the rest of the site still refers to the leaderboard in that sense. Do not
+   * strip those mentions chasing this one — they describe a different thing.
+   *
+   * The dividing line, if it ever comes up again: on the bay screen is ours
+   * and free; on a guest's phone or a second screen was the add-on, and is
+   * gone.
+   *
+   * public/addon-leaderboard.webp went with it. That image was a capture of
+   * the phone page, so it now shows something we do not offer. It is still in
+   * public/ rather than deleted, because the 'leaderboard' icon and the file
+   * would both need restoring together if this ever comes back.
+   */
 ]
 
 /**
