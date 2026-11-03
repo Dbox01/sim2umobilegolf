@@ -63,7 +63,7 @@ const Packages: React.FC = () => (
           <span className="text-gold italic">No surprises on the day.</span>
         </>
       }
-      intro="Three enclosure sizes, priced by the hour. Pick the setup that fits your venue, choose your duration, and the number you see is the number you pay — travel beyond 20km aside."
+      intro="Three enclosure sizes, priced by the hour. Pick the setup that fits your venue, choose your duration, and the number you see is the number you pay — travel aside."
       image={IMAGES.packagesHero}
       primary={{ label: 'Request a Quote', to: '/contact' }}
     />
@@ -203,9 +203,9 @@ const Packages: React.FC = () => (
         </div>
 
         <p className="text-center text-white/40 text-sm md:text-base max-w-3xl mx-auto leading-relaxed">
-          No setup fee. No technician fee. No equipment hire on top. Travel
-          beyond the first 20km is the one thing quoted separately, and we
-          confirm it in writing before you commit. Anything else only ever
+          No setup fee. No technician fee. No equipment hire on top. Travel is
+          the one thing quoted separately, and we confirm it in writing before
+          you commit. Anything else only ever
           applies in the situations set out in our{' '}
           <Link
             to="/terms"
@@ -267,11 +267,12 @@ const Packages: React.FC = () => (
             </p>
             <div className="grid sm:grid-cols-2 gap-4">
               <StatCard
-                label={`First ${TRAVEL_POLICY.freeRadius}`}
-                value="100% Free"
+                label="Most events"
+                value={TRAVEL_POLICY.typical}
+                note={TRAVEL_POLICY.typicalNote}
               />
               <StatCard
-                label="Thereafter"
+                label="Rate"
                 value={TRAVEL_POLICY.rate}
                 note={TRAVEL_POLICY.note}
               />

@@ -340,11 +340,49 @@ export const DEPOSIT = {
     'A 50% deposit, non-refundable, confirms your date the moment you accept the quote. The balance is due 48 hours before we set up.',
 }
 
+/**
+ * Travel.
+ *
+ * ------------------------------------------------------------
+ *  THE FREE 20km WAS REMOVED, AND THAT WAS THE REAL FIX
+ * ------------------------------------------------------------
+ * This used to read "first 20km free, then R5/km round trip". It lost money
+ * on every booking, and not because R5 was too low.
+ *
+ * A 20km free radius is 40km of actual driving given away. Running a loaded
+ * D-Max costs roughly R4.30–R4.60 a kilometre once diesel, tyres and
+ * servicing are counted, so the radius was a silent R180 discount on every
+ * job outside Somerset West — and almost all of them are, because the work is
+ * at Newlands, Kirstenbosch, GrandWest and the CTICC.
+ *
+ * Worked through against real venues, raising the rate while keeping the
+ * radius still came up short, because the discount grows with the rate. The
+ * radius had to go.
+ *
+ * ------------------------------------------------------------
+ *  WHY R6
+ * ------------------------------------------------------------
+ * SARS prescribes R4.95/km from 1 March 2026, and that is the number people
+ * mean when they say "AA rates" — the AA does not publish a table. R4.95
+ * assumes an empty car. We carry 300–500kg of enclosure, screen and kit, and
+ * on the 3.0 the loaded cost is R5.04/km, above the SARS rate on its own.
+ *
+ * R6 clears running cost by about R1.50/km and holds until diesel reaches
+ * roughly R46 a litre. It was R31–32 when this was set, so this rate should
+ * not need revisiting for years. Fixed costs — insurance, licence,
+ * depreciation — are deliberately NOT in here. At our event volume that would
+ * mean charging R66/km. Those belong in the package prices, and already are.
+ *
+ * `typical` exists because the free radius was doing reassurance work, not
+ * discount work: an organiser wants to know what to budget. A range answers
+ * that without giving away 40km.
+ */
 export const TRAVEL_POLICY = {
   origin: 'Somerset West Country Club',
-  freeRadius: '20km',
-  rate: 'R5 / km',
-  note: 'Calculated round trip on anything beyond the first 20km.',
+  rate: 'R6 / km',
+  note: 'Charged on the round trip, measured from our base.',
+  typical: 'R150 – R700',
+  typicalNote: 'Most events across Cape Town and the Winelands.',
 }
 
 /**

@@ -37,7 +37,7 @@ export const FAQS: Faq[] = [
   },
   {
     q: 'Do you travel outside Somerset West?',
-    a: 'Yes. We cover the whole Western Cape — Cape Town, Stellenbosch, the Winelands, Paarl, Franschhoek and beyond. The first 20km from Somerset West Country Club is free, and anything past that is charged at R5 per kilometre, calculated round trip.',
+    a: 'Yes. We cover the whole Western Cape — Cape Town, Stellenbosch, the Winelands, Paarl, Franschhoek and beyond. Travel is charged at R6 per kilometre on the round trip, measured from Somerset West Country Club, and it is confirmed in writing with your quote. For most events around Cape Town and the Winelands that works out between R150 and R700.',
   },
   {
     q: 'Do my guests need to know how to play golf?',

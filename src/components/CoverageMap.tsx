@@ -54,13 +54,18 @@ const CoverageMap: React.FC = () => (
             <div className="grid sm:grid-cols-2 gap-4">
               <div className="bg-white/10 p-5 rounded-2xl border border-white/10">
                 <p className="text-gold font-black uppercase tracking-widest text-[10px] mb-2">
-                  First {TRAVEL_POLICY.freeRadius}
+                  Most events
                 </p>
-                <p className="text-white font-bold text-xl">100% FREE</p>
+                <p className="text-white font-bold text-xl">
+                  {TRAVEL_POLICY.typical}
+                </p>
+                <p className="text-white/40 text-[10px] mt-1 font-bold italic uppercase">
+                  {TRAVEL_POLICY.typicalNote}
+                </p>
               </div>
               <div className="bg-white/10 p-5 rounded-2xl border border-white/10">
                 <p className="text-gold font-black uppercase tracking-widest text-[10px] mb-2">
-                  Thereafter
+                  Rate
                 </p>
                 <p className="text-white font-bold text-xl">{TRAVEL_POLICY.rate}</p>
                 <p className="text-white/40 text-[10px] mt-1 font-bold italic uppercase">

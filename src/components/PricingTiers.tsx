@@ -143,7 +143,7 @@ const PricingTiers: React.FC = () => {
                 </div>
                 {!tier.isCustomQuote && (
                   <p className="text-[10px] text-gray-400 mt-1 font-semibold uppercase tracking-wider">
-                    Excludes travel beyond 20km
+                    Excludes travel
                   </p>
                 )}
               </div>
